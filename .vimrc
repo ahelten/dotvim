@@ -337,6 +337,8 @@ set textwidth=100
 set shiftwidth=3
 set cinoptions=:0.5s,g0.5s,h0.5s,t0,(0,+0,u0
 
+au BufNewFile,BufRead *.doxygen setfiletype doxygen
+
 set history=50		" keep 50 lines of command line history
 
 if 0 " Don't know yet whether these are needed
