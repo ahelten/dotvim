@@ -1,3 +1,4 @@
+set nocompatible
 call pathogen#infect()
 call pathogen#helptags()
 se nobackup
@@ -30,15 +31,15 @@ set tags+=/usr/include/tags
 
 
 " se autoindent
-se undofile
-se undodir=~/.vimundo
+" se undofile
+" se undodir=~/.vimundo
 "noremap <ESC>OP <F1>
 
 
 "
-" necessary for using libclang
+" necessary for using libclang, comment out if libclang.so is missing
 "
-let g:clang_library_path='/usr/lib/llvm'
+" let g:clang_library_path='/usr/lib/llvm'
 
 
 " auto-closes preview window after you select what to auto-complete with
@@ -179,6 +180,7 @@ noremap! <C-l> <ESC>:nohlsearch<CR><C-l>
 "
 " Smart in-line manpages with 'K' in command mode
 "
+if 0 " amh: Just use built-in :Man <func>  -- or built-in K mapping
 fun! ReadMan()
   " Assign current word under cursor to a script variable:
   let s:man_word = expand('<cword>')
@@ -197,6 +199,9 @@ fun! ReadMan()
 endfun
 " Map the K key to the ReadMan function:
 noremap K :call ReadMan()<CR>
+else
+runtime ftplugin/man.vim
+endif
 
 
 "
@@ -312,5 +317,151 @@ au VimResized * exe "normal! \<c-w>="
 
 "
 " Syntax-coloring of files
-syntax on
-colorscheme evening
+if &t_Co > 2 || has("gui_running")
+  syntax on
+endif
+
+" Begin AMH customizations
+"
+set background=dark
+" Some "linux" VGA console terminals will blink the file text if only 8 colors
+" are support by the terminal. Enable the 'if/endif' when that happens.
+" if $TERM != "linux"
+  set t_Co=256    " set to 256 colors
+" endif
+colorscheme zenburn
+
+set expandtab
+set pastetoggle=<F2>
+set textwidth=100
+set shiftwidth=3
+set cinoptions=:0.5s,g0.5s,h0.5s,t0,(0,+0,u0
+
+set history=50		" keep 50 lines of command line history
+
+if 0 " Don't know yet whether these are needed
+ set nojoinspaces 
+ filetype indent on " per-filetype config
+ setlocal isfname+=:  " actually belongs in ftplugin/perl.vim?
+ set smarttab
+endif
+
+
+" Sudow = sudo-write of a file without restarting vim, see also ':w!!'
+command! -bar -nargs=0 Sudow   :silent exe "write !sudo tee % >/dev/null"|silent edit!
+
+" cp = (change-paste) replace current word with default copy/yank register
+nmap <silent> cp "_cw<C-R>"<Esc>
+" Make p in Visual mode replace the selected text with the "" register.
+"vnoremap p <Esc>:let current_reg = @"<CR>gvdi<C-R>=current_reg<CR><Esc>
+
+" These do grep searches of the current word and display the results
+map <F4> [I:let nr = input("Which one: ")<Bar>exe "normal " . nr ."[\t"<CR>
+map <F3> :execute "vimgrep /" . expand("<cword>") . "/j **" <Bar> cw<CR>
+
+"set tags+=~/.commontags
+
+" ----------------------- Begin Latex-Suite Additions -----------------------
+" IMPORTANT: grep will sometimes skip displaying the file name if you
+" search in a singe file. This will confuse Latex-Suite. Set your grep
+" program to always generate a file-name.
+set grepprg=grep\ -nH\ $*
+
+" OPTIONAL: Starting with Vim 7, the filetype of empty .tex files defaults to
+" 'plaintex' instead of 'tex', which results in vim-latex not being loaded.
+" The following changes the default filetype back to 'tex':
+let g:tex_flavor='latex'
+autocmd FileType tex,sty  set formatoptions=tcqwa textwidth=78 formatlistpat='^\\s*\\' nojoinspaces spell
+" ----------------------- End Latex-Suite Additions -----------------------
+
+if has("autocmd")
+
+  " In text files, always limit the width of text to 78 characters
+  "autocmd BufRead *.txt set tw=78
+
+ "augroup cprog
+  " Remove all cprog autocommands
+  "au!
+
+  " When starting to edit a file:
+  "   For C and C++ files set formatting of comments and set C-indenting on.
+  "   For other files switch it off.
+  "   Don't change the order, it's important that the line with * comes first.
+  "   This formatlist is not quite right:  formatlistpat=^\\s*\\*\\s*@
+  "   This formatlist is not quite right:  formatlistpat="^\s*\*\s*\d*[\]:.)}\t@ ].*"
+  "  
+  "autocmd FileType c,cpp,h,idl  set formatoptions=croqlna cindent comments=sr:/*,mb:*,el:*/,:// nojoinspaces
+  autocmd FileType c,cpp,h  set formatoptions=croqln formatlistpat=^\\s*\\*\\s*@ cindent comments=sr:/*,mb:*,el:*/,:// nojoinspaces
+ "augroup END
+
+ augroup gzip
+  " Remove all gzip autocommands
+  au!
+
+  " Enable editing of gzipped files
+  " set binary mode before reading the file
+  autocmd BufReadPre,FileReadPre	*.gz,*.bz2 set bin
+  autocmd BufReadPost,FileReadPost	*.gz call GZIP_read("gunzip")
+  autocmd BufReadPost,FileReadPost	*.bz2 call GZIP_read("bunzip2")
+  autocmd BufWritePost,FileWritePost	*.gz call GZIP_write("gzip")
+  autocmd BufWritePost,FileWritePost	*.bz2 call GZIP_write("bzip2")
+  autocmd FileAppendPre			*.gz call GZIP_appre("gunzip")
+  autocmd FileAppendPre			*.bz2 call GZIP_appre("bunzip2")
+  autocmd FileAppendPost		*.gz call GZIP_write("gzip")
+  autocmd FileAppendPost		*.bz2 call GZIP_write("bzip2")
+
+  " After reading compressed file: Uncompress text in buffer with "cmd"
+  fun! GZIP_read(cmd)
+    " set 'cmdheight' to two, to avoid the hit-return prompt
+    let ch_save = &ch
+    set ch=3
+    " when filtering the whole buffer, it will become empty
+    let empty = line("'[") == 1 && line("']") == line("$")
+    let tmp = tempname()
+    let tmpe = tmp . "." . expand("<afile>:e")
+    " write the just read lines to a temp file "'[,']w tmp.gz"
+    execute "'[,']w " . tmpe
+    " uncompress the temp file "!gunzip tmp.gz"
+    execute "!" . a:cmd . " " . tmpe
+    " delete the compressed lines
+    '[,']d
+    " read in the uncompressed lines "'[-1r tmp"
+    set nobin
+    execute "'[-1r " . tmp
+    " if buffer became empty, delete trailing blank line
+    if empty
+      normal Gdd''
+    endif
+    " delete the temp file
+    call delete(tmp)
+    let &ch = ch_save
+    " When uncompressed the whole buffer, do autocommands
+    if empty
+      execute ":doautocmd BufReadPost " . expand("%:r")
+    endif
+  endfun
+
+  " After writing compressed file: Compress written file with "cmd"
+  fun! GZIP_write(cmd)
+    if rename(expand("<afile>"), expand("<afile>:r")) == 0
+      execute "!" . a:cmd . " <afile>:r"
+    endif
+  endfun
+
+  " Before appending to compressed file: Uncompress file with "cmd"
+  fun! GZIP_appre(cmd)
+    execute "!" . a:cmd . " <afile>"
+    call rename(expand("<afile>:r"), expand("<afile>"))
+  endfun
+
+ augroup END
+
+ " This is disabled, because it changes the jumplist.  Can't use CTRL-O to go
+ " back to positions in previous files more than once.
+ if 0
+  " When editing a file, always jump to the last cursor position.
+  " This must be after the uncompress commands.
+   autocmd BufReadPost * if line("'\"") && line("'\"") <= line("$") | exe "normal `\"" | endif
+ endif
+
+endif " has("autocmd")
