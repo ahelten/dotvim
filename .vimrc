@@ -28,6 +28,7 @@ set path+=/usr/include/c++/**
 " If I ever need to generate tags on the fly, I uncomment this:
 " noremap <C-F11> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
 set tags+=/usr/include/tags
+set tags+=~/amh_devel/sw/MudbucketCxx/tags
 
 
 " se autoindent
@@ -40,6 +41,9 @@ set tags+=/usr/include/tags
 " necessary for using libclang, comment out if libclang.so is missing
 "
 " let g:clang_library_path='/usr/lib/llvm'
+let g:clang_library_path='/usr/lib/llvm/lib'
+let g:clang_snippets = 1
+let g:clang_snippets_engine = 'snipmate'
 
 
 " auto-closes preview window after you select what to auto-complete with
@@ -329,10 +333,12 @@ set background=dark
 " if $TERM != "linux"
   set t_Co=256    " set to 256 colors
 " endif
+let g:zenburn_high_Contrast = 1
 colorscheme zenburn
 
 set expandtab
 set pastetoggle=<F2>
+" set pastetoggle=[12~
 set textwidth=100
 set shiftwidth=3
 set cinoptions=:0.5s,g0.5s,h0.5s,t0,(0,+0,u0
