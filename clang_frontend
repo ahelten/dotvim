@@ -1,0 +1,24 @@
+#!/bin/perl
+
+use IO::CaptureOutput qw/capture/;
+
+my ($stdout, $stderr);
+
+#open DBG, ">>/tmp/clang_debug.txt";
+#print DBG "ARGV in: $args\n\n";
+
+$args="@ARGV";
+$args =~ s#/c/#c:/#g;
+
+$command = "/usr/local/clang-llvm/bin/clang $args";
+capture sub {
+    system($command);
+} => \$stdout, \$stderr;
+
+#print DBG "ARGV out: $args\n\n";
+#print DBG "STDERR: $stderr\n\n";
+#print DBG "STDOUT: $stdout\n\n";
+#close DBG;
+
+print "$stderr$stdout";
+

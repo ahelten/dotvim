@@ -40,17 +40,31 @@ set tags+=~/amh_devel/sw/MudbucketCxx/tags
 "
 " necessary for using libclang, comment out if libclang.so is missing
 "
-let g:clang_complete_auto = 1
-let g:clang_use_library = 1
-" let g:clang_library_path='/usr/lib/llvm/lib'
-let g:clang_library_path='/usr/local/lib'
+if has("python")
+    let g:clang_complete_auto = 1
+    let g:clang_use_library = 1
+endif
+
+if has("win32unix") " i.e. cygwin
+    " let g:clang_library_path='/usr/local/clang-llvm/lib'
+    "AHelten: Use g:clang_user_options='|| exit 0' with cygwin clang
+    " let g:clang_exec = '/bin/clang'
+    " let g:clang_user_options='|| exit 0'
+    " let g:clang_exec = '/usr/local/clang-llvm/bin/clang'
+    "AHelten: clang is a perl script front-end to MinGW clang
+    let g:clang_exec = '~/.vim/clang_frontend'
+else
+    let g:clang_library_path='/usr/local/lib'
+endif
+
 let g:clang_snippets = 1
-" let g:clang_exec = 1
+" AHelten: enable copen when debugging 'pattern not found' or other problems
+" let g:clang_complete_copen = 1
 " let g:clang_user_options = '-include-pch'
-let g:clang_conceal_snippets = 1
 let g:clang_snippets_engine = 'snipmate'
-"set conceallevel=2 concealcursor=inv
 "let g:clang_snippets_engine = 'clang_complete'
+let g:clang_conceal_snippets = 1
+set conceallevel=2 concealcursor=inv
 
 
 " auto-closes preview window after you select what to auto-complete with
@@ -350,10 +364,19 @@ if has("gui_running")
 endif
 
 set expandtab
-" set pastetoggle=<F2>
-set pastetoggle=[12~
-set textwidth=100
-set shiftwidth=3
+if has("win32unix") " i.e. cygwin
+    set pastetoggle=<F2>
+else
+    set pastetoggle=[12~
+endif
+
+if hostname() == 'andy-m2300'
+    set textwidth=80
+    set shiftwidth=4
+else
+    set textwidth=100
+    set shiftwidth=3
+endif
 set cinoptions=:0.5s,g0.5s,h0.5s,t0,(0,+0,u0
 
 au BufNewFile,BufRead *.doxygen setfiletype doxygen
