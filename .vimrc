@@ -40,10 +40,17 @@ set tags+=~/amh_devel/sw/MudbucketCxx/tags
 "
 " necessary for using libclang, comment out if libclang.so is missing
 "
-" let g:clang_library_path='/usr/lib/llvm'
-let g:clang_library_path='/usr/lib/llvm/lib'
+let g:clang_complete_auto = 1
+let g:clang_use_library = 1
+" let g:clang_library_path='/usr/lib/llvm/lib'
+let g:clang_library_path='/usr/local/lib'
 let g:clang_snippets = 1
+" let g:clang_exec = 1
+" let g:clang_user_options = '-include-pch'
+let g:clang_conceal_snippets = 1
 let g:clang_snippets_engine = 'snipmate'
+"set conceallevel=2 concealcursor=inv
+"let g:clang_snippets_engine = 'clang_complete'
 
 
 " auto-closes preview window after you select what to auto-complete with
@@ -336,9 +343,15 @@ set background=dark
 let g:zenburn_high_Contrast = 1
 colorscheme zenburn
 
+if has("gui_running")
+  " Microsoft Windows key mappings, like Ctrl-X/C/V for cut/copy/paste
+  " Only enable this on the GUI (which I currently only run on Windows)
+  source $VIMRUNTIME/mswin.vim
+endif
+
 set expandtab
-set pastetoggle=<F2>
-" set pastetoggle=[12~
+" set pastetoggle=<F2>
+set pastetoggle=[12~
 set textwidth=100
 set shiftwidth=3
 set cinoptions=:0.5s,g0.5s,h0.5s,t0,(0,+0,u0
