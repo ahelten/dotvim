@@ -53,6 +53,7 @@ if has("win32unix") " i.e. cygwin
     " let g:clang_exec = '/usr/local/clang-llvm/bin/clang'
     "AHelten: clang is a perl script front-end to MinGW clang
     let g:clang_exec = '~/.vim/clang_frontend'
+    set conceallevel=2 concealcursor=inv
 else
     let g:clang_library_path='/usr/local/lib'
 endif
@@ -64,7 +65,6 @@ let g:clang_snippets = 1
 let g:clang_snippets_engine = 'snipmate'
 "let g:clang_snippets_engine = 'clang_complete'
 let g:clang_conceal_snippets = 1
-set conceallevel=2 concealcursor=inv
 
 
 " auto-closes preview window after you select what to auto-complete with
