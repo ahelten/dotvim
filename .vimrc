@@ -383,6 +383,8 @@ au BufNewFile,BufRead *.doxygen setfiletype doxygen
 
 set history=50		" keep 50 lines of command line history
 
+set backspace=indent,eol,start " Allow deleting backward past starting point
+
 if 0 " Don't know yet whether these are needed
  set nojoinspaces 
  filetype indent on " per-filetype config
