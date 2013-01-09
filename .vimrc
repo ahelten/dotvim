@@ -53,18 +53,19 @@ if has("win32unix") " i.e. cygwin
     " let g:clang_exec = '/usr/local/clang-llvm/bin/clang'
     "AHelten: clang is a perl script front-end to MinGW clang
     let g:clang_exec = '~/.vim/clang_frontend'
-    set conceallevel=2 concealcursor=inv
+    " set conceallevel=2 concealcursor=inv
 else
     let g:clang_library_path='/usr/local/lib'
+    "let g:clang_exec = '/usr/local/bin/clang'
 endif
 
-let g:clang_snippets = 1
 " AHelten: enable copen when debugging 'pattern not found' or other problems
 " let g:clang_complete_copen = 1
 " let g:clang_user_options = '-include-pch'
+let g:clang_snippets = 1
 let g:clang_snippets_engine = 'snipmate'
 "let g:clang_snippets_engine = 'clang_complete'
-let g:clang_conceal_snippets = 1
+"let g:clang_conceal_snippets = 1
 
 
 " auto-closes preview window after you select what to auto-complete with
@@ -509,3 +510,98 @@ if has("autocmd")
  endif
 
 endif " has("autocmd")
+
+
+
+" This is Method2 from http://vim.wikia.com/wiki/Talk:Highlight_multiple_words
+" Use \ma to highlight with color 1, 2\ma to highlight with color 2, 3\ma for color 3, etc
+" Use n\mc to change a color mapping (or just edit the mapping below)
+"
+function! DoHighlight(hlnum, search_term)
+  call UndoHighlight(a:hlnum)
+  if len(a:search_term) > 0
+    let id = matchadd('hl'.a:hlnum, a:search_term, -1)
+  endif
+endfunction
+
+function! UndoHighlight(hlnum)
+  silent! call matchdelete(GetId(a:hlnum))
+endfunction
+
+function! GetId(hlnum)
+  for m in getmatches()
+    if m['group'] == 'hl'.a:hlnum
+      return m['id']
+    endif
+  endfor
+  return 0
+endfunction
+
+function! SetHighlight(hlnum, colour)
+  if len(a:colour) > 0
+    exe "highlight hl".a:hlnum." term=bold ctermfg=".a:colour." guifg=".a:colour
+  endif
+endfunction
+
+call SetHighlight(1, 'darkred')
+call SetHighlight(2, 'darkgreen')
+call SetHighlight(3, 'darkblue')
+call SetHighlight(4, 'darkcyan')
+call SetHighlight(5, 'darkmagenta')
+call SetHighlight(6, 'red')
+call SetHighlight(7, 'green')
+call SetHighlight(8, 'blue')
+call SetHighlight(9, 'cyan')
+nnoremap <Leader>ma :<C-u>call DoHighlight(v:count1, expand("<cword>"))<CR>
+nnoremap <Leader>md :<C-u>call UndoHighlight(v:count1)<CR>
+nnoremap <Leader>mc :<C-u>call SetHighlight(v:count1, input("Enter colour: "))<CR>
+
+
+" Search for selected text (e.g. select words using 'vww' and then '*' as always)
+" http://vim.wikia.com/wiki/VimTip171
+" - A global variable (g:VeryLiteral) controls whether selected whitespace
+"   matches any whitespace (by default, VeryLiteral is off, so any whitespace is
+"   found).
+" - Type \vl to toggle VeryLiteral to turn whitespace matching off/on
+"   (assuming the default backslash leader key).
+" - When VeryLiteral is off, any selected leading or trailing whitespace will
+"   not match newlines, which is more convenient, and avoids false search hits.
+"
+let s:save_cpo = &cpo | set cpo&vim
+if !exists('g:VeryLiteral')
+  let g:VeryLiteral = 0
+endif
+
+function! s:VSetSearch(cmd)
+  let old_reg = getreg('"')
+  let old_regtype = getregtype('"')
+  normal! gvy
+  if @@ =~? '^[0-9a-z,_]*$' || @@ =~? '^[0-9a-z ,_]*$' && g:VeryLiteral
+    let @/ = @@
+  else
+    let pat = escape(@@, a:cmd.'\')
+    if g:VeryLiteral
+      let pat = substitute(pat, '\n', '\\n', 'g')
+    else
+      let pat = substitute(pat, '^\_s\+', '\\s\\+', '')
+      let pat = substitute(pat, '\_s\+$', '\\s\\*', '')
+      let pat = substitute(pat, '\_s\+', '\\_s\\+', 'g')
+    endif
+    let @/ = '\V'.pat
+  endif
+  normal! gV
+  call setreg('"', old_reg, old_regtype)
+endfunction
+
+vnoremap <silent> * :<C-U>call <SID>VSetSearch('/')<CR>/<C-R>/<CR>
+vnoremap <silent> # :<C-U>call <SID>VSetSearch('?')<CR>?<C-R>/<CR>
+vmap <kMultiply> *
+
+nmap <silent> <Plug>VLToggle :let g:VeryLiteral = !g:VeryLiteral
+  \\| echo "VeryLiteral " . (g:VeryLiteral ? "On" : "Off")<CR>
+if !hasmapto("<Plug>VLToggle")
+  nmap <unique> <Leader>vl <Plug>VLToggle
+endif
+let &cpo = s:save_cpo | unlet s:save_cpo
+
+
