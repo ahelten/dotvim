@@ -166,16 +166,16 @@ if !has("gui_running")
 	noremap! <silent> [24~ <ESC>:call WinClose()<CR>
       elseif &term == "xterm-color"
 	" Putty-ing from Windows into Linux
-	noremap <silent> OB :call WinMove('j')<CR>
-	noremap <silent> OA :call WinMove('k')<CR>
-	noremap <silent> OD :call WinMove('h')<CR>
-	noremap <silent> OC :call WinMove('l')<CR>
-	noremap <silent> [24~ :call WinClose()<CR>
-	noremap! <silent> OB <ESC>:call WinMove('j')<CR>
-	noremap! <silent> OA <ESC>:call WinMove('k')<CR>
-	noremap! <silent> OD <ESC>:call WinMove('h')<CR>
-	noremap! <silent> OC <ESC>:call WinMove('l')<CR>
-	noremap! <silent> [24~ <ESC>:call WinClose()<CR>
+"	noremap <silent> OB :call WinMove('j')<CR>
+"	noremap <silent> OA :call WinMove('k')<CR>
+"	noremap <silent> OD :call WinMove('h')<CR>
+"	noremap <silent> OC :call WinMove('l')<CR>
+"	noremap <silent> [24~ :call WinClose()<CR>
+"	noremap! <silent> OB <ESC>:call WinMove('j')<CR>
+"	noremap! <silent> OA <ESC>:call WinMove('k')<CR>
+"	noremap! <silent> OD <ESC>:call WinMove('h')<CR>
+"	noremap! <silent> OC <ESC>:call WinMove('l')<CR>
+"	noremap! <silent> [24~ <ESC>:call WinClose()<CR>
       endif
     endif
 else
@@ -607,3 +607,8 @@ endif
 let &cpo = s:save_cpo | unlet s:save_cpo
 
 
+" Moving between windows with Ctrl-j, etc. Also note that <C-w><C-p> goes to 'previous' window
+:noremap <C-j> <C-w>j
+:noremap <C-k> <C-w>k
+:noremap <C-h> <C-w>h
+:noremap <C-l> <C-w>l
