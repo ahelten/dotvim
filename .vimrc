@@ -27,6 +27,7 @@ set path+=/usr/include/c++/**
 "
 " If I ever need to generate tags on the fly, I uncomment this:
 " noremap <C-F11> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
+set tags+=./tags,tags;
 set tags+=/usr/include/tags
 set tags+=~/amh_devel/sw/MudbucketCxx/tags
 
