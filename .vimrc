@@ -27,8 +27,21 @@ set path+=/usr/include/c++/**
 "
 " If I ever need to generate tags on the fly, I uncomment this:
 " noremap <C-F11> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
-set tags+=/usr/include/tags
-set tags+=~/amh_devel/sw/MudbucketCxx/tags
+
+" This will look in current directory for "tags", and work up the tree towards root until one is found.
+set tags+=./tags;/
+"set tags+=/usr/include/tags
+"set tags+=~/amh_devel/sw/MudbucketCxx/tags
+
+
+" For GTRI JPALS development
+set tags+=/cygdrive/c/amh_devel/anp/gtri-jpals/tags
+set path+=/cygdrive/c/amh_devel/anp/gtri-jpals/**
+
+" C-\ - Open the definition in a new tab (using tags)
+map <C-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
+" A-] - Open the definition in a vertical split (using tags)
+map <A-]> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
 
 
 " se autoindent
@@ -154,28 +167,28 @@ if !has("gui_running")
       let myosuname = system("uname")
       if myosuname =~ "OpenBSD"
 	" Putty-ing from Windows into OpenBSD
-	noremap <silent> [B :call WinMove('j')<CR>
-	noremap <silent> [A :call WinMove('k')<CR>
-	noremap <silent> [D :call WinMove('h')<CR>
-	noremap <silent> [C :call WinMove('l')<CR>
-	noremap <silent> [24~ :call WinClose()<CR>
-	noremap! <silent> [B <ESC>:call WinMove('j')<CR>
-	noremap! <silent> [A <ESC>:call WinMove('k')<CR>
-	noremap! <silent> [D <ESC>:call WinMove('h')<CR>
-	noremap! <silent> [C <ESC>:call WinMove('l')<CR>
-	noremap! <silent> [24~ <ESC>:call WinClose()<CR>
+"	noremap <silent> [B :call WinMove('j')<CR>
+"	noremap <silent> [A :call WinMove('k')<CR>
+"	noremap <silent> [D :call WinMove('h')<CR>
+"	noremap <silent> [C :call WinMove('l')<CR>
+"	noremap <silent> [24~ :call WinClose()<CR>
+"	noremap! <silent> [B <ESC>:call WinMove('j')<CR>
+"	noremap! <silent> [A <ESC>:call WinMove('k')<CR>
+"	noremap! <silent> [D <ESC>:call WinMove('h')<CR>
+"	noremap! <silent> [C <ESC>:call WinMove('l')<CR>
+"	noremap! <silent> [24~ <ESC>:call WinClose()<CR>
       elseif &term == "xterm-color"
 	" Putty-ing from Windows into Linux
-	noremap <silent> OB :call WinMove('j')<CR>
-	noremap <silent> OA :call WinMove('k')<CR>
-	noremap <silent> OD :call WinMove('h')<CR>
-	noremap <silent> OC :call WinMove('l')<CR>
-	noremap <silent> [24~ :call WinClose()<CR>
-	noremap! <silent> OB <ESC>:call WinMove('j')<CR>
-	noremap! <silent> OA <ESC>:call WinMove('k')<CR>
-	noremap! <silent> OD <ESC>:call WinMove('h')<CR>
-	noremap! <silent> OC <ESC>:call WinMove('l')<CR>
-	noremap! <silent> [24~ <ESC>:call WinClose()<CR>
+"	noremap <silent> OB :call WinMove('j')<CR>
+"	noremap <silent> OA :call WinMove('k')<CR>
+"	noremap <silent> OD :call WinMove('h')<CR>
+"	noremap <silent> OC :call WinMove('l')<CR>
+"	noremap <silent> [24~ :call WinClose()<CR>
+"	noremap! <silent> OB <ESC>:call WinMove('j')<CR>
+"	noremap! <silent> OA <ESC>:call WinMove('k')<CR>
+"	noremap! <silent> OD <ESC>:call WinMove('h')<CR>
+"	noremap! <silent> OC <ESC>:call WinMove('l')<CR>
+"	noremap! <silent> [24~ <ESC>:call WinClose()<CR>
       endif
     endif
 else
