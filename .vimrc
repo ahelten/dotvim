@@ -28,15 +28,21 @@ set path+=/usr/include/c++/**
 " If I ever need to generate tags on the fly, I uncomment this:
 " noremap <C-F11> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
 
+
 " This will look in current directory for "tags", and work up the tree towards root until one is found.
 set tags+=./tags;/
-"set tags+=/usr/include/tags
-"set tags+=~/amh_devel/sw/MudbucketCxx/tags
-
+set tags+=/usr/include/tags
 
 " For GTRI JPALS development
 set tags+=/cygdrive/c/amh_devel/anp/gtri-jpals/tags
 set path+=/cygdrive/c/amh_devel/anp/gtri-jpals/**
+
+" For GTRI JPALS development
+set path+=~/GTRI-JPALS-inyer-FACE/amh_devel/gtri-jpals/**
+set path+=/opt/ACM-INSTALL/include/**
+set tags+=/opt/ACM-INSTALL/include/tags
+"set tags+=~/amh_devel/sw/MudbucketCxx/tags
+
 
 " C-\ - Open the definition in a new tab (using tags)
 map <C-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
@@ -54,8 +60,8 @@ map <A-]> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
 " necessary for using libclang, comment out if libclang.so is missing
 "
 if has("python")
-    let g:clang_complete_auto = 1
-    let g:clang_use_library = 1
+"    let g:clang_complete_auto = 1
+"    let g:clang_use_library = 1
 endif
 
 if has("win32unix") " i.e. cygwin
@@ -65,18 +71,18 @@ if has("win32unix") " i.e. cygwin
     " let g:clang_user_options='|| exit 0'
     " let g:clang_exec = '/usr/local/clang-llvm/bin/clang'
     "AHelten: clang is a perl script front-end to MinGW clang
-    let g:clang_exec = '~/.vim/clang_frontend'
+"    let g:clang_exec = '~/.vim/clang_frontend'
     " set conceallevel=2 concealcursor=inv
 else
-    let g:clang_library_path='/usr/local/lib'
+"    let g:clang_library_path='/usr/local/lib'
     "let g:clang_exec = '/usr/local/bin/clang'
 endif
 
 " AHelten: enable copen when debugging 'pattern not found' or other problems
 " let g:clang_complete_copen = 1
 " let g:clang_user_options = '-include-pch'
-let g:clang_snippets = 1
-let g:clang_snippets_engine = 'snipmate'
+"let g:clang_snippets = 1
+"let g:clang_snippets_engine = 'snipmate'
 "let g:clang_snippets_engine = 'clang_complete'
 "let g:clang_conceal_snippets = 1
 
@@ -368,6 +374,9 @@ set background=dark
 " if $TERM != "linux"
   set t_Co=256    " set to 256 colors
 " endif
+" Both of the Visual parameters must be '1' to get brighter Visual highlighting
+let g:zenburn_old_Visual = 1
+let g:zenburn_alternate_Visual = 1
 let g:zenburn_high_Contrast = 1
 colorscheme zenburn
 
@@ -395,7 +404,7 @@ set cinoptions=:0.5s,g0.5s,h0.5s,t0,(0,+0,u0
 
 au BufNewFile,BufRead *.doxygen setfiletype doxygen
 
-set history=50		" keep 50 lines of command line history
+set history=150		" keep 150 lines of command line history
 
 set backspace=indent,eol,start " Allow deleting backward past starting point
 
@@ -620,3 +629,8 @@ endif
 let &cpo = s:save_cpo | unlet s:save_cpo
 
 
+" Moving between windows with Ctrl-j, etc. Also note that <C-w><C-p> goes to 'previous' window
+:noremap <C-j> <C-w>j
+:noremap <C-k> <C-w>k
+:noremap <C-h> <C-w>h
+:noremap <C-l> <C-w>l
