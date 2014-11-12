@@ -1,0 +1,77 @@
+# Some shortcuts for different directory listings
+alias ls='ls -hF --color=tty'                 # classify files in colour
+alias dir='ls --color=auto --format=vertical'
+alias vdir='ls --color=auto --format=long'
+alias ll='ls -l'                              # long list
+alias la='ls -lA'                             # all but . and ..
+alias l='ls -laF'                             #
+
+
+export DOCS=/c/Users/andy.helten/Documents
+
+alias   rm='rm -i'
+alias   mv='mv -i'
+alias   j=jobs
+alias   f='fg %'
+alias   fg-='fg %-'
+alias   _='fg %-'
+alias   +='fg %+'
+alias   1='fg 1'
+alias   2='fg 2'
+alias   3='fg 3'
+alias   4='fg 4'
+alias   5='fg 5'
+alias   6='fg 6'
+alias   7='fg 7'
+alias   8='fg 8'
+alias   9='fg 9'
+alias   10='fg 10'
+alias   11='fg 11'
+alias   12='fg 12'
+alias   13='fg 13'
+alias   14='fg 14'
+alias   15='fg 15'
+alias   16='fg 16'
+alias   17='fg 17'
+alias   18='fg 18'
+alias   19='fg 19'
+alias   20='fg 20'
+alias   h=history
+alias   more=less
+alias   mroe=more
+alias   moer=more
+alias   mkae=make
+alias   maek=make
+alias   p=pushd
+alias	pdoc='p $DOCS'
+alias	pdocs=pdoc
+alias	cddoc='cd $DOCS'
+alias	cddocs=cddoc
+alias   pst='ps -eLo pid,tid,rtprio,psr,policy,pmem,pcpu,comm,wchan'
+alias   grep2="/bin/grep -r --color --exclude-dir=.svn --exclude-dir='*.dir' --exclude-dir=.git"
+alias   grepch="grep2 --color -r --include='*.c' --include='*.cc' --include='*.cxx' --include='*.cpp' --include='*.C' --include='*.h' --include='*.hh' --include='*.h++' --include='*.H' --include='*.hpp'"
+alias   grepc="grep2 --color -r --include='*.c' --include='*.cc' --include='*.cxx' --include='*.cpp' --include='*.C'"
+alias   greph="grep2 --color -r --include='*.h' --include='*.hh' --include='*.h++' --include='*.H' --include='*.hpp'"
+alias	grepj="grep2 --color -r --include='*.java'"
+alias	grepwww="grep2 --color -r --include='*.cs' --include='*.cshtml' --include='*.js' --include='*.css'"
+alias	grepcs="grep2 --color -r --include='*.cs'"
+alias	grepcss="grep2 --color -r --include='*.css'"
+alias	grepcsh="grep2 --color -r --include='*.cshtml'"
+alias	grepcshtml=grepcsh
+alias	grepjs="grep2 --color -r --include='*.js'"
+alias   sizedir="du -h --max-depth=1 . | sort -n -r"
+alias   clr="perl -e'print \"\n\" x 90'"
+alias   vi=vim
+
+
+#export NDDSHOME="/opt/rti/ndds.4.5f"
+#export PATH=$NDDSHOME/scripts:$PATH
+#export LD_LIBRARY_PATH=$NDDSHOME/lib/i86Linux2.6gcc4.4.3
+export SVN_EDITOR=vim
+export EDITOR=vim
+
+ulimit -c unlimited
+
+# Use VI command-line editing
+set -o vi
+
