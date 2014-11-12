@@ -9,6 +9,11 @@ se modelines=2
 se modeline
 se nocp
 
+if has("win32unix") " i.e. cygwin
+   " This plugin doesn't work on cygwin/windows (opening a file just hangs vim)
+   set runtimepath-=~/.vim/bundle/vim-localrc
+endif
+
 if has("autocmd")
     filetype on
     filetype indent on
