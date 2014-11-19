@@ -78,19 +78,18 @@ if has("win32unix") " i.e. cygwin
 "    let g:clang_exec = '~/.vim/clang_frontend'
     " set conceallevel=2 concealcursor=inv
 else
-    "let g:clang_use_library = 1
+    let g:clang_use_library = 1
 "    let g:clang_library_path='/usr/local/lib'
-    let g:clang_exec = '/usr/bin/clang'
-    "let g:clang_library_path='/home/andy.helten/.vim'
+    "let g:clang_exec = '/usr/bin/clang'
+    let g:clang_library_path='/home/andy.helten/.vim'
 endif
 
 " AHelten: enable copen when debugging 'pattern not found' or other problems
 "let g:clang_complete_copen = 1
 " let g:clang_user_options = '-include-pch'
 let g:clang_snippets = 1
-let g:clang_snippets_engine = 'snipmate'
+let g:clang_snippets_engine = 'ultisnips'
 "let g:clang_snippets_engine = 'clang_complete'
-let g:clang_conceal_snippets = 1
 
 
 " auto-closes preview window after you select what to auto-complete with
