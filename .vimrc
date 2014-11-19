@@ -65,8 +65,7 @@ map <A-]> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
 " necessary for using libclang, comment out if libclang.so is missing
 "
 if has("python")
-"    let g:clang_complete_auto = 1
-"    let g:clang_use_library = 1
+    let g:clang_complete_auto = 1
 endif
 
 if has("win32unix") " i.e. cygwin
@@ -79,22 +78,24 @@ if has("win32unix") " i.e. cygwin
 "    let g:clang_exec = '~/.vim/clang_frontend'
     " set conceallevel=2 concealcursor=inv
 else
+    "let g:clang_use_library = 1
 "    let g:clang_library_path='/usr/local/lib'
-    "let g:clang_exec = '/usr/local/bin/clang'
+    let g:clang_exec = '/usr/bin/clang'
+    "let g:clang_library_path='/home/andy.helten/.vim'
 endif
 
 " AHelten: enable copen when debugging 'pattern not found' or other problems
-" let g:clang_complete_copen = 1
+"let g:clang_complete_copen = 1
 " let g:clang_user_options = '-include-pch'
-"let g:clang_snippets = 1
-"let g:clang_snippets_engine = 'snipmate'
+let g:clang_snippets = 1
+let g:clang_snippets_engine = 'snipmate'
 "let g:clang_snippets_engine = 'clang_complete'
-"let g:clang_conceal_snippets = 1
+let g:clang_conceal_snippets = 1
 
 
 " auto-closes preview window after you select what to auto-complete with
-"autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
-"autocmd InsertLeave * if pumvisible() == 0|pclose|endif
+autocmd CursorMovedI * if pumvisible() == 0|silent! pclose|endif
+autocmd InsertLeave * if pumvisible() == 0|silent! pclose|endif
 
 
 "
