@@ -49,16 +49,16 @@ alias	cddoc='cd $DOCS'
 alias	cddocs=cddoc
 alias   pst='ps -eLo pid,tid,rtprio,psr,policy,pmem,pcpu,comm,wchan'
 alias   grep2="/bin/grep -r --color --exclude-dir=.svn --exclude-dir='*.dir' --exclude-dir=.git"
-alias   grepch="grep2 --color -r --include='*.c' --include='*.cc' --include='*.cxx' --include='*.cpp' --include='*.C' --include='*.h' --include='*.hh' --include='*.h++' --include='*.H' --include='*.hpp'"
-alias   grepc="grep2 --color -r --include='*.c' --include='*.cc' --include='*.cxx' --include='*.cpp' --include='*.C'"
-alias   greph="grep2 --color -r --include='*.h' --include='*.hh' --include='*.h++' --include='*.H' --include='*.hpp'"
-alias	grepj="grep2 --color -r --include='*.java'"
-alias	grepwww="grep2 --color -r --include='*.cs' --include='*.cshtml' --include='*.js' --include='*.css'"
-alias	grepcs="grep2 --color -r --include='*.cs'"
-alias	grepcss="grep2 --color -r --include='*.css'"
-alias	grepcsh="grep2 --color -r --include='*.cshtml'"
+alias   grepch="grep2 --include='*.c' --include='*.cc' --include='*.cxx' --include='*.cpp' --include='*.C' --include='*.h' --include='*.hh' --include='*.h++' --include='*.H' --include='*.hpp'"
+alias   grepc="grep2 --include='*.c' --include='*.cc' --include='*.cxx' --include='*.cpp' --include='*.C'"
+alias   greph="grep2 --include='*.h' --include='*.hh' --include='*.h++' --include='*.H' --include='*.hpp'"
+alias	grepj="grep2 --include='*.java'"
+alias	grepwww="grep2 --include='*.cs' --include='*.cshtml' --include='*.js' --include='*.css'"
+alias	grepcs="grep2 --include='*.cs'"
+alias	grepcss="grep2 --include='*.css'"
+alias	grepcsh="grep2 --include='*.cshtml'"
 alias	grepcshtml=grepcsh
-alias	grepjs="grep2 --color -r --include='*.js'"
+alias	grepjs="grep2 --include='*.js'"
 alias   sizedir="du -h --max-depth=1 . | sort -n -r"
 alias   clr="perl -e'print \"\n\" x 90'"
 alias   vi=vim
