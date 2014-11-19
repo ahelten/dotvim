@@ -74,9 +74,8 @@ if has("win32unix") " i.e. cygwin
     " let g:clang_exec = '/bin/clang'
     " let g:clang_user_options='|| exit 0'
     " let g:clang_exec = '/usr/local/clang-llvm/bin/clang'
-    "AHelten: clang is a perl script front-end to MinGW clang
+    "AHelten: clang_frontend is a perl script front-end to MinGW clang
 "    let g:clang_exec = '~/.vim/clang_frontend'
-    " set conceallevel=2 concealcursor=inv
 else
     let g:clang_use_library = 1
 "    let g:clang_library_path='/usr/local/lib'
@@ -86,7 +85,21 @@ endif
 
 " AHelten: enable copen when debugging 'pattern not found' or other problems
 "let g:clang_complete_copen = 1
+
+let g:clang_complete_macros=1
+let g:clang_complete_patterns=0
+
 " let g:clang_user_options = '-include-pch'
+" Remove -std=c++11 if you don't use C++ for everything like I do.
+"let g:clang_user_options=' -std=c++11 || exit 0'
+"let g:clang_user_options='|| exit 0'
+" Set this to 0 if you don't want autoselect, 1 if you want autohighlight,
+" and 2 if you want autoselect. 0 will make you arrow down to select the first
+" option, 1 will select the first option for you, but won't insert it unless you
+" press enter. 2 will automatically insert what it thinks is right. 1 is the most
+" convenient IMO, and it defaults to 0.
+let g:clang_auto_select=1
+
 let g:clang_snippets = 1
 let g:clang_snippets_engine = 'ultisnips'
 "let g:clang_snippets_engine = 'clang_complete'
@@ -441,14 +454,15 @@ map <F3> :execute "vimgrep /" . expand("<cword>") . "/j **" <Bar> cw<CR>
 " program to always generate a file-name.
 set grepprg=grep\ -nH\ $*
 
-" OPTIONAL: Starting with Vim 7, the filetype of empty .tex files defaults to
-" 'plaintex' instead of 'tex', which results in vim-latex not being loaded.
-" The following changes the default filetype back to 'tex':
-let g:tex_flavor='latex'
-autocmd FileType tex,sty  set formatoptions=tcqwa textwidth=78 formatlistpat='^\\s*\\' nojoinspaces spell
-" ----------------------- End Latex-Suite Additions -----------------------
 
 if has("autocmd")
+
+  " OPTIONAL: Starting with Vim 7, the filetype of empty .tex files defaults to
+  " 'plaintex' instead of 'tex', which results in vim-latex not being loaded.
+  " The following changes the default filetype back to 'tex':
+  let g:tex_flavor='latex'
+  autocmd FileType tex,sty  set formatoptions=tcqwa textwidth=78 formatlistpat='^\\s*\\' nojoinspaces spell
+  " ----------------------- End Latex-Suite Additions -----------------------
 
   " In text files, always limit the width of text to 78 characters
   "autocmd BufRead *.txt set tw=78
@@ -465,7 +479,7 @@ if has("autocmd")
   "   This formatlist is not quite right:  formatlistpat="^\s*\*\s*\d*[\]:.)}\t@ ].*"
   "  
   "autocmd FileType c,cpp,h,idl  set formatoptions=croqlna cindent comments=sr:/*,mb:*,el:*/,:// nojoinspaces
-  autocmd FileType c,cpp,h  set formatoptions=croqln formatlistpat=^\\s*\\*\\s*@ cindent comments=sr:/*,mb:*,el:*/,:// nojoinspaces
+  autocmd FileType cc,c,cpp,h,hpp  set formatoptions=croqln formatlistpat=^\\s*\\*\\s*@ cindent comments=sr:/*,mb:*,el:*/,:// nojoinspaces
  "augroup END
 
  augroup gzip
