@@ -8,16 +8,31 @@ se sts=4
 se modelines=2
 se modeline
 se nocp
+set number
 " ttymouse is set at the end because it apparently gets overwritten somewhere between
 if !has("gui_running")
    set mouse=a
+   set clipboard=unnamed
+else
+   set go+=a
 endif
-" Line numbering
-set number
 
 if has("win32unix") " i.e. cygwin
    " This plugin doesn't work on cygwin/windows (opening a file just hangs vim)
    set runtimepath-=~/.vim/bundle/vim-localrc
+"   set runtimepath-=~/.vim/bundle/a
+   set runtimepath-=~/.vim/bundle/clang_complete
+"   set runtimepath-=~/.vim/bundle/easymotion
+"   set runtimepath-=~/.vim/bundle/flake8
+"   set runtimepath-=~/.vim/bundle/indentTabObjects
+"   set runtimepath-=~/.vim/bundle/nerdtree
+"   set runtimepath-=~/.vim/bundle/RainbowParenthsis
+"   set runtimepath-=~/.vim/bundle/repeat
+"   set runtimepath-=~/.vim/bundle/slime
+"   set runtimepath-=~/.vim/bundle/surround
+"   set runtimepath-=~/.vim/bundle/taglist
+   set runtimepath-=~/.vim/bundle/ultisnips
+   set runtimepath-=~/.vim/bundle/ultisnips/after
 endif
 
 if has("autocmd")
@@ -81,7 +96,7 @@ if has("win32unix") " i.e. cygwin
     " let g:clang_user_options='|| exit 0'
     " let g:clang_exec = '/usr/local/clang-llvm/bin/clang'
     "AHelten: clang_frontend is a perl script front-end to MinGW clang
-"    let g:clang_exec = '~/.vim/clang_frontend'
+    let g:clang_exec = '~/.vim/clang_frontend'
 else
     let g:clang_use_library = 1
     let g:clang_library_path='/usr/local/lib'
