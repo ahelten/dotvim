@@ -8,6 +8,12 @@ se sts=4
 se modelines=2
 se modeline
 se nocp
+" ttymouse is set at the end because it apparently gets overwritten somewhere between
+if !has("gui_running")
+   set mouse=a
+endif
+" Line numbering
+set number
 
 if has("win32unix") " i.e. cygwin
    " This plugin doesn't work on cygwin/windows (opening a file just hangs vim)
@@ -19,7 +25,6 @@ if has("autocmd")
     filetype indent on
     filetype plugin on
 endif
-
 
 "
 " Search path for 'gf' command (e.g. open #include-d files)
@@ -39,13 +44,14 @@ set tags+=./tags;/
 set tags+=/usr/include/tags
 
 " For GTRI JPALS development
-set tags+=/cygdrive/c/amh_devel/anp/gtri-jpals/tags
-set path+=/cygdrive/c/amh_devel/anp/gtri-jpals/**
+"set tags+=/cygdrive/c/amh_devel/anp/gtri-jpals/tags
+"set path+=/cygdrive/c/amh_devel/anp/gtri-jpals/**
+"set path+=~/GTRI-JPALS-inyer-FACE/amh_devel/gtri-jpals/**
 
-" For GTRI JPALS development
-set path+=~/GTRI-JPALS-inyer-FACE/amh_devel/gtri-jpals/**
+" For ACM development
 set path+=/opt/ACM-INSTALL/include/**
 set tags+=/opt/ACM-INSTALL/include/tags
+
 "set tags+=~/amh_devel/sw/MudbucketCxx/tags
 
 
@@ -78,9 +84,9 @@ if has("win32unix") " i.e. cygwin
 "    let g:clang_exec = '~/.vim/clang_frontend'
 else
     let g:clang_use_library = 1
-"    let g:clang_library_path='/usr/local/lib'
+    let g:clang_library_path='/usr/local/lib'
     "let g:clang_exec = '/usr/bin/clang'
-    let g:clang_library_path='/home/andy.helten/.vim'
+"    let g:clang_library_path='/home/andy.helten/.vim'
 endif
 
 " AHelten: enable copen when debugging 'pattern not found' or other problems
@@ -653,3 +659,8 @@ let &cpo = s:save_cpo | unlet s:save_cpo
 :noremap <C-k> <C-w>k
 :noremap <C-h> <C-w>h
 :noremap <C-l> <C-w>l
+
+" This enables some mouse actions like moving the cursor and visual selection in rxvt
+if !has("gui_running")
+   set ttymouse=xterm
+endif
