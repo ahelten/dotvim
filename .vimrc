@@ -11,7 +11,7 @@ se nocp
 set number
 " ttymouse is set at the end because it apparently gets overwritten somewhere between
 if !has("gui_running")
-   set mouse=a
+   "set mouse=a
    set clipboard=unnamed
 else
    set go+=a
@@ -44,6 +44,7 @@ endif
 "
 " Search path for 'gf' command (e.g. open #include-d files)
 "
+"set path+=.**
 set path+=/usr/include/c++/**
 
 
@@ -419,7 +420,7 @@ let g:zenburn_alternate_Visual = 1
 let g:zenburn_high_Contrast = 1
 colorscheme zenburn
 
-if has("gui_running")
+if has("win32") " i.e. native windows
   " Microsoft Windows key mappings, like Ctrl-X/C/V for cut/copy/paste
   " Only enable this on the GUI (which I currently only run on Windows)
   source $VIMRUNTIME/mswin.vim
