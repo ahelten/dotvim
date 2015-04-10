@@ -42,6 +42,13 @@ if has("autocmd")
 endif
 
 "
+" Add git branch to statusline as well as other status info
+"
+set noruler
+set laststatus=2
+set statusline=%t\ [%{strlen(&fenc)?&fenc:'none'},%{&ff}]\ %h%m%r%y\ %{fugitive#statusline()}%=%c,%l/%L\ %P
+
+"
 " Search path for 'gf' command (e.g. open #include-d files)
 "
 "set path+=.**
