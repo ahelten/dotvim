@@ -35,3 +35,7 @@ idl
 StateMap
 #oisened
 #oisened/!
+DLL
+FPGA
+PCIe
+DMA
