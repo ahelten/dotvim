@@ -64,6 +64,7 @@ alias   clr="perl -e'print \"\n\" x 90'"
 alias   vi=vim
 
 
+export PATH=~/bin:$PATH
 #export NDDSHOME="/opt/rti/ndds.4.5f"
 #export PATH=$NDDSHOME/scripts:$PATH
 #export LD_LIBRARY_PATH=$NDDSHOME/lib/i86Linux2.6gcc4.4.3
