@@ -1,3 +1,10 @@
+" START TEMPLATE FOR UPDATING 'path' variable using directory of .local.vimrc
+" " what is the name of the directory containing this file?
+" let s:et_dir = expand('<sfile>:p:h')
+" " add the directory to 'path'
+" let &path = printf('%s,%s/**', &path, s:et_dir)
+" END TEMPLATE FOR UPDATING 'path' variable using directory of .local.vimrc
+
 set nocompatible
 call pathogen#infect()
 call pathogen#helptags()
@@ -19,9 +26,9 @@ endif
 
 if has("win32unix") " i.e. cygwin
    " This plugin doesn't work on cygwin/windows (opening a file just hangs vim)
-   set runtimepath-=~/.vim/bundle/vim-localrc
+"   set runtimepath-=~/.vim/bundle/vim-localrc
 "   set runtimepath-=~/.vim/bundle/a
-   set runtimepath-=~/.vim/bundle/clang_complete
+"   set runtimepath-=~/.vim/bundle/clang_complete
 "   set runtimepath-=~/.vim/bundle/easymotion
 "   set runtimepath-=~/.vim/bundle/flake8
 "   set runtimepath-=~/.vim/bundle/indentTabObjects
@@ -31,8 +38,8 @@ if has("win32unix") " i.e. cygwin
 "   set runtimepath-=~/.vim/bundle/slime
 "   set runtimepath-=~/.vim/bundle/surround
 "   set runtimepath-=~/.vim/bundle/taglist
-   set runtimepath-=~/.vim/bundle/ultisnips
-   set runtimepath-=~/.vim/bundle/ultisnips/after
+"   set runtimepath-=~/.vim/bundle/ultisnips
+"   set runtimepath-=~/.vim/bundle/ultisnips/after
 endif
 
 if has("autocmd")
