@@ -26,7 +26,7 @@ endif
 
 if has("win32unix") " i.e. cygwin
    " This plugin doesn't work on cygwin/windows (opening a file just hangs vim)
-"   set runtimepath-=~/.vim/bundle/vim-localrc
+   set runtimepath-=~/.vim/bundle/vim-localrc
 "   set runtimepath-=~/.vim/bundle/a
 "   set runtimepath-=~/.vim/bundle/clang_complete
 "   set runtimepath-=~/.vim/bundle/easymotion
@@ -694,3 +694,5 @@ let &cpo = s:save_cpo | unlet s:save_cpo
 if !has("gui_running")
    set ttymouse=xterm
 endif
+
+set t_ti=7[r[?47h t_te=[?47l8
