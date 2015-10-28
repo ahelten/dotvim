@@ -114,7 +114,8 @@ if has("win32unix") " i.e. cygwin
     let g:clang_exec = '~/.vim/clang_frontend'
 else
     let g:clang_use_library = 1
-    let g:clang_library_path='/usr/local/lib'
+    "let g:clang_library_path='/usr/local/lib'
+    let g:clang_library_path='/usr/lib64/llvm'
     "let g:clang_exec = '/usr/bin/clang'
 "    let g:clang_library_path='/home/andy.helten/.vim'
 endif
@@ -452,7 +453,7 @@ if hostname() == 'andy-m2300'
     set shiftwidth=4
 else
     set textwidth=100
-    set shiftwidth=3
+    set shiftwidth=4
 endif
 set cinoptions=:0.5s,g0.5s,h0.5s,t0,(0,+0,u0
 
@@ -695,4 +696,24 @@ if !has("gui_running")
    set ttymouse=xterm
 endif
 
+" Restores console screen when exiting or Ctrl-Z-ing from vim
 set t_ti=7[r[?47h t_te=[?47l8
+
+
+if has('cscope')
+    set cscopetag cscopeverbose
+
+    if has('quickfix')
+        set cscopequickfix=s-,c-,d-,i-,t-,e-
+    endif
+
+    cnoreabbrev csa cs add
+    cnoreabbrev csf cs find
+    cnoreabbrev csk cs kill
+    cnoreabbrev csr cs reset
+    cnoreabbrev css cs show
+    cnoreabbrev csh cs help
+
+    command -nargs=0 Cscope cs add $VIMSRC/src/cscope.out $VIMSRC/src
+endif
+

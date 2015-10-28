@@ -112,6 +112,29 @@ alias   clr="perl -e'print \"\n\" x 90'"
 alias   vi=vim
 
 
+alias   git-grep2="git grep"
+git-grepch () { git-grep2 "$@" -- '*.c' '*.cc' '*.cxx' '*.cpp' '*.C' '*.h' '*.hh' '*.h++' '*.H' '*.hpp'; }
+git-grepc () { git-grep2 "$@" -- '*.c' '*.cc' '*.cxx' '*.cpp' '*.C'; }
+git-greph () { git-grep2 "$@" -- '*.h' '*.hh' '*.h++' '*.H' '*.hpp'; }
+git-grepj () { git-grep2 "$@" -- '*.java'; }
+git-grepwww () { git-grep2 "$@" -- '*.cs' '*.cshtml' '*.js' '*.css'; }
+git-grepcs () { git-grep2 "$@" -- '*.cs'; }
+git-grepcss () { git-grep2 "$@" -- '*.css'; }
+git-grepcsh () { git-grep2 "$@" -- '*.cshtml'; }
+git-grepcshtml () { git-grep2 "$@" -- '*.cshtml'; }
+git-grepjs () { git-grep2 "$@" -- '*.js'; }
+
+retag() { ctags -R --c++-kinds=+p --languages=c,c++ --fields=+iaS --extra=+q "$@"; }
+retag-lce() { retag *.cpp *.[ch] api/ wwwd/ tasl/ basic/ base64/ log_storage/ lib* policy-map/ policy-parser/ query_system/ report-proxy/ statistics/ utils/; }
+rescope() { cscope -buq "$@"; }
+rescope-lce() {
+  find . -name xpLib -prune -o -name ThirdParty -prune -o -name 'msmtp*' -prune -o -name BUILD -prune -o \( \( -iname "*.cpp" -o -iname "*.[ch]" \) -a -print \) > .cscope.files;
+  retag -L .cscope.files;
+  retag -e -L .cscope.files;
+  cscope -ubq -i .cscope.files;
+}
+
+
 export PATH=~/bin:$PATH
 #export NDDSHOME="/opt/rti/ndds.4.5f"
 #export PATH=$NDDSHOME/scripts:$PATH
