@@ -55,7 +55,7 @@ alias la='ls -lA'                             # all but . and ..
 alias l='ls -laF'                             #
 
 
-export DOCS=/c/Users/andy.helten/Documents
+export DOCS=/c/Users/${USER}/Documents
 
 alias   rm='rm -i'
 alias   mv='mv -i'
