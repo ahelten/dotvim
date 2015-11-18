@@ -146,6 +146,11 @@ threads () {
     ps -L --pid $pid -w -o pid,tid,egroup,euser,fgroup,fuser,stat,psr,eip,cputime,pmem,size,rsz,vsz,start_time,etime,wchan,comm | awk 'BEGIN {threadPrintfFmt = "%5s  %5s  %5s  %8s  %10s  %12s  %12s  %15s  %12s\n"} (NR == 2) {printf("[ %s ]    PID %u    %%mem %.1f;  RSZ(MB) %.3f;  VSZ(MB) %.3f;  totCore(MB) %.3f;  eff {u:%s g:%s}\n", $18, $1, $11, $13 / 1024.0 , $14 / 1024.0, $12 / 1024.0, $4, $3); printf(threadPrintfFmt, "__TID", "State", "Core#", "______IP", "cumCPUTime", "_____Started", "_____Elapsed", "___________Name", "curSyscall")} (NR >= 2) {printf(threadPrintfFmt, $2, $7, $8, $9, $10, $15, $16, (NR == 2 ? "<main>" : $18), $17)}' pid=$pid
 }
 
+function strerror
+{
+    grep -w "${1}"  /usr/include/errno.h /usr/include/*/errno*.h
+}
+
 
 export PATH=~/bin:$PATH
 #export NDDSHOME="/opt/rti/ndds.4.5f"
