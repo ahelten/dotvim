@@ -125,7 +125,7 @@ git-grepcshtml () { git-grep2 "$@" -- '*.cshtml'; }
 git-grepjs () { git-grep2 "$@" -- '*.js'; }
 
 retag() { ctags -R --c++-kinds=+p --languages=c,c++ --fields=+iaS --extra=+q "$@"; }
-retag-lce() { retag *.cpp *.[ch] api/ wwwd/ tasl/ basic/ base64/ log_storage/ lib* policy-map/ policy-parser/ query_system/ report-proxy/ statistics/ utils/; }
+retag-lce() { retag *.cpp *.[ch] api/ wwwd/ tasl/ basic/ base64/ log_storage/ lib* policy-map/ policy-parser/ query_system/ report-proxy/ statistics/ utils/ elasticS; }
 rescope() { cscope -buq "$@"; }
 rescope-lce() {
   find . -name xpLib -prune -o -name ThirdParty -prune -o -name 'msmtp*' -prune -o -name BUILD -prune -o \( \( -iname "*.cpp" -o -iname "*.[ch]" \) -a -print \) > .cscope.files;
