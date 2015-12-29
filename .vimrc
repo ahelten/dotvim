@@ -28,7 +28,7 @@ if has("win32unix") " i.e. cygwin
    " This plugin doesn't work on cygwin/windows (opening a file just hangs vim)
    set runtimepath-=~/.vim/bundle/vim-localrc
 "   set runtimepath-=~/.vim/bundle/a
-"   set runtimepath-=~/.vim/bundle/clang_complete
+   set runtimepath-=~/.vim/bundle/clang_complete
 "   set runtimepath-=~/.vim/bundle/easymotion
 "   set runtimepath-=~/.vim/bundle/flake8
 "   set runtimepath-=~/.vim/bundle/indentTabObjects
@@ -692,6 +692,7 @@ let &cpo = s:save_cpo | unlet s:save_cpo
 :noremap <C-l> <C-w>l
 
 " Restores console screen when exiting or Ctrl-Z-ing from vim
+" (http://vimdoc.sourceforge.net/htmldoc/tips.html#xterm-screens)
 set t_ti=[?47h t_te=[?47l
 " Restores console screen when exiting or Ctrl-Z-ing from vim (but this version jumps cursor to top
 " without clearing screen so not good when the screen contains stuff):
