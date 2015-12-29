@@ -115,8 +115,8 @@ if has("win32unix") " i.e. cygwin
 else
     let g:clang_use_library = 1
     "let g:clang_library_path='/usr/local/lib'
-    let g:clang_library_path='/usr/lib64/llvm'
-    "let g:clang_exec = '/usr/bin/clang'
+    "let g:clang_library_path='/usr/lib64/llvm'
+    let g:clang_exec = '/usr/bin/clang'
 "    let g:clang_library_path='/home/andy.helten/.vim'
 endif
 
@@ -691,13 +691,20 @@ let &cpo = s:save_cpo | unlet s:save_cpo
 :noremap <C-h> <C-w>h
 :noremap <C-l> <C-w>l
 
+" Restores console screen when exiting or Ctrl-Z-ing from vim
+set t_ti=[?47h t_te=[?47l
+" Restores console screen when exiting or Ctrl-Z-ing from vim (but this version jumps cursor to top
+" without clearing screen so not good when the screen contains stuff):
+"set t_ti=7[r[?47h t_te=[?47l8
+
 " This enables some mouse actions like moving the cursor and visual selection in rxvt
 if !has("gui_running")
    set ttymouse=xterm
+   let &t_ti.="\e[1 q"
+   let &t_SI.="\e[5 q"
+   let &t_EI.="\e[1 q"
+   let &t_te.="\e[0 q"
 endif
-
-" Restores console screen when exiting or Ctrl-Z-ing from vim
-set t_ti=7[r[?47h t_te=[?47l8
 
 
 if has('cscope')

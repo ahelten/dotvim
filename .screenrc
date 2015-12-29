@@ -1,12 +1,31 @@
-defscrollback 40000
+defscrollback 50000
 
-# Allow bold colors - necessary for some reason
+# Allow bold colors - necessary for some reason (@amh: actually might not be necessary)
 attrcolor b ".I"
+
+# Enable 256 color
+termcapinfo * 'Co#256'
 # Tell screen how to set colors. AB = background, AF=foreground
-termcapinfo xterm 'Co#256:AB=\E[48;5;%dm:AF=\E[38;5;%dm'
+termcapinfo xterm*|rxvt* 'AB=\E[48;5;%dm:AF=\E[38;5;%dm'
+
+# Change to block cursor (really just wanted this in vim but never figured out how to get it in vim
+# without making this change here)
+termcapinfo xterm*|rxvt* 'ti=\E[1 q'
+termcapinfo xterm*|rxvt* 'SI=\E[5 q'
+termcapinfo xterm*|rxvt* 'EI=\E[1 q'
+termcapinfo xterm*|rxvt* 'te=\E[0 q'
+
+# allow use of term's scrolling system (this is apparently enabled by setting ti/te above so if
+# those settings are removed, you need this line to enable terminal scrolling):
+#termcapinfo xterm* ti@:te@
+
+# clear screen after closing vim (NOTE: this feature is not just for vim!)
+altscreen on
+
 # Erase background with current bg color
 defbce "on"
 
+# Not sure this is necessary but most people appear to set it to some xterm* value
 term xterm-256color
 
 startup_message off
@@ -16,6 +35,15 @@ vbell off
 hardstatus alwayslastline
 #hardstatus string '%{= kG}[ %{G}%H %{g}][%= %{= kw}%?%-Lw%?%{r}(%{W}%n*%f%t%?(%u)%?%{r})%{w}%?%+Lw%?%?%= %{g}][%{B} %m/%d %{W}%c %{g}]'
 hardstatus string '%{= Kd} %{= Kd}%-w%{= Kr}[%{= KW}%n %t%{= Kr}]%{= Kd}%+w %-= %{KG} %H%{KW}|%{KY}%101`%{KW}|%D %M %d %Y%{= Kc} %C%A%{-}'
+#caption always '%?%F%{= bk}%:%{= kb}%?[%{G}%H%?%F%{k}%:%{b}%?][%=%?%F%{w}%:%{w}%?%?%-Lw%?%{G}(%{W}%n*%f%t%?(%u)%?%{G})%{w}%?%+Lw%?%=%?%F%{k}%:%{b}%?][%{G}%D %m/%d %{W}%c%?%F%{k}%:%{b}%?]'
+
+# Set hardstatus in window title bar (using it requires standard hardstatus line to be disabled):
+#termcapinfo xterm* 'hs:ts=\E]0;:fs=\007:ds=\E]0;\007'
+#defhstatus "screen ^E (^Et) | $USER@^EH"
+#hardstatus off
+
+# make dynamic title (see .bashrc) (@amh: never saw this do anything but kept it just in case):
+#shelltitle '$ |bash' # will make a title like "top" if top is running
 
 # Hide hardstatus: ctrl-a f 
 bind f eval "hardstatus ignore"
