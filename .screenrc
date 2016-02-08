@@ -34,7 +34,8 @@ vbell off
 # Window list at the bottom. hostname, centered tabs and redmarked active windows:
 hardstatus alwayslastline
 #hardstatus string '%{= kG}[ %{G}%H %{g}][%= %{= kw}%?%-Lw%?%{r}(%{W}%n*%f%t%?(%u)%?%{r})%{w}%?%+Lw%?%?%= %{g}][%{B} %m/%d %{W}%c %{g}]'
-hardstatus string '%{= Kd} %{= Kd}%-w%{= Kr}[%{= KW}%n %t%{= Kr}]%{= Kd}%+w %-= %{KG} %H%{KW}|%{KY}%101`%{KW}|%D %M %d %Y%{= Kc} %C%A%{-}'
+#hardstatus string '%{= Kd} %{= Kd}%-w%{= Kr}[%{= KW}%n %t%{= Kr}]%{= Kd}%+w %-= %{KG} %H%{KW}|%{KY}%101`%{KW}|%D %M %d %Y%{= Kc} %C%A%{-}'
+hardstatus string '%{= Kd} %{= Kd}%-w%{= Kr}[%{= KW}%n %S%{= Kr}]%{= Kd}%+w %-= %{KG} %H%{KW}|%{KY}%101`%{KW}|%D %M %d %Y%{= Kc} %C%a%{-}'
 #caption always '%?%F%{= bk}%:%{= kb}%?[%{G}%H%?%F%{k}%:%{b}%?][%=%?%F%{w}%:%{w}%?%?%-Lw%?%{G}(%{W}%n*%f%t%?(%u)%?%{G})%{w}%?%+Lw%?%=%?%F%{k}%:%{b}%?][%{G}%D %m/%d %{W}%c%?%F%{k}%:%{b}%?]'
 
 # Set hardstatus in window title bar (using it requires standard hardstatus line to be disabled):

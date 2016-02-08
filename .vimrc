@@ -24,6 +24,9 @@ else
    set go+=a
 endif
 
+" It isn't setup yet, so complains on startup
+set runtimepath-=~/.vim/bundle/YouCompleteMe
+
 if has("win32unix") " i.e. cygwin
    " This plugin doesn't work on cygwin/windows (opening a file just hangs vim)
    set runtimepath-=~/.vim/bundle/vim-localrc
@@ -171,6 +174,7 @@ if has("wildmenu")
     set wildignore+=*.bmp,*.gif,*.ico,*.jpg,*.png
     set wildignore+=.DS_Store,.git,.hg,.svn
     set wildignore+=*~,*.swp,*.tmp
+    set wildignorecase
 endif
 
 "
@@ -452,7 +456,9 @@ if hostname() == 'andy-m2300'
     set textwidth=80
     set shiftwidth=4
 else
-    set textwidth=100
+    " Set textwidth smaller for C/C++ style comments
+    "set textwidth=100
+    autocmd CursorMoved,CursorMovedI * if match(getline(line('.')), '^\s*\/*[\*\/]') == 0 | setlocal textwidth=90 | else | setlocal textwidth=100 | endif
     set shiftwidth=4
 endif
 set cinoptions=:0.5s,g0.5s,h0.5s,t0,(0,+0,u0

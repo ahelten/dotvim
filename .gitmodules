@@ -40,3 +40,6 @@
 [submodule "bundle/vim-cpp"]
 	path = bundle/vim-cpp
 	url = https://github.com/vim-jp/vim-cpp.git
+[submodule "bundle/YouCompleteMe"]
+	path = bundle/YouCompleteMe
+	url = https://github.com/Valloric/YouCompleteMe
