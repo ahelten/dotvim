@@ -174,7 +174,9 @@ if has("wildmenu")
     set wildignore+=*.bmp,*.gif,*.ico,*.jpg,*.png
     set wildignore+=.DS_Store,.git,.hg,.svn
     set wildignore+=*~,*.swp,*.tmp
-    set wildignorecase
+    if exists("&wildignorecase")
+        set wildignorecase
+    endif
 endif
 
 "
