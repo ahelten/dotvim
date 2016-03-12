@@ -111,6 +111,8 @@ alias	grepcs="grep2 --include='*.cs'"
 alias	grepcss="grep2 --include='*.css'"
 alias	grepcsh="grep2 --include='*.cshtml'"
 alias	grepcshtml=grepcsh
+alias	grepcmake="grep2 --include='CMake*.txt'"
+alias	grepcmake2="grep2 --include='CMake*.txt' --include='*.cmake'"
 alias	grepjs="grep2 --include='*.js'"
 alias   sizedir="du -h --max-depth=1 . | sort -n -r"
 alias   clr="perl -e'print \"\n\" x 90'"
@@ -129,6 +131,8 @@ git-grepcss () { git-grep2 "$@" -- '*.css'; }
 git-grepcsh () { git-grep2 "$@" -- '*.cshtml'; }
 git-grepcshtml () { git-grep2 "$@" -- '*.cshtml'; }
 git-grepjs () { git-grep2 "$@" -- '*.js'; }
+git-grepcmake () { git-grep2 "$@ --include='CMake*.txt'"; }
+git-grepcmake2 () { git-grep2 "$@ --include='CMake*.txt' --include='*.cmake'"; }
 
 retag() { ctags -R --c++-kinds=+p --languages=c,c++ --fields=+iaS --extra=+q "$@"; }
 retag-lce() { retag *.cpp *.[ch] api/ wwwd/ tasl/ basic/ base64/ log_storage/ lib* policy-map/ policy-parser/ query_system/ report-proxy/ statistics/ utils/ elasticS; }
