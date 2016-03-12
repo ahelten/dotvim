@@ -118,6 +118,7 @@ alias   sizedir="du -h --max-depth=1 . | sort -n -r"
 alias   clr="perl -e'print \"\n\" x 90'"
 alias   vi=vim
 alias   svn-clean="svn status --no-ignore | grep ^[\?I] | cut -c9- | xargs -d \\\n rm -r"
+function svn-diff() { svn diff "$@" | colordiff | less -R; }
 
 
 alias   git-grep2="git grep"
