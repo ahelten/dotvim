@@ -118,6 +118,7 @@ alias	grepcshtml=grepcsh
 alias	grepcmake="grep2 --include='CMake*.txt'"
 alias	grepcmake2="grep2 --include='CMake*.txt' --include='*.cmake'"
 alias	grepjs="grep2 --include='*.js'"
+alias	greppy="grep2 --include='*.py'"
 alias   sizedir="du -h --max-depth=1 . | sort -n -r"
 alias   clr="perl -e'print \"\n\" x 90'"
 alias   vi=vim
