@@ -5,6 +5,7 @@
 " let &path = printf('%s,%s/**', &path, s:et_dir)
 " END TEMPLATE FOR UPDATING 'path' variable using directory of .local.vimrc
 
+let g:syntastic_python_python_exec = 'python3'
 set nocompatible
 call pathogen#infect()
 call pathogen#helptags()
@@ -451,7 +452,8 @@ set expandtab
 if has("win32unix") " i.e. cygwin
     set pastetoggle=<F2>
 else
-    set pastetoggle=[12~
+    " This is <F2>
+    set pastetoggle=OQ
 endif
 
 if hostname() == 'andy-m2300'
@@ -461,7 +463,7 @@ else
     " Set textwidth smaller for C/C++ style comments
     "set textwidth=100
     autocmd CursorMoved,CursorMovedI * if match(getline(line('.')), '^\s*\/*[\*\/]') == 0 | setlocal textwidth=90 | else | setlocal textwidth=100 | endif
-    set shiftwidth=4
+    set shiftwidth=3
 endif
 set cinoptions=:0.5s,g0.5s,h0.5s,t0,(0,+0,u0
 
@@ -473,7 +475,6 @@ set backspace=indent,eol,start " Allow deleting backward past starting point
 
 if 0 " Don't know yet whether these are needed
  set nojoinspaces 
- filetype indent on " per-filetype config
  setlocal isfname+=:  " actually belongs in ftplugin/perl.vim?
  set smarttab
 endif
@@ -488,8 +489,14 @@ nmap <silent> cp "_cw<C-R>"<Esc>
 "vnoremap p <Esc>:let current_reg = @"<CR>gvdi<C-R>=current_reg<CR><Esc>
 
 " These do grep searches of the current word and display the results
-map <F4> [I:let nr = input("Which one: ")<Bar>exe "normal " . nr ."[\t"<CR>
-map <F3> :execute "vimgrep /" . expand("<cword>") . "/j **" <Bar> cw<CR>
+if has("win32unix") " i.e. cygwin
+    map <F5> [I:let nr = input("Which one: ")<Bar>exe "normal " . nr ."[\t"<CR>
+    map <F6> :execute "vimgrep /" . expand("<cword>") . "/j **" <Bar> cw<CR>
+else
+    " These are F5 and F6 respectively
+    map [15~ [I:let nr = input("Which one: ")<Bar>exe "normal " . nr ."[\t"<CR>
+    map [17~ :execute "vimgrep /" . expand("<cword>") . "/j **" <Bar> cw<CR>
+ endif
 
 "set tags+=~/.commontags
 
@@ -524,8 +531,31 @@ if has("autocmd")
   "   This formatlist is not quite right:  formatlistpat="^\s*\*\s*\d*[\]:.)}\t@ ].*"
   "  
   "autocmd FileType c,cpp,h,idl  set formatoptions=croqlna cindent comments=sr:/*,mb:*,el:*/,:// nojoinspaces
-  autocmd FileType cc,c,cpp,h,hpp  set formatoptions=croqln formatlistpat=^\\s*\\*\\s*@ cindent comments=sr:/*,mb:*,el:*/,:// nojoinspaces
- "augroup END
+  "autocmd FileType cc,c,cpp,h,hpp  set formatoptions=croqln formatlistpat=^\\s*\\*\\s*@ cindent comments=sr:/*,mb:*,el:*/,:// nojoinspaces
+  autocmd FileType cc,c,cpp,h,hpp  set formatoptions=croqlnj formatlistpat=^\\s*\\*\\s*@ comments=sr:/*,mb:*,el:*/,:// nojoinspaces cindent
+  " The following FileType settings will use astyle to dynamically (as-you-type) do formatting...
+  " but it doesn't appear to use my astylerc so it does the wrong thing. I also think it would be
+  " too restrictive in preventing me from breaking the astyle-imposed format when I really want to:
+  "autocmd FileType cc,c,cpp,h,hpp  set formatoptions=roqlnaj formatlistpat=^\\s*\\*\\s*@ comments=sr:/*,mb:*,el:*/,:// nojoinspaces formatprg=astyle\ --options=/home/ahelten/.mca.astylerc
+  
+  " This FileType setting uses astyle for '=' reformatting, such as, 'gg=G' or '==':
+  autocmd FileType cc,c,cpp,h,hpp  set equalprg=astyle\ --options=/home/ahelten/.mca.astylerc
+
+  " This for the auto-format plugin and allows using <F3> to reformat an entire file using my
+  " astylerc:
+  let g:formatdef_my_c_cpp_astyle='"astyle --mode=c --suffix=none --options=/home/ahelten/.mca.astylerc"'
+  let g:formatters_cpp = ['my_c_cpp_astyle']
+  let g:formatters_c = ['my_c_cpp_astyle']
+  let g:autoformat_autoindent = 0
+  let g:autoformat_retab = 0
+  let g:autoformat_remove_trailing_spaces = 0
+  if has("win32unix") " i.e. cygwin
+     noremap <F3>   :Autoformat<CR>
+  else
+     " This is <F3>
+     noremap OR   :Autoformat<CR>
+  endif
+  "augroup END
 
  augroup gzip
   " Remove all gzip autocommands
