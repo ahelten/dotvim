@@ -468,6 +468,7 @@ endif
 set cinoptions=:0.5s,g0.5s,h0.5s,t0,(0,+0,u0
 
 au BufNewFile,BufRead *.doxygen setfiletype doxygen
+au BufNewFile,BufRead *.md set filetype=markdown
 
 set history=150		" keep 150 lines of command line history
 
