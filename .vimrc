@@ -46,6 +46,10 @@ if has("win32unix") " i.e. cygwin
 "   set runtimepath-=~/.vim/bundle/ultisnips/after
 endif
 
+if (! executable('astyle'))
+   set runtimepath-=~/.vim/bundle/vim-autoformat
+endif
+
 if has("autocmd")
     filetype on
     filetype indent on
@@ -520,7 +524,6 @@ if has("autocmd")
   " In text files, always limit the width of text to 78 characters
   "autocmd BufRead *.txt set tw=78
 
- "augroup cprog
   " Remove all cprog autocommands
   "au!
 
@@ -533,100 +536,41 @@ if has("autocmd")
   "  
   "autocmd FileType c,cpp,h,idl  set formatoptions=croqlna cindent comments=sr:/*,mb:*,el:*/,:// nojoinspaces
   "autocmd FileType cc,c,cpp,h,hpp  set formatoptions=croqln formatlistpat=^\\s*\\*\\s*@ cindent comments=sr:/*,mb:*,el:*/,:// nojoinspaces
-  autocmd FileType cc,c,cpp,h,hpp  set formatoptions=croqlnj formatlistpat=^\\s*\\*\\s*@ comments=sr:/*,mb:*,el:*/,:// nojoinspaces cindent
-  " The following FileType settings will use astyle to dynamically (as-you-type) do formatting...
-  " but it doesn't appear to use my astylerc so it does the wrong thing. I also think it would be
-  " too restrictive in preventing me from breaking the astyle-imposed format when I really want to:
-  "autocmd FileType cc,c,cpp,h,hpp  set formatoptions=roqlnaj formatlistpat=^\\s*\\*\\s*@ comments=sr:/*,mb:*,el:*/,:// nojoinspaces formatprg=astyle\ --options=/home/ahelten/.mca.astylerc
+  autocmd FileType cc,c,cpp,h,hpp  set formatoptions=croqln formatlistpat=^\\s*\\*\\s*@ comments=sr:/*,mb:*,el:*/,:// nojoinspaces cindent
   
-  " This FileType setting uses astyle for '=' reformatting, such as, 'gg=G' or '==':
-  autocmd FileType cc,c,cpp,h,hpp  set equalprg=astyle\ --options=/home/ahelten/.mca.astylerc
+  if (executable('astyle'))
+     " The following FileType settings will use astyle to dynamically (as-you-type) do formatting...
+     " but it doesn't appear to use my astylerc so it does the wrong thing. I also think it would be
+     " too restrictive in preventing me from breaking the astyle-imposed format when I really want to:
+     "autocmd FileType cc,c,cpp,h,hpp  set formatoptions=roqlnaj formatlistpat=^\\s*\\*\\s*@ comments=sr:/*,mb:*,el:*/,:// nojoinspaces formatprg=astyle\ --options=/home/ahelten/.mca.astylerc
+
+     " This FileType setting uses astyle for '=' reformatting, such as, 'gg=G' or '==':
+     autocmd FileType cc,c,cpp,h,hpp  set equalprg=astyle\ --options=/home/ahelten/.mca.astylerc
+
+     let g:formatdef_my_c_cpp_astyle='"astyle --mode=c --suffix=none --options=/home/ahelten/.mca.astylerc"'
+     let g:formatters_cpp = ['my_c_cpp_astyle']
+     let g:formatters_c = ['my_c_cpp_astyle']
+     let g:autoformat_autoindent = 0
+     let g:autoformat_retab = 0
+     let g:autoformat_remove_trailing_spaces = 0
+  endif
 
   " This for the auto-format plugin and allows using <F3> to reformat an entire file using my
   " astylerc:
-  let g:formatdef_my_c_cpp_astyle='"astyle --mode=c --suffix=none --options=/home/ahelten/.mca.astylerc"'
-  let g:formatters_cpp = ['my_c_cpp_astyle']
-  let g:formatters_c = ['my_c_cpp_astyle']
-  let g:autoformat_autoindent = 0
-  let g:autoformat_retab = 0
-  let g:autoformat_remove_trailing_spaces = 0
   if has("win32unix") " i.e. cygwin
      noremap <F3>   :Autoformat<CR>
   else
      " This is <F3>
      noremap OR   :Autoformat<CR>
   endif
-  "augroup END
 
- augroup gzip
-  " Remove all gzip autocommands
-  au!
-
-  " Enable editing of gzipped files
-  " set binary mode before reading the file
-  autocmd BufReadPre,FileReadPre	*.gz,*.bz2 set bin
-  autocmd BufReadPost,FileReadPost	*.gz call GZIP_read("gunzip")
-  autocmd BufReadPost,FileReadPost	*.bz2 call GZIP_read("bunzip2")
-  autocmd BufWritePost,FileWritePost	*.gz call GZIP_write("gzip")
-  autocmd BufWritePost,FileWritePost	*.bz2 call GZIP_write("bzip2")
-  autocmd FileAppendPre			*.gz call GZIP_appre("gunzip")
-  autocmd FileAppendPre			*.bz2 call GZIP_appre("bunzip2")
-  autocmd FileAppendPost		*.gz call GZIP_write("gzip")
-  autocmd FileAppendPost		*.bz2 call GZIP_write("bzip2")
-
-  " After reading compressed file: Uncompress text in buffer with "cmd"
-  fun! GZIP_read(cmd)
-    " set 'cmdheight' to two, to avoid the hit-return prompt
-    let ch_save = &ch
-    set ch=3
-    " when filtering the whole buffer, it will become empty
-    let empty = line("'[") == 1 && line("']") == line("$")
-    let tmp = tempname()
-    let tmpe = tmp . "." . expand("<afile>:e")
-    " write the just read lines to a temp file "'[,']w tmp.gz"
-    execute "'[,']w " . tmpe
-    " uncompress the temp file "!gunzip tmp.gz"
-    execute "!" . a:cmd . " " . tmpe
-    " delete the compressed lines
-    '[,']d
-    " read in the uncompressed lines "'[-1r tmp"
-    set nobin
-    execute "'[-1r " . tmp
-    " if buffer became empty, delete trailing blank line
-    if empty
-      normal Gdd''
-    endif
-    " delete the temp file
-    call delete(tmp)
-    let &ch = ch_save
-    " When uncompressed the whole buffer, do autocommands
-    if empty
-      execute ":doautocmd BufReadPost " . expand("%:r")
-    endif
-  endfun
-
-  " After writing compressed file: Compress written file with "cmd"
-  fun! GZIP_write(cmd)
-    if rename(expand("<afile>"), expand("<afile>:r")) == 0
-      execute "!" . a:cmd . " <afile>:r"
-    endif
-  endfun
-
-  " Before appending to compressed file: Uncompress file with "cmd"
-  fun! GZIP_appre(cmd)
-    execute "!" . a:cmd . " <afile>"
-    call rename(expand("<afile>:r"), expand("<afile>"))
-  endfun
-
- augroup END
-
- " This is disabled, because it changes the jumplist.  Can't use CTRL-O to go
- " back to positions in previous files more than once.
- if 0
-  " When editing a file, always jump to the last cursor position.
-  " This must be after the uncompress commands.
-   autocmd BufReadPost * if line("'\"") && line("'\"") <= line("$") | exe "normal `\"" | endif
- endif
+  " This is disabled, because it changes the jumplist.  Can't use CTRL-O to go
+  " back to positions in previous files more than once.
+  if 0
+    " When editing a file, always jump to the last cursor position.
+    " This must be after the uncompress commands.
+    autocmd BufReadPost * if line("'\"") && line("'\"") <= line("$") | exe "normal `\"" | endif
+  endif
 
 endif " has("autocmd")
 
