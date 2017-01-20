@@ -553,15 +553,15 @@ if has("autocmd")
      let g:autoformat_autoindent = 0
      let g:autoformat_retab = 0
      let g:autoformat_remove_trailing_spaces = 0
-  endif
 
-  " This for the auto-format plugin and allows using <F3> to reformat an entire file using my
-  " astylerc:
-  if has("win32unix") " i.e. cygwin
-     noremap <F3>   :Autoformat<CR>
-  else
-     " This is <F3>
-     noremap OR   :Autoformat<CR>
+     " This for the auto-format plugin and allows using <F3> to reformat an entire file using my
+     " astylerc:
+     if has("win32unix") " i.e. cygwin
+        noremap <F3>   :Autoformat<CR>
+     else
+        " This is <F3>
+        noremap OR   :Autoformat<CR>
+     endif
   endif
 
   " This is disabled, because it changes the jumplist.  Can't use CTRL-O to go
