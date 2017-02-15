@@ -165,7 +165,7 @@ threads () {
 
 function strerror
 {
-    grep -w "${1}"  /usr/include/errno.h /usr/include/*/errno*.h
+    grep -w "${1}"  /usr/include/errno.h /usr/include/*/errno*.h || grep -i "${1}"  /usr/include/errno.h /usr/include/*/errno*.h
 }
 
 
