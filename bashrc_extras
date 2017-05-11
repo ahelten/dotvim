@@ -115,7 +115,7 @@ alias	grepcs="grep2 --include='*.cs'"
 alias	grepcss="grep2 --include='*.css'"
 alias	grepcsh="grep2 --include='*.cshtml'"
 alias	grepcshtml=grepcsh
-alias	grepcmake="grep2 --include='CMake*.txt'"
+alias	grepcmake="grep2 --include='CMake*.txt' --include='*.cmake' --exclude-dir='*.dir'"
 alias	grepcmake2="grep2 --include='CMake*.txt' --include='*.cmake'"
 alias	grepjs="grep2 --include='*.js'"
 alias	greppy="grep2 --include='*.py'"

@@ -46,6 +46,7 @@ if has("win32unix") " i.e. cygwin
 "   set runtimepath-=~/.vim/bundle/ultisnips/after
 endif
 
+set runtimepath-=~/.vim/bundle/clang_complete
 if (! executable('astyle'))
    set runtimepath-=~/.vim/bundle/vim-autoformat
 endif
@@ -122,9 +123,10 @@ if has("win32unix") " i.e. cygwin
     let g:clang_exec = '~/.vim/clang_frontend'
 else
     let g:clang_use_library = 1
+    let g:clang_library_path='/usr/lib/x86_64-linux-gnu'
     "let g:clang_library_path='/usr/local/lib'
     "let g:clang_library_path='/usr/lib64/llvm'
-    let g:clang_exec = '/usr/bin/clang'
+    "let g:clang_exec = '/usr/bin/clang'
 "    let g:clang_library_path='/home/andy.helten/.vim'
 endif
 
@@ -545,7 +547,7 @@ if has("autocmd")
      "autocmd FileType cc,c,cpp,h,hpp  set formatoptions=roqlnaj formatlistpat=^\\s*\\*\\s*@ comments=sr:/*,mb:*,el:*/,:// nojoinspaces formatprg=astyle\ --options=/home/ahelten/.mca.astylerc
 
      " This FileType setting uses astyle for '=' reformatting, such as, 'gg=G' or '==':
-     autocmd FileType cc,c,cpp,h,hpp  set equalprg=astyle\ --options=/home/ahelten/.mca.astylerc
+     "autocmd FileType cc,c,cpp,h,hpp  set equalprg=astyle\ --options=/home/ahelten/.mca.astylerc
 
      let g:formatdef_my_c_cpp_astyle='"astyle --mode=c --suffix=none --options=/home/ahelten/.mca.astylerc"'
      let g:formatters_cpp = ['my_c_cpp_astyle']
