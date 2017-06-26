@@ -32,7 +32,7 @@ if has("win32unix") " i.e. cygwin
    " This plugin doesn't work on cygwin/windows (opening a file just hangs vim)
    set runtimepath-=~/.vim/bundle/vim-localrc
 "   set runtimepath-=~/.vim/bundle/a
-   set runtimepath-=~/.vim/bundle/clang_complete
+"   set runtimepath-=~/.vim/bundle/clang_complete
 "   set runtimepath-=~/.vim/bundle/easymotion
 "   set runtimepath-=~/.vim/bundle/flake8
 "   set runtimepath-=~/.vim/bundle/indentTabObjects
@@ -120,14 +120,17 @@ if has("win32unix") " i.e. cygwin
     " let g:clang_user_options='|| exit 0'
     " let g:clang_exec = '/usr/local/clang-llvm/bin/clang'
     "AHelten: clang_frontend is a perl script front-end to MinGW clang
-    let g:clang_exec = '~/.vim/clang_frontend'
-else
     let g:clang_use_library = 1
-    let g:clang_library_path='/usr/lib/x86_64-linux-gnu'
+    "let g:clang_exec = '~/.vim/clang_frontend'
+    "let g:clang_exec = '/usr/bin/clang'
+    let g:clang_library_path='~/.vim/libclang.so'
     "let g:clang_library_path='/usr/local/lib'
     "let g:clang_library_path='/usr/lib64/llvm'
     "let g:clang_exec = '/usr/bin/clang'
 "    let g:clang_library_path='/home/andy.helten/.vim'
+else
+    let g:clang_use_library = 1
+    let g:clang_library_path='/usr/lib/x86_64-linux-gnu'
 endif
 
 " AHelten: enable copen when debugging 'pattern not found' or other problems
