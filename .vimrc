@@ -105,6 +105,9 @@ map <A-]> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
 " se undodir=~/.vimundo
 "noremap <ESC>OP <F1>
 
+" Remap rapid 'jj' sequence to Escape
+inoremap jj <Esc>
+
 
 "
 " necessary for using libclang, comment out if libclang.so is missing
