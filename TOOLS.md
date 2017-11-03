@@ -2,8 +2,10 @@ Software Development
 ====================
 
 1. Find RPATH used by an executable:
-   * readelf -d <executable> | grep RPATH
-   * objdump -x <executable> | grep RPATH
+   * `readelf -d <executable> | grep RPATH`
+   * `objdump -x <executable> | grep RPATH`
+2. Display all predefined GNU compiler macros:
+   * `gcc -dM -E - < /dev/null`
 
 
 Networking
