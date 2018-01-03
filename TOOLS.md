@@ -5,7 +5,8 @@ Software Development
    * `readelf -d <executable> | grep RPATH`
    * `objdump -x <executable> | grep RPATH`
 2. Display all predefined GNU compiler macros:
-   * `gcc -dM -E - < /dev/null`
+   * Linux:    `gcc -dM -E - < /dev/null`
+   * Windows:  `echo | ccppc -dM -E -`
 
 
 Networking
