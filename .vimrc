@@ -471,6 +471,9 @@ endif
 if hostname() == 'andy-m2300'
     set textwidth=80
     set shiftwidth=4
+elseif hostname() == 'CDM'
+    set textwidth=100
+    set shiftwidth=4
 else
     " Set textwidth smaller for C/C++ style comments
     "set textwidth=100
