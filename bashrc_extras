@@ -169,6 +169,12 @@ function strerror
     grep -w "${1}"  /usr/include/errno.h /usr/include/*/errno*.h || grep -i "${1}"  /usr/include/errno.h /usr/include/*/errno*.h
 }
 
+function findsym
+{
+    #find -iname '*.a*' -o -iname '*.so' -o -iname '*.o' -exec nm -A {} \; | grep "$@"
+    find -iname '*.a*' -o -iname '*.so' -o -iname '*.o' -exec nm -A {} + | grep "$@"
+}
+
 
 export PATH=~/bin:$PATH
 #export NDDSHOME="/opt/rti/ndds.4.5f"

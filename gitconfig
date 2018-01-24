@@ -5,6 +5,9 @@
         editor = vim
 #       fileMode = false
 
+[merge]
+        conflictstyle = diff3
+
 [alias]
         lol = log --graph --decorate --pretty=oneline --abbrev-commit --all
         logtag = log --date-order --graph --tags --simplify-by-decoration --pretty=format:'%ai %h %<(30) %d %s' --abbrev-commit

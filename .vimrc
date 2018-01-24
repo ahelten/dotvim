@@ -58,6 +58,13 @@ if has("autocmd")
 endif
 
 "
+" YCM setup/config
+"
+if has("win32unix")
+   let g:ycm_show_diagnostics_ui = 0
+endif
+
+"
 " Add git branch to statusline as well as other status info
 "
 set noruler
