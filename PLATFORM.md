@@ -17,3 +17,8 @@ Ubuntu 16.04 Desktop
     sudo ln -s libclang-3.8.so.1 libclang.so
 
 
+Debian
+======
+
+* Add python2 support to vim (needed by clang_complete):
+  - sudo apt install vim-nox
