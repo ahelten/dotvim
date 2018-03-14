@@ -18,3 +18,8 @@ Networking
      * Everything:            `netstat -pa` 
      * UDP only (numeric):    `netstat -punta` 
      * UDP+Multicast Groups:  `netstat -puntag` 
+2. Troubleshoot WiFi problems on Linux:
+   * `ifconfig`
+   * `cat /proc/net/wireless`
+   * `ethtool -S wlan0`
+   * `iwconfig wlan0`    (to install: `sudo apt-get install ethtool`)
