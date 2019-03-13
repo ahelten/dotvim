@@ -63,6 +63,7 @@ endif
 if has("win32unix")
    let g:ycm_show_diagnostics_ui = 0
 endif
+let g:ycm_always_populate_location_list = 1
 
 "
 " Add git branch to statusline as well as other status info
@@ -477,14 +478,17 @@ endif
 
 if hostname() == 'andy-m2300'
     set textwidth=80
+    set colorcolumn=80
     set shiftwidth=4
 elseif hostname() == 'CDM'
     set textwidth=100
+    set colorcolumn=100
     set shiftwidth=4
 else
     " Set textwidth smaller for C/C++ style comments
     "set textwidth=100
     autocmd CursorMoved,CursorMovedI * if match(getline(line('.')), '^\s*\/*[\*\/]') == 0 | setlocal textwidth=90 | else | setlocal textwidth=100 | endif
+    set colorcolumn=100
     set shiftwidth=3
 endif
 set cinoptions=:0.5s,g0.5s,h0.5s,t0,(0,+0,u0
@@ -723,6 +727,6 @@ if has('cscope')
     cnoreabbrev css cs show
     cnoreabbrev csh cs help
 
-    command -nargs=0 Cscope cs add $VIMSRC/src/cscope.out $VIMSRC/src
+    command! -nargs=0 Cscope cs add $VIMSRC/src/cscope.out $VIMSRC/src
 endif
 

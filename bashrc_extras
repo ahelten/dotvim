@@ -172,7 +172,7 @@ function strerror
 function findsym
 {
     #find -iname '*.a*' -o -iname '*.so' -o -iname '*.o' -exec nm -A {} \; | grep "$@"
-    find -iname '*.a*' -o -iname '*.so' -o -iname '*.o' -exec nm -A {} + | grep "$@"
+    find -iname '*.a*' -o -iname '*.so' -o -iname '*.o' -exec nm -A --demangle {} + | grep "$@"
 }
 
 
