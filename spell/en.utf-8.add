@@ -220,3 +220,17 @@ TabbedForm
 UiRowsTabs
 Valgrind
 Nulgrind
+CodeSonar
+QSignalSpy
+GMock
+UIs
+SettingsPage
+QTest
+GTest
+vtable
+UUT
+AvTerminalUiDdsChild
+RadioPowerController
+JVoiceController
+Gcov
+Lcov

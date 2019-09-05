@@ -489,7 +489,7 @@ else
     "set textwidth=100
     autocmd CursorMoved,CursorMovedI * if match(getline(line('.')), '^\s*\/*[\*\/]') == 0 | setlocal textwidth=90 | else | setlocal textwidth=100 | endif
     set colorcolumn=100
-    set shiftwidth=3
+    set shiftwidth=4
 endif
 set cinoptions=:0.5s,g0.5s,h0.5s,t0,(0,+0,u0
 
