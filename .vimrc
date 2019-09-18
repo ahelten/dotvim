@@ -515,6 +515,16 @@ nmap <silent> cp "_cw<C-R>"<Esc>
 " Make p in Visual mode replace the selected text with the "" register.
 "vnoremap p <Esc>:let current_reg = @"<CR>gvdi<C-R>=current_reg<CR><Esc>
 
+" From https://vim.fandom.com/wiki/Replace_a_word_with_yanked_text:
+" if you want to paste the same text a second time, you must use the "0 register, as in viw"0p. A
+" workaround is to remap the p command in visual mode so that it first deletes to the black hole
+" register like so:
+xnoremap p "_dP
+" However, the above remapping prevents you from pasting from other registers in visual mode. So
+" viw"ap to paste from the "a register is now broken. There might be workarounds, like
+" <leader_char>p for the paste command (e.g. 'tp') but I don't paste from other registers in visual
+" mode so I can tolerate that broken feature.
+
 " These do grep searches of the current word and display the results
 if has("win32unix") " i.e. cygwin
     map <F5> [I:let nr = input("Which one: ")<Bar>exe "normal " . nr ."[\t"<CR>
@@ -523,7 +533,7 @@ else
     " These are F5 and F6 respectively
     map [15~ [I:let nr = input("Which one: ")<Bar>exe "normal " . nr ."[\t"<CR>
     map [17~ :execute "vimgrep /" . expand("<cword>") . "/j **" <Bar> cw<CR>
- endif
+endif
 
 "set tags+=~/.commontags
 
