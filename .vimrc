@@ -476,21 +476,15 @@ else
     set pastetoggle=OQ
 endif
 
-if hostname() == 'andy-m2300'
-    set textwidth=80
-    set colorcolumn=80
-    set shiftwidth=4
-elseif hostname() == 'CDM'
+" mostly left this as an example of how to customize for a specific host
+if hostname() == 'CDM'
     set textwidth=100
-    set colorcolumn=100
-    set shiftwidth=4
 else
     " Set textwidth smaller for C/C++ style comments
-    "set textwidth=100
-    autocmd CursorMoved,CursorMovedI * if match(getline(line('.')), '^\s*\/*[\*\/]') == 0 | setlocal textwidth=90 | else | setlocal textwidth=100 | endif
-    set colorcolumn=100
-    set shiftwidth=4
+    autocmd CursorMoved,CursorMovedI * if match(getline(line('.')), '^\s*\/*[\*\/]') == 0 | setlocal textwidth=95 | else | setlocal textwidth=100 | endif
 endif
+set colorcolumn=100
+set shiftwidth=4
 set cinoptions=:0.5s,g0.5s,h0.5s,t0,(0,+0,u0
 
 au BufNewFile,BufRead *.doxygen setfiletype doxygen
