@@ -469,6 +469,7 @@ if has("win32") " i.e. native windows
 endif
 
 set expandtab
+set smarttab
 if has("win32unix") " i.e. cygwin
     set pastetoggle=<F2>
 else
@@ -497,7 +498,6 @@ set backspace=indent,eol,start " Allow deleting backward past starting point
 if 0 " Don't know yet whether these are needed
  set nojoinspaces 
  setlocal isfname+=:  " actually belongs in ftplugin/perl.vim?
- set smarttab
 endif
 
 
