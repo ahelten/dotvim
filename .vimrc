@@ -733,4 +733,3 @@ if has('cscope')
 
     command! -nargs=0 Cscope cs add $VIMSRC/src/cscope.out $VIMSRC/src
 endif
-

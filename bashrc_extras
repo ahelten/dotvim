@@ -204,3 +204,11 @@ ulimit -c unlimited
 # Use VI command-line editing
 set -o vi
 
+
+# Either of the following lines should enable the llvm-toolset-7 and devtoolset-7 which includes
+# newer clang compiler and newer gcc compiler, respectively (for CCS_SDK there is devtoolset-4).
+# These are here only as an example/reminder since we don't typically want to change the gcc
+# compiler:
+#source scl_source enable devtoolset-7 llvm-toolset-7
+# "permanently" enable the Dev Toolset clang compiler (but not the Dev Toolset gcc compiler!)
+#source scl_source enable llvm-toolset-7
