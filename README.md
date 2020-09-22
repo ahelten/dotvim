@@ -92,3 +92,25 @@ I've mapped:
 Am I insane to use VIM?
 -----------------------
 [No,](http://www.viemu.com/a-why-vi-vim.html) I am [not](http://users.softlab.ntua.gr/~ttsiod/vim.html).
+
+
+Handling ANSI Color Escape Codes
+--------------------------------
+
+Use the AnsiEsc plugin to colorize (and hide) text that includes ANSI color escape codes. The plugin
+was last updated in 2010 but still works with Vim 8.1.
+
+1. Download the plugin:  https://www.vim.org/scripts/script.php?script_id=302
+2. Install per instructions on vim.org:
+
+      vim AnsiEsc.vba.gz
+      :so %
+      :q 
+
+3. The above installs the files into your `~/.vim/plugin` directory
+4. To use the plugin:
+   a. Load a file with ANSI color escape codes (e.g. "\x1b[1;31m" in code that becomes something
+      like "^[[1;31m" in the log file).
+   b. Start the plugin (in vim) using:  `:AnsiEsc`
+   c. Text should now be colorized and escape codes hidden.
+

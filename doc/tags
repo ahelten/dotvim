@@ -3,6 +3,12 @@ Alt-B	latex-suite.txt	/*Alt-B*
 Alt-C	latex-suite.txt	/*Alt-C*
 Alt-I	latex-suite.txt	/*Alt-I*
 Alt-L	latex-suite.txt	/*Alt-L*
+AnsiEsc	AnsiEsc.txt	/*AnsiEsc*
+AnsiEsc-contents	AnsiEsc.txt	/*AnsiEsc-contents*
+AnsiEsc-copyright	AnsiEsc.txt	/*AnsiEsc-copyright*
+AnsiEsc-history	AnsiEsc.txt	/*AnsiEsc-history*
+AnsiEsc-manual	AnsiEsc.txt	/*AnsiEsc-manual*
+AnsiEsc.txt	AnsiEsc.txt	/*AnsiEsc.txt*
 BibTeX	latexhelp.txt	/*BibTeX*
 IMAP_PutTextWithMovement	latex-suite.txt	/*IMAP_PutTextWithMovement*
 Imap_DeleteEmptyPlaceHolders	latex-suite.txt	/*Imap_DeleteEmptyPlaceHolders*
