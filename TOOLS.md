@@ -37,6 +37,34 @@ Platform Setup
          rpm -qf /bin/ls
 
 
+Using screen
+============
+
+1. Create a new named `screen` session (name is optional but more human-readable):
+
+       screen -S MyName
+
+2. Detach from a `screen` session (the one you are currently in):
+
+       Ctrl-a d
+
+3. List existing `screen` session:
+
+       screen -ls
+
+4. Reattach to a `screen` session (using a screen session listed above in step 3):
+
+       screen -r 12345.MyName       # Reattach to a detached screen process.
+       screen -d 12345.MyName       # Detach the elsewhere running screen.
+       screen -d -r 12345.MyName    # Detach the elsewhere running screen (and reattach here).
+       screen -x 12345.MyName       # Attach to a not detached screen. (Multi display mode).
+
+5. End a `screen` session (attach and then `exit` the shell):
+
+       screen -d 12345.MyName       # Detach the elsewhere running screen.
+       exit
+
+
 Networking
 ==========
 
