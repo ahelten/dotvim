@@ -172,16 +172,53 @@ function strerror
 # Find a symbol, any symbol, in all .a/.so/.o files
 function findsym
 {
+    if [ -d "$1" ]; then
+        dir=$1
+        shift
+    else
+        dir='.'
+    fi
+
+    if [ $# -lt 1 ] || [[ "$@" =~ "--help" ]]; then
+        echo -e "\nfindsym:"
+        echo -e "       Use 'nm' to search for the specified symbol of any type: function, variable, etc."
+        echo -e "       This searches all .a/.so/.o files under the specified directory and the search"
+        echo -e "       includes versioned libs like 'libstdc++.a.2.10' and 'libstdc++.so.6.0.19'"
+        echo -e "\nUsage: findsym [dir] <symbol>"
+        echo -e "  dir      - optional directory, defaults to '.'"
+        echo -e "  symbol   - required compiler symbol to search for in [dir]\n"
+        return
+    fi
+    echo -e "Searching '$dir' for symbol '$@'...\n\n"
+
     # The '{} \;' version runs the '-exec' command on each file separately, whereas the '{} +'
     # version passes all files to one '-exec' command
     #find \( -iname '*.a*' -o -iname '*.so' -o -iname '*.o' \) -exec nm -A {} \; | grep "$@"
-    find . \( -iname '*.a*' -o -iname '*.so' -o -iname '*.o' \) -exec nm -A --demangle {} + | grep "$@"
+    find $dir \( -iname '*.a' -o -iname '*.a.[0-9]*' -o -iname '*.so' -o -iname '*.so.[0-9]*' -o -iname '*.o' \) -exec nm -A --demangle {} + | grep "$@"
 }
 
 # Find a function symbol (a symbol defined as Text or Weak) in all .a/.so/.o files
 function findsym_function
 {
-    find . \( -iname '*.a' -o -iname '*.so' -o -iname '*.o' \) -exec nm -A --demangle {} + | grep "$@" | grep -i -E " T | W " | grep -E "$@| T | W "
+    if [ -d "$1" ]; then
+        dir=$1
+        shift
+    else
+        dir='.'
+    fi
+
+    if [ $# -lt 1 ] || [[ "$@" =~ "--help" ]]; then
+        echo -e "\nfindsym_function:"
+        echo -e "       Use 'nm' to search for the specified *function* symbol (one with symbol type 'Text' or 'Weak')"
+        echo -e "       This searches all .a/.so/.o files under the specified directory and the search"
+        echo -e "       includes versioned libs like 'libstdc++.a.2.10' and 'libstdc++.so.6.0.19'"
+        echo -e "\nUsage: findsym_function [dir] <symbol>"
+        echo -e "  dir      - optional directory, defaults to '.'"
+        echo -e "  symbol   - required compiler symbol to search for in [dir]\n"
+        return
+    fi
+
+    find $dir \( -iname '*.a' -o -iname '*.a.[0-9]*' -o -iname '*.so' -o -iname '*.so.[0-9]*' -o -iname '*.o' \) -exec nm -A --demangle {} + | grep "[TWtw] .*$@"
 }
 
 # Find a function symbol (a symbol defined as Text or Weak) in all executable binary files
