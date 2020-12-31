@@ -22,6 +22,23 @@ Software Development
 
          cmake -DLIBCLANG_ROOT=/opt/rh/llvm-toolset-7/root/usr ../src/
 
+5. GDB
+   * List functions:
+         info functions <regex>
+   * Handle/block a signal:
+         handle <signal> nostop
+         handle SIGKILL nostop
+         handle SIGKILL         # Display settings for SIGKILL
+         handle all             # Display settings for all signals
+
+6. Running a test/script/application repeatedly until an error occurs:
+
+      # Count successful runs until failure:
+      count=0; while (./test.sh) do count=$((count+1)); echo -e "\n\nSUCCESSFUL ITERATIONS: $count\n\n"; sleep 2; done 
+      # Or count failed runs until success:
+      count=0; while ! (./test.sh) do count=$((count+1)); echo -e "\n\nFAILED ITERATIONS: $count\n\n"; sleep 2; done 
+
+
 
 Platform Setup
 ==============
