@@ -5,9 +5,19 @@ Software Development
    * `readelf -d <executable> | grep RPATH`
    * `objdump -x <executable> | grep RPATH`
 
-2. Display all predefined GNU compiler macros:
-   * Linux:    `gcc -dM -E - < /dev/null`
-   * Windows:  `echo | ccppc -dM -E -`
+2. Compilers:
+   * Display all predefined *GNU compiler* macros:
+
+           # Linux:
+         gcc -dM -E -x c - < /dev/null
+         g++ -dM -E -x c++ - < /dev/null
+           # Windows:
+         echo | ccppc -dM -E -
+
+   * Determine whether a GCC compiler uses signed or unsigned `char` (no lines displayed by
+     `grep` means `signed char`):
+
+         gcc -dM -E -x c /dev/null | grep CHAR_UNSIGNED
 
 3. Clang Static Analyzer and updated Clang Compiler on RHEL 7.x
    * See "Clang Static Analyzer" section below
