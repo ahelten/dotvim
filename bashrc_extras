@@ -105,22 +105,22 @@ alias	pdocs=pdoc
 alias	cddoc='cd $DOCS'
 alias	cddocs=cddoc
 alias   pst='ps -eLo pid,tid,rtprio,psr,policy,pmem,pcpu,comm,wchan'
-alias   grep="/bin/grep --color"
-alias   grep2="/bin/grep -r --color --exclude-dir=.svn --exclude-dir='*.dir' --exclude-dir=.git"
-alias   grepch="grep2 --include='*.c' --include='*.cc' --include='*.cxx' --include='*.cpp' --include='*.C' --include='*.h' --include='*.hh' --include='*.h++' --include='*.H' --include='*.hpp' --include='*.hxx'"
-alias   grepc="grep2 --include='*.c' --include='*.cc' --include='*.cxx' --include='*.cpp' --include='*.C'"
-alias   greph="grep2 --include='*.h' --include='*.hh' --include='*.h++' --include='*.H' --include='*.hpp' --include='*.hxx'"
-alias	grepj="grep2 --include='*.java'"
-alias	grepwww="grep2 --include='*.cs' --include='*.cshtml' --include='*.js' --include='*.css'"
-alias	grepcs="grep2 --include='*.cs'"
-alias	grepcss="grep2 --include='*.css'"
-alias	grepcsh="grep2 --include='*.cshtml'"
+alias   grep='/bin/grep --color'
+alias   grep2='/bin/grep -r --color --exclude-dir=.svn --exclude-dir="*.dir" --exclude-dir=.git'
+alias   grepch='grep2 --include="*.c" --include="*.cc" --include="*.cxx" --include="*.cpp" --include="*.C" --include="*.h" --include="*.hh" --include="*.h++" --include="*.H" --include="*.hpp" --include="*.hxx"'
+alias   grepc='grep2 --include="*.c" --include="*.cc" --include="*.cxx" --include="*.cpp" --include="*.C"'
+alias   greph='grep2 --include="*.h" --include="*.hh" --include="*.h++" --include="*.H" --include="*.hpp" --include="*.hxx"'
+alias	grepj='grep2 --include="*.java"'
+alias	grepwww='grep2 --include="*.cs" --include="*.cshtml" --include="*.js" --include="*.css"'
+alias	grepcs='grep2 --include="*.cs"'
+alias	grepcss='grep2 --include="*.css"'
+alias	grepcsh='grep2 --include="*.cshtml"'
 alias	grepcshtml=grepcsh
-alias	grepcmake="grep2 --include='CMake*.txt' --include='*.cmake' --exclude-dir='*.dir'"
-alias	grepcmake2="grep2 --include='CMake*.txt' --include='*.cmake'"
-alias	grepjs="grep2 --include='*.js'"
-alias	greppy="grep2 --include='*.py'"
-alias   sizedir="du -h --max-depth=1 . | sort -n -r"
+alias	grepcmake='grep2 --include="CMake*.txt" --include="*.cmake" --exclude-dir="*.dir"'
+alias	grepcmake2='grep2 --include="CMake*.txt" --include="*.cmake"'
+alias	grepjs='grep2 --include="*.js"'
+alias	greppy='grep2 --include="*.py"'
+alias   sizedir='du -h --max-depth=1 . | sort -n -r'
 alias   clr="perl -e'print \"\n\" x 90'"
 alias   vi=vim
 alias   svn-clean="svn status --no-ignore | grep ^[\?I] | cut -c9- | xargs -d \\\n rm -r"
@@ -193,8 +193,8 @@ function findsym
 
     # The '{} \;' version runs the '-exec' command on each file separately, whereas the '{} +'
     # version passes all files to one '-exec' command
-    #find \( -iname '*.a*' -o -iname '*.so' -o -iname '*.o' \) -exec nm -A {} \; | grep "$@"
-    find $dir \( -iname '*.a' -o -iname '*.a.[0-9]*' -o -iname '*.so' -o -iname '*.so.[0-9]*' -o -iname '*.o' \) -exec nm -A --demangle {} + 2>&1 | grep "$@"
+    #find "( -iname '*.a*' -o -iname '*.so' -o -iname '*.o' )" -exec nm -A {} \; | grep "$@"
+    find $dir "( -iname '*.a' -o -iname '*.a.[0-9]*' -o -iname '*.so' -o -iname '*.so.[0-9]*' -o -iname '*.o' )" -exec nm -A --demangle {} + 2>&1 | grep "$@"
 }
 
 # Find a function symbol (a symbol defined as Text or Weak) in all .a/.so/.o files
@@ -218,7 +218,7 @@ function findsym_function
         return
     fi
 
-    find $dir \( -iname '*.a' -o -iname '*.a.[0-9]*' -o -iname '*.so' -o -iname '*.so.[0-9]*' -o -iname '*.o' \) -exec nm -A --demangle {} + 2>&1 | grep "[TWtw] .*$@"
+    find $dir "( -iname '*.a' -o -iname '*.a.[0-9]*' -o -iname '*.so' -o -iname '*.so.[0-9]*' -o -iname '*.o' )" -exec nm -A --demangle {} + 2>&1 | grep "[TWtw] .*$@"
 }
 
 # Find a function symbol (a symbol defined as Text or Weak) in all executable binary files
