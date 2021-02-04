@@ -26,7 +26,7 @@ else
 endif
 
 " It isn't setup yet, so complains on startup
-"set runtimepath-=~/.vim/bundle/YouCompleteMe
+set runtimepath-=~/.vim/bundle/YouCompleteMe
 
 if has("win32unix") " i.e. cygwin
    " This plugin doesn't work on cygwin/windows (opening a file just hangs vim)
