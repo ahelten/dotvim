@@ -53,12 +53,51 @@ Software Development
 Platform Setup
 ==============
 
+0. Generic
+
+```
+cd ~
+git clone https://ahelten@github.com/ahelten/dotvim .vim
+ln -s .vim/.vimrc
+ln -s .vim/.screenrc
+cp .vim/gitconfig .gitconfig
+
+cd .vim
+git submodule update --init
+```
+
+1. Raspian OS Buster
+
+```
+sudo apt update -y
+sudo apt install build-essential git cmake exuberant-ctags vim-nox
+```
+
+
+
+
+Package Installers
+==================
+
 1. YUM
    * Find packages that will install the specified file (with optional wildcards):
 
          yum whatprovides '*/valgrind'
 
-2. RPM
+2. APT
+   * Display the package that provided the specified file:
+
+         dpkg -S /bin/ls
+
+   * Search APT package management system (not just installed) for packages that provide the
+     specified file:
+
+         sudo apt-get install apt-file
+         sudo apt-file update
+
+         apt-file search accumulators.hpp
+
+3. RPM
    * Find which package provides an *installed* file:
 
          rpm -qf /bin/ls
