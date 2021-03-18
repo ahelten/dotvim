@@ -97,6 +97,14 @@ Package Installers
 
          apt-file search accumulators.hpp
 
+   * List and search *installed* packages:
+
+         apt list --installed | grep <package>
+
+   * Search all *available* packages:
+
+         apt search <package>
+
 3. RPM
    * Find which package provides an *installed* file:
 
