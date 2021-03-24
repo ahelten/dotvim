@@ -128,14 +128,15 @@ Using screen
 
 4. Reattach to a `screen` session (using a screen session listed above in step 3):
 
-       screen -r 12345.MyName       # Reattach to a detached screen process.
-       screen -d 12345.MyName       # Detach the elsewhere running screen.
-       screen -d -r 12345.MyName    # Detach the elsewhere running screen (and reattach here).
-       screen -x 12345.MyName       # Attach to a not detached screen. (Multi display mode).
+       screen -r -S MyName       # Reattach to a detached screen process.
+       screen -d -S MyName       # Detach the elsewhere running screen.
+       screen -dr -S MyName      # Detach the elsewhere running screen (and reattach here).
+       screen -x -S MyName       # Attach to a not detached screen. (Multi display mode).
+       screen -aAxR -S MyName    # Multi-mode with other settings
 
 5. End a `screen` session (attach and then `exit` the shell):
 
-       screen -d 12345.MyName       # Detach the elsewhere running screen.
+       screen -d -S MyName       # Detach the elsewhere running screen.
        exit
 
 
