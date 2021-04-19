@@ -133,6 +133,7 @@ Using screen
        screen -dr -S MyName      # Detach the elsewhere running screen (and reattach here).
        screen -x -S MyName       # Attach to a not detached screen. (Multi display mode).
        screen -aAxR -S MyName    # Multi-mode with other settings
+                                 # After connecting multi-mode use 'Ctrl-a F' to resize window
 
 5. End a `screen` session (attach and then `exit` the shell):
 
