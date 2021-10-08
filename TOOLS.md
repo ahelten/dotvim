@@ -50,6 +50,18 @@ Software Development
 
 
 
+Raspberry Pi Tips & Tricks
+==========================
+
+Get the kernel config on an ARM-based linux distro, like Raspberry Pi OS:
+
+```
+sudo modprobe configs
+zcat /proc/config.gz > .config
+```
+
+
+
 Platform Setup
 ==============
 
