@@ -34,12 +34,20 @@ Software Development
 
 5. GDB
    * List functions:
+
          info functions <regex>
+
    * Handle/block a signal:
+
          handle <signal> nostop
          handle SIGKILL nostop
          handle SIGKILL         # Display settings for SIGKILL
          handle all             # Display settings for all signals
+
+   * To apply a thread-level command to all threads:
+         thread apply all <command>
+          -- For example:
+         thread apply all bt
 
 6. Running a test/script/application repeatedly until an error occurs:
 
