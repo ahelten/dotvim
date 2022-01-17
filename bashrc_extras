@@ -126,6 +126,7 @@ alias   vi=vim
 alias   svn-clean="svn status --no-ignore | grep ^[\?I] | cut -c9- | xargs -d \\\n rm -r"
 alias   ascii='man ascii'
 function svn-diff() { svn diff "$@" | colordiff | less -R; }
+alias   diffword='git --no-pager diff -U0 --word-diff --no-index --'
 
 
 alias   git-grep2="git grep"
