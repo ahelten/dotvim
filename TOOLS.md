@@ -34,12 +34,20 @@ Software Development
 
 5. GDB
    * List functions:
+
          info functions <regex>
+
    * Handle/block a signal:
+
          handle <signal> nostop
          handle SIGKILL nostop
          handle SIGKILL         # Display settings for SIGKILL
          handle all             # Display settings for all signals
+
+   * To apply a thread-level command to all threads:
+         thread apply all <command>
+          -- For example:
+         thread apply all bt
 
 6. Running a test/script/application repeatedly until an error occurs:
 
@@ -47,6 +55,54 @@ Software Development
       count=0; while (./test.sh) do count=$((count+1)); echo -e "\n\nSUCCESSFUL ITERATIONS: $count\n\n"; sleep 2; done 
       # Or count failed runs until success:
       count=0; while ! (./test.sh) do count=$((count+1)); echo -e "\n\nFAILED ITERATIONS: $count\n\n"; sleep 2; done 
+
+
+
+Raspberry Pi Tips & Tricks
+==========================
+
+Current Kernel Config
+---------------------
+
+Get the kernel config on an ARM-based linux distro, like Raspberry Pi OS:
+
+```
+sudo modprobe configs
+zcat /proc/config.gz > .config
+```
+
+Build the Pi Kernel
+-------------------
+
+Below are snippets from the [official build
+page](https://www.raspberrypi.com/documentation/computers/linux_kernel.html). Visit that web page
+for more information, such as, how to build a 64-bit kernel or cross-compiling the kernel.
+
+Set up the Pi 4 build environment:
+
+    sudo apt install git bc bison flex libssl-dev make
+    sudo apt install libncurses5-dev
+
+Get the code:
+
+    git clone --depth=1 https://github.com/raspberrypi/linux
+
+Configure a 32-bit kernel (enable Peak CAN bus and PREEMPT features) for Pi 4:
+
+    KERNEL=kernel7l
+    make bcm2711_defconfig
+
+Build the kernel:
+
+    make -j4 zImage modules dtbs
+
+Install the kernel and modules:
+
+    sudo make modules_install
+    sudo cp arch/arm/boot/dts/*.dtb /boot/
+    sudo cp arch/arm/boot/dts/overlays/*.dtb* /boot/overlays/
+    sudo cp arch/arm/boot/dts/overlays/README /boot/overlays/
+    sudo cp arch/arm/boot/zImage /boot/$KERNEL.img
 
 
 
@@ -133,6 +189,7 @@ Using screen
        screen -dr -S MyName      # Detach the elsewhere running screen (and reattach here).
        screen -x -S MyName       # Attach to a not detached screen. (Multi display mode).
        screen -aAxR -S MyName    # Multi-mode with other settings
+                                 # After connecting multi-mode use 'Ctrl-a F' to resize window
 
 5. End a `screen` session (attach and then `exit` the shell):
 
