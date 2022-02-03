@@ -44,7 +44,8 @@ Software Development
          handle SIGKILL         # Display settings for SIGKILL
          handle all             # Display settings for all signals
 
-   * To apply a thread-level command to all threads:
+   * To apply a thread-level command to all threads (optionally disable pagination):
+         set pagination off
          thread apply all <command>
           -- For example:
          thread apply all bt
