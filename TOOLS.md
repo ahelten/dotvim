@@ -162,6 +162,10 @@ Package Installers
 
          apt search <package>
 
+   * List files installed by a package
+
+         dpkg -L <package>
+
 3. RPM
    * Find which package provides an *installed* file:
 
