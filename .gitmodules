@@ -49,3 +49,6 @@
 [submodule "bundle/txtfmt"]
 	path = bundle/txtfmt
 	url = https://github.com/bpstahlman/txtfmt.git
+[submodule "bundle/vim-localvimrc"]
+	path = bundle/vim-localvimrc
+	url = https://github.com/embear/vim-localvimrc.git
