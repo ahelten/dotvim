@@ -57,6 +57,9 @@ if has("autocmd")
     filetype plugin on
 endif
 
+" Don't prompt when loading local .lvimrc
+let g:localvimrc_ask = 0
+
 "
 " YCM setup/config
 "
