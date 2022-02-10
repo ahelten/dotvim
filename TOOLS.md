@@ -44,7 +44,8 @@ Software Development
          handle SIGKILL         # Display settings for SIGKILL
          handle all             # Display settings for all signals
 
-   * To apply a thread-level command to all threads:
+   * To apply a thread-level command to all threads (optionally disable pagination):
+         set pagination off
          thread apply all <command>
           -- For example:
          thread apply all bt
@@ -160,6 +161,10 @@ Package Installers
    * Search all *available* packages:
 
          apt search <package>
+
+   * List files installed by a package
+
+         dpkg -L <package>
 
 3. RPM
    * Find which package provides an *installed* file:
