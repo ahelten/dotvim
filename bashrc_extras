@@ -250,3 +250,5 @@ set -o vi
 #source scl_source enable devtoolset-7 llvm-toolset-7
 # "permanently" enable the Dev Toolset clang compiler (but not the Dev Toolset gcc compiler!)
 #source scl_source enable llvm-toolset-7
+
+export CORES=/var/lib/apport/coredump
