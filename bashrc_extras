@@ -251,4 +251,8 @@ set -o vi
 # "permanently" enable the Dev Toolset clang compiler (but not the Dev Toolset gcc compiler!)
 #source scl_source enable llvm-toolset-7
 
-export CORES=/var/lib/apport/coredump
+# Remove Git from Cygwin command PATH because, at a minimum, envsubst.exe and gettext.exe interfere
+# and cause things like `git submodule update --init` to fail from cygwin command line
+newpath=$(echo $PATH | sed 's#:/c/Program Files/Git/usr/bin:#:#' | sed 's#:/c/Program Files/Git/cmd:#:#')
+export PATH=$newpath
+
