@@ -59,6 +59,31 @@ Software Development
 
 
 
+Hardware Troubleshooting
+========================
+
+1. Serial terminals:
+```
+  # Check settings:
+sudo stty -a -F /dev/ttyS0
+  # Dump RX data:
+sudo od -v -tx1z /dev/ttyS0
+```
+
+Check clock rate of CPU
+---
+
+```
+watch -n 1 vcgencmd measure_clock arm
+lscpu
+sudo inxi -C
+sudo hwinfo --cpu
+sudo auto-cpufreq --monitor
+sudo dmidecode -t processor | grep "Speed"
+cat /proc/cpuinfo | grep MHz
+```
+
+
 Raspberry Pi Tips & Tricks
 ==========================
 
