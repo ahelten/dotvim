@@ -57,6 +57,11 @@ Software Development
       # Or count failed runs until success:
       count=0; while ! (./test.sh) do count=$((count+1)); echo -e "\n\nFAILED ITERATIONS: $count\n\n"; sleep 2; done 
 
+7. Rsync:
+
+      # Syncing only specific files (note trailing `/` in `amh_devel/weedbot/` path!):
+      rsync -zarv --include="*/" --include="*.cpp" --include="*.h" --exclude="*" ubuntu@robot2:amh_devel/weedbot/ .
+
 
 
 Hardware Troubleshooting
