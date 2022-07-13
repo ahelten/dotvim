@@ -1,8 +1,9 @@
 [user]
-        email = 
-        name = 
+        email =
+        name =
 [core]
         editor = vim
+        autocrlf = input
 #       fileMode = false
 
 [merge]

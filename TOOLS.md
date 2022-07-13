@@ -397,3 +397,11 @@ Running the tool:
 5. See http://valgrind.org/docs/manual/manual-core.html for more information
 
 
+Using Git
+============
+
+
+1. On Linux, merge a file that was committed with Windows line endings:
+   * Set `core.autocrlf = input` in `~/.gitconfig`
+   * Merge:  `git merge -X renormalize <branch>`
+
