@@ -62,6 +62,14 @@ Software Development
       # Syncing only specific files (note trailing `/` in `amh_devel/weedbot/` path!):
       rsync -zarv --include="*/" --include="*.cpp" --include="*.h" --exclude="*" ubuntu@robot2:amh_devel/weedbot/ .
 
+8. Git
+   * Merge and ignore line endings and tab/space differences:
+
+        git merge -s recursive -Xignore-space-at-eol
+        # Or:
+        git merge master -s recursive -X renormalize
+        # With cherry-picking:
+        git cherry-pick abcd123456 --strategy=recursive --strategy-option=renormalize
 
 
 Hardware Troubleshooting
