@@ -81,6 +81,19 @@ Linux Tips and Tricks
         sudo lsof -P -T -p <pid>
 
 
+Git Tips and Tricks
+============
+
+
+1. On Linux, merge a file that was committed with Windows line endings:
+   * Set `core.autocrlf = input` in `~/.gitconfig`
+   * Merge:  `git merge -X renormalize <branch>`
+
+2. Commit without setting user name and email:
+
+        git -c user.name='<name>' -c user.email='<email>' commit -m"Add git tip" ./TOOLS.md
+
+
 Hardware Troubleshooting
 ========================
 
@@ -412,13 +425,4 @@ Running the tool:
    * lackey - an example tool (good starting point for developing new tools)
 
 5. See http://valgrind.org/docs/manual/manual-core.html for more information
-
-
-Using Git
-============
-
-
-1. On Linux, merge a file that was committed with Windows line endings:
-   * Set `core.autocrlf = input` in `~/.gitconfig`
-   * Merge:  `git merge -X renormalize <branch>`
 
