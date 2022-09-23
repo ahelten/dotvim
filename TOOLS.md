@@ -72,6 +72,15 @@ Software Development
         git cherry-pick abcd123456 --strategy=recursive --strategy-option=renormalize
 
 
+Linux Tips and Tricks
+=====================
+
+1. Display all loaded libraries in a running process (this is better than `ldd` because it shows
+   libraries dynamically loaded by other shared libraries):
+
+        sudo lsof -P -T -p <pid>
+
+
 Hardware Troubleshooting
 ========================
 
