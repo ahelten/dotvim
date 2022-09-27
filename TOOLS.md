@@ -193,8 +193,8 @@ sudo apt install build-essential git cmake exuberant-ctags vim-nox
 
 
 
-Package Installers
-==================
+Package Managers
+================
 
 1. YUM
    * Find packages that will install the specified file (with optional wildcards):
@@ -206,13 +206,22 @@ Package Installers
 
          dpkg -S /bin/ls
 
-   * Search APT package management system (not just installed) for packages that provide the
+   * Search APT package management system (not just installed) for packages that provide a
      specified file:
 
          sudo apt-get install apt-file
          sudo apt-file update
 
          apt-file search accumulators.hpp
+
+   * List files installed by a specified package:
+
+            # When <package> is *NOT* installed (see above item for install/init of apt-file):
+         apt-file list <package>
+            # When <package> is installed:
+         dpkg -L <package>
+            # When <package> is a deb file:
+         dpkg -c <package.deb>
 
    * List and search *installed* packages:
 
