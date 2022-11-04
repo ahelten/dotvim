@@ -190,6 +190,46 @@ sudo apt update -y
 sudo apt install build-essential git cmake exuberant-ctags vim-nox
 ```
 
+3. Ubuntu 20.04 and 22.04: setup core dumps
+
+When it is working correctly, core files can be found here:
+
+```
+/var/lib/apport/coredump/
+```
+
+Add a convenient env var to `.bashrc`:
+
+```
+echo "export CORES=/var/lib/apport/coredump/" >> ~/.bashrc
+
+# Then use it like this:
+ll $CORES
+sudo gdb ./<appname> --core=$CORES/<filename>
+```
+
+If core files aren't being generated, edit `/etc/apport/crashdb.conf` and comment out this line by
+inserting a `#` at the beginning of the line, like this:
+
+```
+#        'problem_types': ['Bug', 'Package'],
+```
+
+Double check that `core_pattern` is set to something like this (if it isn't, fix it to create a
+local core file or fix it for `apport`:
+
+```
+$ cat /proc/sys/kernel/core_pattern
+|/usr/share/apport/apport %p %s %c
+```
+
+Make sure the service is enabled and running:
+
+```
+sudo systemctl enable apport.service
+sudo service apport start
+sudo service apport status  # It may show up as "active (exited)", which appears to be normal
+
 
 
 

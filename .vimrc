@@ -31,20 +31,20 @@ set runtimepath-=~/.vim/bundle/YouCompleteMe
 if has("win32unix") " i.e. cygwin
    " This plugin doesn't work on cygwin/windows (opening a file just hangs vim)
    set runtimepath-=~/.vim/bundle/vim-localrc
-"   set runtimepath-=~/.vim/bundle/a
-"   set runtimepath-=~/.vim/bundle/clang_complete
-"   set runtimepath-=~/.vim/bundle/easymotion
-"   set runtimepath-=~/.vim/bundle/flake8
-"   set runtimepath-=~/.vim/bundle/indentTabObjects
-"   set runtimepath-=~/.vim/bundle/nerdtree
-"   set runtimepath-=~/.vim/bundle/RainbowParenthsis
-"   set runtimepath-=~/.vim/bundle/repeat
-"   set runtimepath-=~/.vim/bundle/slime
-"   set runtimepath-=~/.vim/bundle/surround
 "   set runtimepath-=~/.vim/bundle/taglist
 "   set runtimepath-=~/.vim/bundle/ultisnips
 "   set runtimepath-=~/.vim/bundle/ultisnips/after
 endif
+set runtimepath-=~/.vim/bundle/a
+set runtimepath-=~/.vim/bundle/clang_complete
+set runtimepath-=~/.vim/bundle/easymotion
+set runtimepath-=~/.vim/bundle/flake8
+set runtimepath-=~/.vim/bundle/indentTabObjects
+set runtimepath-=~/.vim/bundle/nerdtree
+set runtimepath-=~/.vim/bundle/RainbowParenthsis
+set runtimepath-=~/.vim/bundle/repeat
+set runtimepath-=~/.vim/bundle/slime
+set runtimepath-=~/.vim/bundle/surround
 
 set runtimepath-=~/.vim/bundle/clang_complete
 if (! executable('astyle'))
@@ -165,7 +165,7 @@ let g:clang_complete_patterns=0
 let g:clang_auto_select=1
 
 let g:clang_snippets = 1
-let g:clang_snippets_engine = 'ultisnips'
+"let g:clang_snippets_engine = 'ultisnips'
 "let g:clang_snippets_engine = 'clang_complete'
 
 
