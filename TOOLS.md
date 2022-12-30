@@ -89,10 +89,17 @@ Git Tips and Tricks
    * Set `core.autocrlf = input` in `~/.gitconfig`
    * Merge:  `git merge -X renormalize <branch>`
 
-2. Commit without setting user name and email:
-
-        git -c user.name='<name>' -c user.email='<email>' commit -m"Add git tip" ./TOOLS.md
-
+2. Commit without setting global or local user name and email:
+```
+git -c user.name='<name>' -c user.email='<email>' commit -m"Add git tip" ./TOOLS.md
+```
+3. Ignore Added and Deleted files in diff:
+```
+  # Upper case (M)odified indicates to only list modified files
+git diff --diff-filter=M
+  # -- OR use lower-case to indicate *ignore* (A)dded and (D)eleted files
+git diff --diff-filter=ad
+```
 
 Hardware Troubleshooting
 ========================
