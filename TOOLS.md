@@ -71,6 +71,12 @@ Software Development
         # With cherry-picking:
         git cherry-pick abcd123456 --strategy=recursive --strategy-option=renormalize
 
+   * Specify a non-default SSH key:
+
+        git config core.sshCommand "ssh -i ~/.ssh/id_rsa"
+          # Or on command line:
+        git -c core.sshCommand "ssh -i ~/.ssh/id_rsa" clone glah.git
+
 
 Linux Tips and Tricks
 =====================
