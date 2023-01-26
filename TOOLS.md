@@ -73,9 +73,10 @@ Software Development
 
    * Specify a non-default SSH key:
 
-        git config core.sshCommand "ssh -i ~/.ssh/id_rsa"
+          # Add to local repo config:
+        git config core.sshCommand "ssh -i ~/.ssh/amh_id_rsa"
           # Or on command line:
-        git -c core.sshCommand "ssh -i ~/.ssh/id_rsa" clone glah.git
+        git -c core.sshCommand="ssh -i ~/.ssh/amh_id_rsa" clone blah.git
 
 
 Linux Tips and Tricks
