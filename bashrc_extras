@@ -264,3 +264,6 @@ function getcore()
     file=$(ls -1 -t $CORES|grep core|head -1)
     echo "$CORES/$file"
 }
+
+alias tailnow='tail -f `ls -1t /opt/greenfield/weedbot/logs/debug*`'
+
