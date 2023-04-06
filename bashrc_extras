@@ -265,5 +265,5 @@ function getcore()
     echo "$CORES/$file"
 }
 
-alias tailnow='tail -f `ls -1t /opt/greenfield/weedbot/logs/debug*`'
+alias tailnow='tail -f `ls -1t /opt/greenfield/weedbot/logs/debug* | head -n 1`'
 
