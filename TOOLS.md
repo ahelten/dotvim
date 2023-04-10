@@ -71,12 +71,25 @@ Software Development
         # With cherry-picking:
         git cherry-pick abcd123456 --strategy=recursive --strategy-option=renormalize
 
-   * Specify a non-default SSH key:
+   * Specify a non-default SSH key (also see 'Setup on a shared system' below):
 
           # Add to local repo config:
         git config core.sshCommand "ssh -i ~/.ssh/amh_id_rsa"
           # Or on command line:
         git -c core.sshCommand="ssh -i ~/.ssh/amh_id_rsa" clone blah.git
+
+   * Setup on a shared system with multiple github SSH keys:
+     * Add a custom host entry in `.ssh/config`:
+
+            Host amhgithub
+            Hostname github.com
+            IdentityFile /home/gfr/.ssh/id_rsa
+            IdentitiesOnly yes
+
+     * Clone using this custom hostname:
+
+            git clone git@amhgithub:ahelten/dotvim.git
+
 
 
 Linux Tips and Tricks
