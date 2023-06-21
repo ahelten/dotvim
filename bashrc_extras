@@ -266,4 +266,6 @@ function getcore()
 }
 
 alias tailnow='tail -f `ls -1t /opt/greenfield/weedbot/logs/debug* | head -n 1`'
-
+alias sourceros='source /opt/greenfield/weedbot/ros/weedbot_ros_setup.bash'
+alias rosbotregister='ros2 topic echo --once /BotRegister'
+alias feelerstatus='grep feelers /opt/greenfield/weedbot/config/config.txt'
