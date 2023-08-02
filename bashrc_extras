@@ -109,7 +109,7 @@ alias   grep='/bin/grep --color'
 alias   grep2='/bin/grep -r --color --exclude-dir=.svn --exclude-dir="*.dir" --exclude-dir=.git'
 # 'w' is for Windows (Visual Studio) that builds in-source
 alias   grepwch='grep2 --exclude-dir="install" --exclude-dir="build" --include="*.c" --include="*.cc" --include="*.cxx" --include="*.cpp" --include="*.C" --include="*.h" --include="*.hh" --include="*.h++" --include="*.H" --include="*.hpp" --include="*.hxx" --include="*.ino"'
-alias   grepch='grep2 --include="*.c" --include="*.cc" --include="*.cxx" --include="*.cpp" --include="*.C" --include="*.h" --include="*.hh" --include="*.h++" --include="*.H" --include="*.hpp" --include="*.hxx" --include="*.ino"'
+alias   grepch='grep2 --include="*.c" --include="*.cc" --include="*.cxx" --include="*.cpp" --include="*.C" --include="*.h" --include="*.hh" --include="*.h++" --include="*.H" --include="*.hpp" --include="*.hxx" --include="*.ino" --exclude-dir="Debug"'
 alias   grepc='grep2 --include="*.c" --include="*.cc" --include="*.cxx" --include="*.cpp" --include="*.C"'
 alias   greph='grep2 --include="*.h" --include="*.hh" --include="*.h++" --include="*.H" --include="*.hpp" --include="*.hxx"'
 alias	grepj='grep2 --include="*.java"'
