@@ -50,3 +50,8 @@ hardstatus string '%{= Kd} %{= Kd}%-w%{= Kr}[%{= KW}%n %S%{= Kr}]%{= Kd}%+w %-= 
 bind f eval "hardstatus ignore"
 # Show hardstatus: ctrl-a F
 bind F eval "hardstatus alwayslastline"
+
+#sessionname blah
+#screen -t robot45_1 -s sshpass -p 'catfood' ssh -o StrictHostKeyChecking=no gfr@10.10.0.150
+#screen -t robot45_2 -s sshpass -p 'catfood' ssh -o StrictHostKeyChecking=no gfr@10.10.0.150
+#focus
