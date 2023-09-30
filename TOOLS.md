@@ -302,6 +302,10 @@ Package Managers
 
          dpkg -L <package>
 
+   * Show information about the package
+
+         apt-cache policy <package>
+
 3. RPM
    * Find which package provides an *installed* file:
 
