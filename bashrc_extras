@@ -104,7 +104,7 @@ alias	pdoc='p $DOCS'
 alias	pdocs=pdoc
 alias	cddoc='cd $DOCS'
 alias	cddocs=cddoc
-alias   pst='ps -eLo pid,tid,rtprio,psr,policy,pmem,pcpu,comm,wchan'
+alias   pst='sudo ps -eLo pid,tid,rtprio,psr,policy,pmem,pcpu,comm,wchan'
 alias   grep='/bin/grep --color'
 alias   grep2='/bin/grep -r --color --exclude-dir=.svn --exclude-dir="*.dir" --exclude-dir=.git'
 # 'w' is for Windows (Visual Studio) that builds in-source
