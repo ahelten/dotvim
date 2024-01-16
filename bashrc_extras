@@ -268,6 +268,8 @@ function getcore()
     echo "$CORES/$file"
 }
 
+alias vimnow='vim `ls -1t /opt/greenfield/weedbot/logs/debug* | head -n 1`'
+alias vimnowgps='vim `ls -1t /opt/greenfield/weedbot/logs/robot*_gps_* | head -n 1`'
 alias tailnow='tail -f `ls -1t /opt/greenfield/weedbot/logs/debug* | head -n 1`'
 alias tailnowgps='tail -f `ls -1t /opt/greenfield/weedbot/logs/robot*_gps_* | head -n 1`'
 alias sourceros='source /opt/greenfield/weedbot/ros/weedbot_ros_setup.bash'
