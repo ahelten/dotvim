@@ -269,8 +269,8 @@ function getcore()
 }
 
 alias rsyncnow='now=$(date "+%Y_%m_%d"); rsync -zaP --mkpath /opt/greenfield/weedbot/logs/*${now}* botlog@central.greenfieldrobotics.com:~/Logs/AllBots/$(hostname)/${now}'
-alias vimnow='vim `ls -1t /opt/greenfield/weedbot/logs/debug* | head -n 1`'
-alias vimnowgps='vim `ls -1t /opt/greenfield/weedbot/logs/robot*_gps_* | head -n 1`'
+alias vimnow='vim -n `ls -1t /opt/greenfield/weedbot/logs/debug* | head -n 1`'
+alias vimnowgps='vim -n `ls -1t /opt/greenfield/weedbot/logs/robot*_gps_* | head -n 1`'
 alias tailnow='tail -f `ls -1t /opt/greenfield/weedbot/logs/debug* | head -n 1`'
 alias tailnowgps='tail -f `ls -1t /opt/greenfield/weedbot/logs/robot*_gps_* | head -n 1`'
 alias sourceros='source /opt/greenfield/weedbot/ros/weedbot_ros_setup.bash'
