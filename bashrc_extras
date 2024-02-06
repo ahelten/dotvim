@@ -268,6 +268,12 @@ function getcore()
     echo "$CORES/$file"
 }
 
+function grepnow()
+{
+    file=$(ls -1t /opt/greenfield/weedbot/logs/debug* | head -n 1)
+    grep -a "$@" ${file}
+}
+
 alias rsyncnow='now=$(date "+%Y_%m_%d"); rsync -zaP --mkpath /opt/greenfield/weedbot/logs/*${now}* botlog@central.greenfieldrobotics.com:~/Logs/AllBots/$(hostname)/${now}'
 alias vimnow='vim -n `ls -1t /opt/greenfield/weedbot/logs/debug* | head -n 1`'
 alias vimnowgps='vim -n `ls -1t /opt/greenfield/weedbot/logs/robot*_gps_* | head -n 1`'
