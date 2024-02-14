@@ -287,3 +287,5 @@ alias sourcerostail='source /opt/greenfield/weedbot/ros/weedbot_ros_setup.bash.t
 alias rosbotregister='ros2 topic echo --once /BotRegister'
 alias feelerstatus='grep feelers /opt/greenfield/weedbot/config/config.txt'
 alias wifidisable='ping -i0.5 -W1 -c2 -I eth0 8.8.8.8 && ( echo -e "\nresult: eth0 is up, taking wlan0 down\n"; sudo ifconfig wlan0 down; ) || echo -e "\nresult: eth0 is not up... not taking wlan0 down\n" &'
+alias showfeelings="tailnowgps | cut -d',' -f24,25"
+alias showfeelers=showfeelings
