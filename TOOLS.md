@@ -100,6 +100,22 @@ Linux Tips and Tricks
 
         sudo lsof -P -T -p <pid>
 
+2. Monitor IRQs (interrupts):
+
+        # From https://unix.stackexchange.com/a/8702/604146:
+        watch -n0.1 --no-title cat /proc/interrupts
+
+        # From https://unix.stackexchange.com/a/331954/604146:
+        # mpstat N M -I ?
+        #   N is polling interval, in seconds
+        #   M is number of times to report (leave it out for unlimited)
+        #   ? can be ALL or a list of interrupts
+        mpstat 1 -I ALL
+        
+        # From https://unix.stackexchange.com/a/331969/604146:
+        # example (lots of options):
+        dstat -tif 60
+
 
 Git Tips and Tricks
 ============
