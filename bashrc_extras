@@ -276,18 +276,30 @@ function grepnow()
     grep -a "$@" ${file}
 }
 
+## Shortcuts for working with weedbot log files
+#
 alias rsyncnow='now=$(date "+%Y_%m_%d"); rsync -zaP --mkpath /opt/greenfield/weedbot/logs/*${now}* botlog@central.greenfieldrobotics.com:~/Logs/AllBots/$(hostname)/${now}'
 alias vimnow='vim -n `ls -1t /opt/greenfield/weedbot/logs/debug* | head -n 1`'
 alias vimnowgps='vim -n `ls -1t /opt/greenfield/weedbot/logs/robot*_gps_* | head -n 1`'
 alias tailnow='tail -f `ls -1t /opt/greenfield/weedbot/logs/debug* | head -n 1`'
 alias tailnowgps='tail -f `ls -1t /opt/greenfield/weedbot/logs/robot*_gps_* | head -n 1`'
-# This cuts some of the 'fluff' out of the tail so the console doesn't need to be so wide
-alias tailnowgps2='tail -f `ls -1t /opt/greenfield/weedbot/logs/robot*_gps_* | head -n 1`  | cut -d',' -f 1,4,5,7,9-'
+# The 'moto' shows only basic motor/command data and 'delta' adds Delta-specific data to 'moto' data
+alias tailnowmoto='fname=$(ls -1t /opt/greenfield/weedbot/logs/robot*_gps_* | head -n 1); head -n2 $fname | grep Date | cut -d"," -f 1,9-14; tail -f $fname | cut -d"," -f 1,9-14'
+alias tailnowdelta='fname=$(ls -1t /opt/greenfield/weedbot/logs/robot*_gps_* | head -n 1); head -n2 $fname | grep Date | cut -d"," -f 1,9-14,28-; tail -f $fname | cut -d"," -f 1,9-14,28-'
+
+## Feeler related
+#
+alias feelerstatus='grep feelers /opt/greenfield/weedbot/config/config.txt'
+alias showfeelings="tailnowgps | cut -d',' -f24,25"
+alias showfeelers=showfeelings
+
+## ROS2 related
+#
 alias sourceros='source /opt/greenfield/weedbot/ros/weedbot_ros_setup.bash'
 alias sourceroshnet='source /opt/greenfield/weedbot/ros/weedbot_ros_setup.bash.husarnet'
 alias sourcerostail='source /opt/greenfield/weedbot/ros/weedbot_ros_setup.bash.tailscale'
 alias rosbotregister='ros2 topic echo --once /BotRegister'
-alias feelerstatus='grep feelers /opt/greenfield/weedbot/config/config.txt'
+
+## Network related
+#
 alias wifidisable='ping -i0.5 -W1 -c2 -I eth0 8.8.8.8 && ( echo -e "\nresult: eth0 is up, taking wlan0 down\n"; sudo ifconfig wlan0 down; ) || echo -e "\nresult: eth0 is not up... not taking wlan0 down\n" &'
-alias showfeelings="tailnowgps | cut -d',' -f24,25"
-alias showfeelers=showfeelings
