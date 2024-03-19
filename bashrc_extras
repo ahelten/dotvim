@@ -286,6 +286,7 @@ alias tailnowgps='tail -f `ls -1t /opt/greenfield/weedbot/logs/robot*_gps_* | he
 # The 'moto' shows only basic motor/command data and 'delta' adds Delta-specific data to 'moto' data
 alias tailnowmoto='fname=$(ls -1t /opt/greenfield/weedbot/logs/robot*_gps_* | head -n 1); head -n2 $fname | grep Date | cut -d"," -f 1,9-14; tail -f $fname | cut -d"," -f 1,9-14'
 alias tailnowdelta='fname=$(ls -1t /opt/greenfield/weedbot/logs/robot*_gps_* | head -n 1); head -n2 $fname | grep Date | cut -d"," -f 1,9-14,28-; tail -f $fname | cut -d"," -f 1,9-14,28-'
+alias kick_upload_logs='pkill -CONT upload_logs.sh'
 
 ## Feeler related
 #
@@ -303,3 +304,5 @@ alias rosbotregister='ros2 topic echo --once /BotRegister'
 ## Network related
 #
 alias wifidisable='ping -i0.5 -W1 -c2 -I eth0 8.8.8.8 && ( echo -e "\nresult: eth0 is up, taking wlan0 down\n"; sudo ifconfig wlan0 down; ) || echo -e "\nresult: eth0 is not up... not taking wlan0 down\n" &'
+alias cancel_wifidisabler='pkill -f "bash.*wifi_disabler_on_bootup.sh"'
+
