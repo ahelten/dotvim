@@ -148,6 +148,8 @@ git-grepjs () { git-grep2 "$@" -- '*.js'; }
 git-grepcmake () { git-grep2 "$@ --include='CMake*.txt'"; }
 git-grepcmake2 () { git-grep2 "$@ --include='CMake*.txt' --include='*.cmake'"; }
 
+alias gsu='git submodule update --recursive --init'
+
 retag() { ctags -R --c++-kinds=+p --languages=c,c++ --fields=+iaS --extra=+q "$@"; }
 retag-lce() { retag *.cpp *.[ch] api/ wwwd/ tasl/ basic/ base64/ log_storage/ lib* policy-map/ policy-parser/ query_system/ report-proxy/ statistics/ utils/ elasticS; }
 rescope() { cscope -buq "$@"; }
