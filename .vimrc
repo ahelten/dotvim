@@ -80,6 +80,7 @@ set statusline=%t\ [%{strlen(&fenc)?&fenc:'none'},%{&ff}]\ %h%m%r%y\ %{fugitive#
 "
 "set path+=.**
 set path+=/usr/include/c++/**
+"set path+=~/work/barracuda/src/**
 
 
 "
@@ -99,8 +100,8 @@ set tags+=/usr/include/tags
 "set path+=~/GTRI-JPALS-inyer-FACE/amh_devel/gtri-jpals/**
 
 " For ACM development
-set path+=/opt/ACM-INSTALL/include/**
-set tags+=/opt/ACM-INSTALL/include/tags
+"set path+=/opt/ACM-INSTALL/include/**
+"set tags+=/opt/ACM-INSTALL/include/tags
 
 "set tags+=~/amh_devel/sw/MudbucketCxx/tags
 
@@ -516,11 +517,16 @@ nmap <silent> cp "_cw<C-R>"<Esc>
 " if you want to paste the same text a second time, you must use the "0 register, as in viw"0p. A
 " workaround is to remap the p command in visual mode so that it first deletes to the black hole
 " register like so:
-xnoremap p "_dP
+"xnoremap p "_dP
 " However, the above remapping prevents you from pasting from other registers in visual mode. So
 " viw"ap to paste from the "a register is now broken. There might be workarounds, like
 " <leader_char>p for the paste command (e.g. 'tp') but I don't paste from other registers in visual
 " mode so I can tolerate that broken feature.
+
+" Also from https://vim.fandom.com/wiki/Replace_a_word_with_yanked_text
+" ...except this mapping actually works for me in that it will do multiple replaces with the same
+" original yanked/copied text ("_dP did not work):
+xnoremap <silent> p p:let @"=@0<CR>
 
 " These do grep searches of the current word and display the results
 if has("win32unix") " i.e. cygwin

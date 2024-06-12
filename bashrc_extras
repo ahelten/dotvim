@@ -125,6 +125,8 @@ alias	grepcmake='grep2 --include="CMake*.txt" --include="*.cmake" --exclude-dir=
 alias	grepcmake2='grep2 --include="CMake*.txt" --include="*.cmake"'
 alias	grepjs='grep2 --include="*.js"'
 alias	greppy='grep2 --include="*.py"'
+alias	grepcfg='grep2 --include="*.cfg"'
+alias	grepjson='grep2 --include="*.json"'
 alias   sizedir='du -h --max-depth=1 . | sort -n -r'
 alias   clr="perl -e'print \"\n\" x 90'"
 alias   vi=vim
