@@ -100,9 +100,9 @@ alias   moer=more
 alias   mkae=make
 alias   maek=make
 alias   p=pushd
-alias	pdoc='p "$DOCS"'
+alias	pdoc='p $DOCS'
 alias	pdocs=pdoc
-alias	cddoc='cd "$DOCS"'
+alias	cddoc='cd $DOCS'
 alias	cddocs=cddoc
 alias   pst='sudo ps -eLo pid,tid,rtprio,psr,policy,pmem,pcpu,comm,wchan'
 alias   grep='/bin/grep --color'
@@ -116,14 +116,15 @@ alias   grepc='grepc.all --exclude-dir="*Debug*" --exclude-dir="install" --exclu
 alias   greph.all='grep2 --include="*.h" --include="*.hh" --include="*.h++" --include="*.H" --include="*.hpp" --include="*.hxx"'
 alias   greph='greph.all --exclude-dir="*Debug*" --exclude-dir="install" --exclude-dir="build" --include="*.h" --include="*.hh" --include="*.h++" --include="*.H" --include="*.hpp" --include="*.hxx"'
 alias	grepj='grep2 --include="*.java"'
-alias	grepwww='grep2 --include="*.cs" --include="*.cshtml" --include="*.js" --include="*.css"'
+alias	grepwww='grep2 --include="*.cs" --include="*.cshtml" --include="*.html" --include="*.js" --include="*.ts" --include="*.css"'
 alias	grepcs='grep2 --include="*.cs"'
 alias	grepcss='grep2 --include="*.css"'
 alias	grepcsh='grep2 --include="*.cshtml"'
 alias	grepcshtml=grepcsh
 alias	grepcmake='grep2 --include="CMake*.txt" --include="*.cmake" --exclude-dir="*.dir"'
 alias	grepcmake2='grep2 --include="CMake*.txt" --include="*.cmake"'
-alias	grepjs='grep2 --include="*.js"'
+alias	grepjs='grep2 --include="*.js" --include="*.html"'
+alias	grepts='grepjs --include="*.ts"'
 alias	greppy='grep2 --include="*.py"'
 alias	grepcfg='grep2 --include="*.cfg"'
 alias	grepjson='grep2 --include="*.json"'
