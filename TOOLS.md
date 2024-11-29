@@ -90,6 +90,11 @@ Software Development
 
             git clone git@amhgithub:ahelten/dotvim.git
 
+9. nm - inspect library symbols
+    * Display symbols in a shared library:
+
+            nm -gDC <lib.so>
+
 
 
 Linux Tips and Tricks
