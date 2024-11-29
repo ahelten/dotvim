@@ -205,7 +205,8 @@ function findsym
     # The '{} \;' version runs the '-exec' command on each file separately, whereas the '{} +'
     # version passes all files to one '-exec' command
     #find "( -iname '*.a*' -o -iname '*.so' -o -iname '*.o' )" -exec nm -A {} \; | grep "$@"
-    find $dir "( -iname '*.a' -o -iname '*.a.[0-9]*' -o -iname '*.so' -o -iname '*.so.[0-9]*' -o -iname '*.o' )" -exec nm -A --demangle {} + 2>&1 | grep "$@"
+    find $dir "( -iname '*.a' -o -iname '*.a.[0-9]*' -o -iname '*.o' )" -exec nm -A --demangle {} + 2>&1 | grep "$@"
+    find $dir "( -o -iname '*.so' -o -iname '*.so.[0-9]*' )" -exec nm -gDC -A --demangle {} + 2>&1 | grep "$@"
 }
 
 # Find a function symbol (a symbol defined as Text or Weak) in all .a/.so/.o files
