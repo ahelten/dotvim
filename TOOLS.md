@@ -121,6 +121,24 @@ Linux Tips and Tricks
         # example (lots of options):
         dstat -tif 60
 
+2. Sending UDP packets from the command line:
+    * Capture data with `tcpdump` or Wireshark
+    * Copy the UDP packet payload data text. On Wireshark right-click the packet of interest and
+      select 'Copy ...as HEX Dump'
+    * Paste HEX dump into a text file
+    * Edit the HEX dump (text) file and remove all spaces and newlines
+    * Convert the text file to binary:
+
+        cat udp_payload.txt | xxd -r -p > udp_payload.bin
+
+    * Send the binary file using `netcat`:
+
+        cat udp_payload.bin | nc -u -w1 10.10.0.222 12345
+
+    * Send using `bash`:
+
+        cat udp_payload.bin >/dev/udp/10.10.0.222/12345
+
 
 Git Tips and Tricks
 ============
