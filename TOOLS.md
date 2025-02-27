@@ -139,6 +139,14 @@ Linux Tips and Tricks
 
         cat udp_payload.bin >/dev/udp/10.10.0.222/12345
 
+    * Send text using `netcat`:
+
+        nc -uq0 10.10.0.222 8101 <<<hello?
+
+    * Receive that text using `netcat`:
+
+        nc -ul 8101
+
 
 Git Tips and Tricks
 ============
