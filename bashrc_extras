@@ -128,6 +128,8 @@ alias	grepts='grepjs --exclude-dir=dist --include="*.ts"'
 alias	greppy='grep2 --include="*.py"'
 alias	grepcfg='grep2 --include="*.cfg"'
 alias	grepjson='grep2 --include="*.json"'
+alias   grepxml='grep2 --include="*.xml" --include="*.xsd"'
+alias   grepxsd=grepxml
 alias   sizedir='du -h --max-depth=1 . | sort -n -r'
 alias   clr="perl -e'print \"\n\" x 90'"
 alias   vi=vim
