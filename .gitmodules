@@ -52,6 +52,3 @@
 [submodule "bundle/vim-localvimrc"]
 	path = bundle/vim-localvimrc
 	url = https://github.com/embear/vim-localvimrc.git
-[submodule "bundle/rainbow_csv"]
-	path = bundle/rainbow_csv
-	url = https://github.com/mechatroner/rainbow_csv.git

@@ -315,3 +315,7 @@ alias rosbotregister='ros2 topic echo --once /BotRegister'
 alias wifidisable='ping -i0.5 -W1 -c2 -I eth0 8.8.8.8 && ( echo -e "\nresult: eth0 is up, taking wlan0 down\n"; sudo ifconfig wlan0 down; ) || echo -e "\nresult: eth0 is not up... not taking wlan0 down\n" &'
 alias cancel_wifidisabler='sudo pkill -f "bash.*wifi_disabler_on_bootup.sh"'
 
+# Auto-start ssh-agent using keychain
+if command -v keychain >/dev/null 2>&1; then
+    eval $(keychain --eval --agents ssh id_rsa)
+fi

@@ -147,6 +147,10 @@ Linux Tips and Tricks
 
         nc -ul 8101
 
+3. Use keychain to start ssh-agent for managing SSH keys:
+
+    eval $(keychain --eval --agents ssh id_rsa)
+
 
 Git Tips and Tricks
 ============
@@ -167,6 +171,14 @@ git diff --diff-filter=M
   # -- OR use lower-case to indicate *ignore* (A)dded and (D)eleted files
 git diff --diff-filter=ad
 ```
+
+3. Remove a submodule (Git 2.8+):
+```
+git submodule deinit -f vendor/rainbow_csv
+git rm -f vendor/rainbow_csv
+git commit -m "Remove rainbow_csv submodule"
+```
+
 
 Hardware Troubleshooting
 ========================
@@ -253,8 +265,14 @@ ln -s .vim/.vimrc
 ln -s .vim/.screenrc
 cp .vim/gitconfig .gitconfig
 
+# Not using `--recursive` here to avoid full setup of some plugins, like clang_complete, that most
+# likely will not be used on all platforms
 cd .vim
 git submodule update --init
+
+# To install vim-plug plugins, start `vim` and run `:PlugInstall`. You will need something like
+# `ssh-agent` (e.g. via `keychain`) if your SSH key has a passphrase (because `:PlugInstall` cannot
+# or at least does not prompt for the passphrase so the plugin installation fails).
 ```
 
 1. Raspian OS Buster

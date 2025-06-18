@@ -7,7 +7,7 @@
 
 let g:syntastic_python_python_exec = 'python3'
 set nocompatible
-call pathogen#infect()
+execute pathogen#infect()
 call pathogen#helptags()
 se nobackup
 se directory=~/.vim/swp,.
@@ -24,6 +24,10 @@ if !has("gui_running")
 else
    set go+=a
 endif
+
+call plug#begin()
+Plug 'mechatroner/rainbow_csv'
+call plug#end()
 
 " It isn't setup yet, so complains on startup
 set runtimepath-=~/.vim/bundle/YouCompleteMe
