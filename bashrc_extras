@@ -106,7 +106,7 @@ alias	cddoc='cd $DOCS'
 alias	cddocs=cddoc
 alias   pst='sudo ps -eLo pid,tid,rtprio,psr,policy,pmem,pcpu,comm,wchan'
 alias   grep='/bin/grep --color'
-alias   grep2='/bin/grep -r --color --exclude-dir=.svn --exclude-dir="*.dir" --exclude-dir=.git'
+alias   grep2='/bin/grep -r -a --color --exclude-dir=.svn --exclude-dir="*.dir" --exclude-dir=.git'
 # 'w' is for Windows (Visual Studio) that builds in-source
 alias   grepwch='grepch'
 alias   grepch='grepch.all --exclude-dir="*Debug*" --exclude-dir="install" --exclude-dir="build"'
