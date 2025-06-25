@@ -1,0 +1,11 @@
+{
+  "clangd.path": "~/.config/coc/extensions/coc-clangd-data/install/19.1.2/clangd_19.1.2/bin/clangd",
+  "clangd.enabled": true,
+  "clangd.arguments": [
+      "--background-index",
+      "--clang-tidy",
+      "--completion-style=detailed",
+      "--header-insertion=iwyu"
+  ],
+  "clangd.fallbackFlags": ["-std=c++20"]
+}

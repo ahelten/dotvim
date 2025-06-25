@@ -27,7 +27,32 @@ endif
 
 call plug#begin()
 Plug 'mechatroner/rainbow_csv'
+Plug 'Vimjas/vim-python-pep8-indent'
+" coc.nvim for completion in python (don't need if using neovim/nvim)
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 call plug#end()
+
+
+" BEGIN: coc.nvim setup
+" Use tab for trigger completion with characters ahead and navigate
+" Also do:
+"    	:CocInstall coc-clangd
+" You may also need this if clangd is not installed (CocInstall should suggest this if needed):
+" 	:CocCommand clangd.install
+" Add this to your repo's top-level directory in a file named `.clangd`:
+"	CompileFlags:
+"	  CompilationDatabase: build/  # Directory containing compile_commands.json
+"
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+" Use <cr> to confirm completion
+inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<cr>"
+" END: coc.nvim setup
+
 
 " It isn't setup yet, so complains on startup
 set runtimepath-=~/.vim/bundle/YouCompleteMe
