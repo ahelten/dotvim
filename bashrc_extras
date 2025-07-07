@@ -106,11 +106,23 @@ alias	cddoc='cd $DOCS'
 alias	cddocs=cddoc
 alias   pst='sudo ps -eLo pid,tid,rtprio,psr,policy,pmem,pcpu,comm,wchan'
 alias   grep='/bin/grep --color'
-alias   grep2='/bin/grep -r -a --color --exclude-dir=.svn --exclude-dir="*.dir" --exclude-dir=.git'
+alias   grep2='grep -r --exclude-dir=__pycache__ --exclude-dir=.git --exclude-dir=.angular'
+alias   grep2a='grep -r -a --exclude-dir=__pycache__ --exclude-dir=.git --exclude-dir=.angular'
+# Note: the arg to exclude ".*.swp" appears to essentially disable all of the '--include' arguments
+#       such that it greps every file for the pattern (except the ones being *excluded*, which
+#       includes '.*.swp' files).
+#
+#       The good news is, we really don't need to exclude '.*.swp' in any of the greps that use
+#       '--include', because those will only grep files that match the '--include' patterns, which
+#       should never include '.*.swp' files.
+#
+alias   grep3='grep -r --exclude=".*.swp" --exclude-dir=__pycache__ --exclude-dir=.git --exclude-dir=.angular'
+alias   grep3a='grep -r -a --exclude=".*.swp" --exclude-dir=__pycache__ --exclude-dir=.git --exclude-dir=.angular'
+alias   greplog=grep3a
 # 'w' is for Windows (Visual Studio) that builds in-source
 alias   grepwch='grepch'
-alias   grepch='grepch.all --exclude-dir="*Debug*" --exclude-dir="install" --exclude-dir="build"'
 alias   grepch.all='grep2 --include="*.c" --include="*.cc" --include="*.cxx" --include="*.cpp" --include="*.C" --include="*.h" --include="*.hh" --include="*.h++" --include="*.H" --include="*.hpp" --include="*.hxx" --include="*.ino" --include="*.tpp"'
+alias   grepch='grepch.all --exclude-dir="*Debug*" --exclude-dir="install" --exclude-dir="build"'
 alias   grepc.all='grep2 --include="*.c" --include="*.cc" --include="*.cxx" --include="*.cpp" --include="*.C" --include="*.tpp"'
 alias   grepc='grepc.all --exclude-dir="*Debug*" --exclude-dir="install" --exclude-dir="build"'
 alias   greph.all='grep2 --include="*.h" --include="*.hh" --include="*.h++" --include="*.H" --include="*.hpp" --include="*.hxx" --include="*.tpp"'
@@ -121,7 +133,7 @@ alias	grepcs='grep2 --include="*.cs"'
 alias	grepcss='grep2 --include="*.css"'
 alias	grepcsh='grep2 --include="*.cshtml"'
 alias	grepcshtml=grepcsh
-alias	grepcmake='grep2 --include="CMake*.txt" --include="*.cmake" --exclude-dir="*.dir"'
+alias	grepcmake='grep2 --include="CMake*.txt" --include="*.cmake"'
 alias	grepcmake2='grep2 --include="CMake*.txt" --include="*.cmake"'
 alias	grepjs='grep2 --exclude-dir=dist --include="*.js" --include="*.html"'
 alias	grepts='grepjs --exclude-dir=dist --include="*.ts"'

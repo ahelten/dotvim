@@ -42,15 +42,41 @@ call plug#end()
 " Add this to your repo's top-level directory in a file named `.clangd`:
 "	CompileFlags:
 "	  CompilationDatabase: build/  # Directory containing compile_commands.json
-"
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
-" Use <cr> to confirm completion
-inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<cr>"
+" Smart Tab configuration for coc.nvim
+" Tab indents when no popup menu, cycles through completions when popup is visible
+
+" Helper function to check if we should use Tab for indentation
+" Note: Make sure this function is defined in the same file as the mappings
+function! CheckBackSpace() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+" Smart Tab mapping
+" - If popup menu is visible: move to next completion item
+" - If at beginning of line or after whitespace: insert Tab (indent)
+" - Otherwise: trigger completion
+inoremap <silent><expr> <Tab>
+      \ pumvisible() ? "\<C-n>" :
+      \ CheckBackSpace() ? "\<Tab>" :
+      \ coc#refresh()
+
+" Shift+Tab to go to previous completion item (when popup visible)
+" or unindent when no popup
+inoremap <expr><S-Tab> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+" Enter to confirm completion selection
+" Only confirms when popup is visible, otherwise normal Enter behavior
+inoremap <silent><expr> <CR> 
+      \ pumvisible() ? coc#_select_confirm() : 
+      \ "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
+" Optional: Ctrl+Space to manually trigger completion
+inoremap <silent><expr> <C-Space> coc#refresh()
+
+" Optional: ESC to close popup menu
+inoremap <silent><expr> <Esc> pumvisible() ? "\<C-e>" : "\<Esc>"
 " END: coc.nvim setup
 
 
