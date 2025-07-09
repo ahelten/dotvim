@@ -106,8 +106,8 @@ alias	cddoc='cd $DOCS'
 alias	cddocs=cddoc
 alias   pst='sudo ps -eLo pid,tid,rtprio,psr,policy,pmem,pcpu,comm,wchan'
 alias   grep='/bin/grep --color'
-alias   grep2='grep -r --exclude-dir=__pycache__ --exclude-dir=.git --exclude-dir=.angular'
-alias   grep2a='grep -r -a --exclude-dir=__pycache__ --exclude-dir=.git --exclude-dir=.angular'
+alias   grep2='grep -r --exclude-dir=__pycache__ --exclude-dir=.git --exclude-dir=.angular --exclude-dir="*.dir"'
+alias   grep2a='grep -r -a --exclude-dir=__pycache__ --exclude-dir=.git --exclude-dir=.angular --exclude-dir="*.dir"'
 # Note: the arg to exclude ".*.swp" appears to essentially disable all of the '--include' arguments
 #       such that it greps every file for the pattern (except the ones being *excluded*, which
 #       includes '.*.swp' files).
@@ -116,8 +116,8 @@ alias   grep2a='grep -r -a --exclude-dir=__pycache__ --exclude-dir=.git --exclud
 #       '--include', because those will only grep files that match the '--include' patterns, which
 #       should never include '.*.swp' files.
 #
-alias   grep3='grep -r --exclude=".*.swp" --exclude-dir=__pycache__ --exclude-dir=.git --exclude-dir=.angular'
-alias   grep3a='grep -r -a --exclude=".*.swp" --exclude-dir=__pycache__ --exclude-dir=.git --exclude-dir=.angular'
+alias   grep3='grep -r --exclude=".*.swp" --exclude-dir=__pycache__ --exclude-dir=.git --exclude-dir=.angular --exclude-dir="*.dir"'
+alias   grep3a='grep -r -a --exclude=".*.swp" --exclude-dir=__pycache__ --exclude-dir=.git --exclude-dir=.angular --exclude-dir="*.dir"'
 alias   greplog=grep3a
 # 'w' is for Windows (Visual Studio) that builds in-source
 alias   grepwch='grepch'
