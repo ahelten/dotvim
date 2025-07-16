@@ -150,6 +150,8 @@ alias   ascii='man ascii'
 function svn-diff() { svn diff "$@" | colordiff | less -R; }
 alias   diffword='git --no-pager diff -U0 --word-diff --no-index --'
 
+# Grep logs for common errors
+alias   gfrcanfault='grep2 -a -E "CANopen Emergency|Delta controller fault"'
 
 alias   git-grep2="git grep"
 git-grepch () { git-grep2 "$@" -- '*.c' '*.cc' '*.cxx' '*.cpp' '*.C' '*.h' '*.hh' '*.h++' '*.H' '*.hpp'; }
