@@ -319,7 +319,7 @@ alias   gfrversions='grep2 -a -E "Controller.*, version="'
 alias   gfrversionsnow='gfrversions $(gfrnow)'
 alias   gfrfield='grep2 -a -E "assigned this bot to field"'
 alias   gfrfieldnow='gfrfield $(gfrnow)'
-alias   gfrcutterstalls='grep2 -a -E "FailedCutterRestart|Enter AutoCutterRestart|Done waiting for cutters to spin up"'
+alias   gfrcutterstalls='grep2 -a -E "FailedCutterRestart|Enter AutoCutterRestart|Done waiting for cutters to spin up|spin up: Initial cutter check"'
 alias   gfrcutterstallsnow='gfrcutterstalls $(gfrnow)'
 
 ## Feeler related
