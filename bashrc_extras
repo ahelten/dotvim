@@ -294,6 +294,11 @@ function gfrnow()
     echo $(ls -1t /opt/greenfield/weedbot/logs/debug* | head -n 1)
 }
 
+function gfrgpsnow()
+{
+    echo $(ls -1t /opt/greenfield/weedbot/logs/robot*_gps_* | head -n 1)
+}
+
 function grepnow()
 {
     grep -a "$@" $(gfrnow)
@@ -304,9 +309,11 @@ function grepnow()
 alias rsyncnow='now=$(date "+%Y_%m_%d"); rsync -zaP --mkpath /opt/greenfield/weedbot/logs/*${now}* botlog@central.greenfieldrobotics.com:~/Logs/AllBots/$(hostname)/${now}'
 alias vimnow='vim -n `ls -1t /opt/greenfield/weedbot/logs/debug* | head -n 1`'
 alias vimnowgps='vim -n `ls -1t /opt/greenfield/weedbot/logs/robot*_gps_* | head -n 1`'
+alias vimgpsnow='vim -n $(gfrgpsnow)'
 alias catnow='cat `ls -1t /opt/greenfield/weedbot/logs/debug* | head -n 1`'
 alias tailnow='tail -f `ls -1t /opt/greenfield/weedbot/logs/debug* | head -n 1`'
 alias tailnowgps='tail -f `ls -1t /opt/greenfield/weedbot/logs/robot*_gps_* | head -n 1`'
+alias tailgpsnow='tail -f $(gfrgpsnow)'
 # The 'moto' shows only basic motor/command data and 'delta' adds Delta-specific data to 'moto' data
 alias tailnowmoto='fname=$(ls -1t /opt/greenfield/weedbot/logs/robot*_gps_* | head -n 1); head -n2 $fname | grep Date | cut -d"," -f 1,9-14; tail -f $fname | cut -d"," -f 1,9-14'
 alias tailnowdelta='fname=$(ls -1t /opt/greenfield/weedbot/logs/robot*_gps_* | head -n 1); head -n2 $fname | grep Date | cut -d"," -f 1,9-14,28-; tail -f $fname | cut -d"," -f 1,9-14,28-'
@@ -321,6 +328,19 @@ alias   gfrfield='grep2 -a -E "assigned this bot to field"'
 alias   gfrfieldnow='gfrfield $(gfrnow)'
 alias   gfrcutterstalls='grep2 -a -E "FailedCutterRestart|Enter AutoCutterRestart|Done waiting for cutters to spin up|spin up: Initial cutter check"'
 alias   gfrcutterstallsnow='gfrcutterstalls $(gfrnow)'
+
+## Motor related
+#
+alias tailtractionmotorsnow="head -n2 $(gfrgpsnow) | cut -d',' -f1,9-14,28-36; tailgpsnow | cut -d',' -f1,9-14,28-36"
+function showtractionmotors()
+{
+    cat $@ | cut -d',' -f1,9-14,28-36
+}
+alias tailcuttermotorsnow="head -n2 $(gfrgpsnow) | cut -d',' -f1,9-10,28,37-48; tailgpsnow | cut -d',' -f1,9-10,28,37-48"
+function showcuttermotors()
+{
+    cat $@ | cut -d',' -f1,9-10,28,37-48
+}
 
 ## Feeler related
 #
