@@ -331,12 +331,12 @@ alias   gfrcutterstallsnow='gfrcutterstalls $(gfrnow)'
 
 ## Motor related
 #
-alias tailtractionmotorsnow="head -n2 $(gfrgpsnow) | cut -d',' -f1,9-14,28-36; tailgpsnow | cut -d',' -f1,9-14,28-36"
+alias tailtractionmotorsnow='head -n2 $(gfrgpsnow) | cut -d"," -f1,9-14,28-36; tailgpsnow | cut -d"," -f1,9-14,28-36'
 function showtractionmotors()
 {
     cat $@ | cut -d',' -f1,9-14,28-36
 }
-alias tailcuttermotorsnow="head -n2 $(gfrgpsnow) | cut -d',' -f1,9-10,28,37-48; tailgpsnow | cut -d',' -f1,9-10,28,37-48"
+alias tailcuttermotorsnow='head -n2 $(gfrgpsnow) | cut -d"," -f1,9-10,28,37-48; tailgpsnow | cut -d"," -f1,9-10,28,37-48'
 function showcuttermotors()
 {
     cat $@ | cut -d',' -f1,9-10,28,37-48
