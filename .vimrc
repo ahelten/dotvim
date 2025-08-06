@@ -18,9 +18,9 @@ se modeline
 se nocp
 set number
 " ttymouse is set at the end because it apparently gets overwritten somewhere between
-if !has("gui_running")
+if !has("gui_running") || has('nvim')
    "set mouse=a
-   set clipboard=unnamed
+   set clipboard+=unnamed
 else
    set go+=a
 endif
@@ -28,10 +28,18 @@ endif
 call plug#begin()
 Plug 'mechatroner/rainbow_csv'
 Plug 'Vimjas/vim-python-pep8-indent'
-" coc.nvim for completion in python (don't need if using neovim/nvim)
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+if has('nvim') || (v:version >= 900)
+    " coc.nvim for completion in python (don't need if using neovim/nvim)
+    Plug 'neoclide/coc.nvim', {'branch': 'release'}
+endif
 call plug#end()
 
+if has('nvim')
+    set inccommand=split  " Live substitution preview
+    
+    " Terminal mode mappings
+    tnoremap <Esc> <C-\><C-n>
+endif
 
 " BEGIN: coc.nvim setup
 " Use tab for trigger completion with characters ahead and navigate
@@ -81,7 +89,7 @@ inoremap <silent><expr> <Esc> pumvisible() ? "\<C-e>" : "\<Esc>"
 
 
 " It isn't setup yet, so complains on startup
-set runtimepath-=~/.vim/bundle/YouCompleteMe
+"set runtimepath-=~/.vim/bundle/YouCompleteMe
 
 if has("win32unix") " i.e. cygwin
    " This plugin doesn't work on cygwin/windows (opening a file just hangs vim)
@@ -400,7 +408,7 @@ noremap! <silent> <F8> <ESC>:TlistToggle<CR>
 "
 " Fix insert-mode cursor keys in FreeBSD
 "
-if has("unix")
+if has("unix") && !has('nvim')
   let myosuname = system("uname")
   if myosuname =~ "FreeBSD"
     set term=cons25
@@ -409,6 +417,11 @@ if has("unix")
   endif
 endif
 
+" Add to your config for better terminal experience
+if has('nvim')
+    autocmd TermOpen * startinsert
+    autocmd BufWinEnter,WinEnter term://* startinsert
+endif
 
 "
 " Reselect visual block after indenting
@@ -772,7 +785,7 @@ set t_ti=[?47h t_te=[?47l
 "set t_ti=7[r[?47h t_te=[?47l8
 
 " This enables some mouse actions like moving the cursor and visual selection in rxvt
-if !has("gui_running")
+if !has("gui_running") && !has('nvim')
    set ttymouse=xterm
    let &t_ti.="\e[1 q"
    let &t_SI.="\e[5 q"
