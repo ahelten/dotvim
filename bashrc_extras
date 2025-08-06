@@ -344,7 +344,7 @@ function showcuttermotors()
 
 ## Feeler related
 #
-alias feelerstatus='grep feelers /opt/greenfield/weedbot/config/config.txt && grep feelers /opt/greenfield/weedbot/config/config_local.txt'
+alias feelerstatus='grep -H feelers /opt/greenfield/weedbot/config/config.txt ; grep -H feelers /opt/greenfield/weedbot/config/config_local.txt'
 alias showfeelings="tailnowgps | cut -d',' -f24,25"
 alias showfeelers=showfeelings
 
