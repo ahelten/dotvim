@@ -10,7 +10,8 @@
         conflictstyle = diff3
 
 [alias]
-        lol = log --graph --decorate --pretty=oneline --abbrev-commit --all
+        lol = log --graph --pretty=format:'%C(auto)%h %C(green)%ad %C(blue)%an %C(yellow)%d %C(reset)%s' --date=short --all
+        lolold = log --graph --decorate --pretty=oneline --abbrev-commit --all
         logtag = log --date-order --graph --tags --simplify-by-decoration --pretty=format:'%ai %h %<(30) %d %s' --abbrev-commit
         diffw = -c core.fileMode=false diff -w
         diffm = -c core.fileMode=false diff -w --diff-filter=M
