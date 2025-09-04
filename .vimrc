@@ -28,7 +28,7 @@ endif
 call plug#begin()
 Plug 'mechatroner/rainbow_csv'
 Plug 'Vimjas/vim-python-pep8-indent'
-if has('nvim') || (v:version >= 900)
+if has('nvim-0.8.0') || (v:version >= 900)
     " coc.nvim for completion in python (don't need if using neovim/nvim)
     Plug 'neoclide/coc.nvim', {'branch': 'release'}
 endif
