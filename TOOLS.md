@@ -95,6 +95,16 @@ Software Development
 
             nm -gDC <lib.so>
 
+10. nvim - newer vim (replacement of sorts)
+    * Configuration:
+      - To use `.vimrc` with nvim, go to `~/.config` and create a symlink `ln -s ~/.vim nvim`
+    * Copy/Paste:
+      - In a Cygwin mintty terminal (including when ssh'd to a remote system), if copy/paste in nvim
+        doesn't work, one solution is `Upper-left mintty menu -> Options -> Mouse` and set
+        `Application mouse mode -> Default click target` to `Window`. Then hit `Appy` and `Save`.
+        The only downside is that nvim no longer receives the mouse clicks but so far that doesn't
+        affect me since I don't typically use the mouse when using vim/nvim and, when I do, I use it
+        to select text to copy/paste into other windows... which wasn't working until this change.
 
 
 Linux Tips and Tricks

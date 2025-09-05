@@ -20,7 +20,7 @@ set number
 " ttymouse is set at the end because it apparently gets overwritten somewhere between
 if !has("gui_running") || has('nvim')
    "set mouse=a
-   set clipboard+=unnamed
+   set clipboard=unnamed,unnamedplus
 else
    set go+=a
 endif
@@ -542,11 +542,13 @@ endif
 
 set expandtab
 set smarttab
-if has("win32unix") " i.e. cygwin
-    set pastetoggle=<F2>
-else
-    " This is <F2>
-    set pastetoggle=OQ
+if !has('nvim')
+    if has("win32unix") " i.e. cygwin
+        set pastetoggle=<F2>
+    else
+        " This is <F2>
+        set pastetoggle=OQ
+    endif
 endif
 
 " mostly left this as an example of how to customize for a specific host
