@@ -98,6 +98,7 @@ Software Development
 10. nvim - newer vim (replacement of sorts)
     * Configuration:
       - To use `.vimrc` with nvim, go to `~/.config` and create a symlink `ln -s ~/.vim nvim`
+      - Install plugins using `:PlugInstall` (installed in ~/.vim/plugged`)
     * Copy/Paste:
       - In a Cygwin mintty terminal (including when ssh'd to a remote system), if copy/paste in nvim
         doesn't work, one solution is `Upper-left mintty menu -> Options -> Mouse` and set
@@ -105,6 +106,26 @@ Software Development
         The only downside is that nvim no longer receives the mouse clicks but so far that doesn't
         affect me since I don't typically use the mouse when using vim/nvim and, when I do, I use it
         to select text to copy/paste into other windows... which wasn't working until this change.
+    * coc.nvim code completion plugin:
+      - Install plugins
+      - For C++ support, install clangd:
+          ```
+          sudo apt install clangd-14
+          sudo update-alternatives --install /usr/bin/clangd clangd /usr/bin/clangd-14 100
+          ```
+      - For C++ support, on one Ubuntu 24.04 system, the above `update-alteranatives` command did
+        not work so that `clangd` was not starting up. Instead the following entry was needed in
+        `~/.config/nvim/coc-settings.json`:
+            ```
+            {
+              "clangd.path": "/usr/bin/clangd-14"
+            }
+            ```
+      - To install coc.nvim extensions:
+        * C++:         `:CocInstall coc-clangd`
+        * Python:      `:CocInstall coc-pyright`
+        * JSON:        `:CocInstall coc-json`
+        * Typescript:  `:CocInstall coc-tsserver`
 
 
 Linux Tips and Tricks
