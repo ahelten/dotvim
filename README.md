@@ -28,6 +28,21 @@ In any new machine/account I need to work on, I clone from the repository:
 
 I therefore use the same VIM environment in all my machines.
 
+
+Using neovim (nvim)
+---------------------
+
+Install nvim and then use existing `.vim` setup:
+
+```
+sudo apt install neovim
+ln -s ~/.vim ~/.config/nvim
+```
+
+Note: this relies on the fact that there is a symlink in `.vim/init.vim -> .vimrc` that is used by
+`nvim` (since it appears as `~/.config/nvim/init.vim`.
+
+
 For C/C++ development
 ---------------------
 
