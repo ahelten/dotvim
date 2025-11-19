@@ -250,6 +250,20 @@ noremap! <silent> <F10> <ESC>:NERDTreeToggle<CR>
 "
 let g:NERDTreeDirArrows=0
 
+" This converts enum values into std::map<std::string, size_t> entries. To use it:
+" 1. visually select the *enum values only*, excluding even the curly braces from the selection
+" 2. Type `\em`, at which point you should be prompted for an enum class prefix
+" 3. If the enum is not an `enum class`, hit <Enter> with an empty class prefix
+" 4. Otherwise, enter the enum *class name only*, excluding the `::`
+function! EnumToMapWithPrefix() range
+    let prefix = input("Enum class prefix: ")
+    if prefix != ""
+        execute a:firstline . "," . a:lastline . 's/\s*\(\w\+\),*/    {"\1", ' . prefix . '::\1},/'
+    else
+        execute a:firstline . "," . a:lastline . 's/\s*\(\w\+\),*/    {"\1", \1},/'
+    endif
+endfunction
+vnoremap <leader>em :call EnumToMapWithPrefix()<CR>
 
 "
 " Better TAB completion for files (like the shell)
