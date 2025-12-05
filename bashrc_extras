@@ -144,7 +144,7 @@ alias   grepxml='grep2 --include="*.xml" --include="*.xsd"'
 alias   grepxsd=grepxml
 alias   sizedir='du -h --max-depth=1 . | sort -n -r'
 alias   clr="perl -e'print \"\n\" x 90'"
-alias   vi=vim
+alias   vi=nvim
 alias   svn-clean="svn status --no-ignore | grep ^[\?I] | cut -c9- | xargs -d \\\n rm -r"
 alias   ascii='man ascii'
 function svn-diff() { svn diff "$@" | colordiff | less -R; }
@@ -318,6 +318,10 @@ alias tailgpsnow='tail -f $(gfrgpsnow)'
 alias tailnowmoto='fname=$(ls -1t /opt/greenfield/weedbot/logs/robot*_gps_* | head -n 1); head -n2 $fname | grep Date | cut -d"," -f 1,9-14; tail -f $fname | cut -d"," -f 1,9-14'
 alias tailnowdelta='fname=$(ls -1t /opt/greenfield/weedbot/logs/robot*_gps_* | head -n 1); head -n2 $fname | grep Date | cut -d"," -f 1,9-14,28-; tail -f $fname | cut -d"," -f 1,9-14,28-'
 alias kick_upload_logs='pkill -CONT upload_logs.sh'
+
+# Edit config files
+alias   gfrconfig='sudo vi /opt/greenfield/weedbot/config/config.txt'
+alias   gfrconfiglocal='sudo vi /opt/greenfield/weedbot/config/config_local.txt'
 
 # Grep logs for common errors
 alias   gfrcanfault='grep2 -a -E "CANopen Emergency|Delta controller fault"'
