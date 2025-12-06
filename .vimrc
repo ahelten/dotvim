@@ -31,6 +31,11 @@ Plug 'Vimjas/vim-python-pep8-indent'
 if has('nvim-0.8.0') || (v:version >= 900)
     " coc.nvim for completion in python (don't need if using neovim/nvim)
     Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
+    " Install coc-snippets if it's missing
+    if empty(glob('~/.config/coc/extensions/node_modules/coc-snippets'))
+        autocmd VimEnter * CocInstall -sync coc-snippets | q
+    endif
 endif
 call plug#end()
 
@@ -60,6 +65,43 @@ function! CheckBackSpace() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
+
+" Use the source code file's directory to:
+" 1. find the associated `.clangd`
+" 2. set the cwd to the directory containing the `.clangd`
+"function! SetProjectRoot()
+"  " Search upward for .clangd file
+"  let clangd_file = findfile('.clangd', expand('%:p:h').';')
+"  if clangd_file != ''
+"    let project_root = fnamemodify(clangd_file, ':h')
+"    execute 'lcd' fnameescape(project_root)
+"    echo 'Set project root to: ' . project_root
+"    " Restart clangd for this buffer
+"    silent! CocRestart
+"  endif
+"endfunction
+function! SetProjectRoot()
+  " Get the directory of the current file
+  let file_dir = expand('%:p:h')
+  
+  " Search upward for .clangd file
+  let clangd_file = findfile('.clangd', file_dir.';')
+  
+  if clangd_file != ''
+    let clangd_dir = fnamemodify(clangd_file, ':p:h')
+    
+    " Check if .clangd is in a parent directory (not the file's directory)
+    " clangd_dir is a parent if file_dir starts with clangd_dir but isn't equal
+    let cwd = getcwd()
+    if stridx(cwd, clangd_dir) != 0 && clangd_dir != file_dir
+      " Change to the file's directory
+      execute 'lcd' fnameescape(file_dir)
+      echo 'Set directory to: ' . file_dir
+    endif
+  endif
+endfunction
+
+autocmd BufEnter *.cpp,*.h,*.c,*.hpp call SetProjectRoot()
 
 " Smart Tab mapping
 " - If popup menu is visible: move to next completion item

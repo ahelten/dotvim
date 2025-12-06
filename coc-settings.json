@@ -6,5 +6,10 @@
       "--completion-style=detailed",
       "--header-insertion=iwyu"
   ],
-  "clangd.fallbackFlags": ["-std=c++20"]
+  "clangd.fallbackFlags": ["-std=c++20"],
+  "snippets.ultisnips.enable": true,
+  "snippets.ultisnips.directories": [
+    "~/.vim/coc/ultisnips"
+  ],
+  "snippets.ultisnips.pythonPrompt": false
 }

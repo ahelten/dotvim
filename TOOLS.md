@@ -107,25 +107,47 @@ Software Development
         affect me since I don't typically use the mouse when using vim/nvim and, when I do, I use it
         to select text to copy/paste into other windows... which wasn't working until this change.
     * coc.nvim code completion plugin:
-      - Install plugins
-      - For C++ support, install clangd:
-          ```
-          sudo apt install clangd-14
-          sudo update-alternatives --install /usr/bin/clangd clangd /usr/bin/clangd-14 100
-          ```
-      - For C++ support, on one Ubuntu 24.04 system, the above `update-alteranatives` command did
-        not work so that `clangd` was not starting up. Instead the following entry was needed in
-        `~/.config/nvim/coc-settings.json`:
-            ```
-            {
-              "clangd.path": "/usr/bin/clangd-14"
-            }
-            ```
+      - Install plugins (using above `:PlugInstall` from within vim or nvim)
       - To install coc.nvim extensions:
-        * C++:         `:CocInstall coc-clangd`
+        * C++:         `:CocInstall coc-clangd`      # Try `CocCommand` version if this doesn't work
+        * Or C++:      `:CocCommad clangd.install`
+        * Any Lang:    `:CocInstall coc-snippets`
         * Python:      `:CocInstall coc-pyright`
         * JSON:        `:CocInstall coc-json`
         * Typescript:  `:CocInstall coc-tsserver`
+      - For full C++ support, install latest `clangd` using this command in vim or nvim (preferred
+        method of install):
+          ```
+          :CocCommand clangd.install
+          ```
+      - Or install clangd-20 using this script:
+          ```
+          sudo bash -c "$(wget -O - https://apt.llvm.org/llvm.sh)"
+          # It will ask which version you want – choose 19 or 20 (20 is the latest as of Nov 2025)
+          # Example for clangd 20:
+          sudo apt update
+          sudo apt install clangd-20
+          ```
+      - Or install the more "native" clangd-14 (at least for Ubuntu 24.04):
+          ```
+          sudo apt install clangd-14
+          ```
+      - THIS IS NOT NECESSARY if `CocCommand clangd.install` was used: to manually use one of the
+        clangd alternatives, add or edit this line in `~/.vim/coc-settings.json`: ```
+            {
+              "clangd.path": "/usr/bin/clangd-20"
+            }
+            ```
+      - To use the local `coc-snippets` files, add this to `~/.vim/coc-settings.json`:
+            ```
+            "snippets.ultisnips.enable": true,
+            "snippets.ultisnips.directories": [
+              "~/.vim/coc/ultisnips"
+            ],
+            ```
+        * To configure `coc-snippets` behavior, the file is `~/.vim/coc/ultisnips/cpp.snippets`
+          for C++, `~/.vim/coc/ultisnips/c.snippets` for C, and more generally
+          `~/.vim/coc/ultisnips/<language>.snippets` for `<language>`.
 
 
 Linux Tips and Tricks
