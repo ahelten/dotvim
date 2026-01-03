@@ -144,7 +144,9 @@ alias   grepxml='grep2 --include="*.xml" --include="*.xsd"'
 alias   grepxsd=grepxml
 alias   sizedir='du -h --max-depth=1 . | sort -n -r'
 alias   clr="perl -e'print \"\n\" x 90'"
-alias   vi=nvim
+if command -v nvim >/dev/null 2>&1; then
+    alias   vi=nvim
+fi
 alias   svn-clean="svn status --no-ignore | grep ^[\?I] | cut -c9- | xargs -d \\\n rm -r"
 alias   ascii='man ascii'
 function svn-diff() { svn diff "$@" | colordiff | less -R; }

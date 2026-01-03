@@ -29,12 +29,14 @@ call plug#begin()
 Plug 'mechatroner/rainbow_csv'
 Plug 'Vimjas/vim-python-pep8-indent'
 if has('nvim-0.8.0') || (v:version >= 900)
-    " coc.nvim for completion in python (don't need if using neovim/nvim)
-    Plug 'neoclide/coc.nvim', {'branch': 'release'}
+    if !has("win32unix") " i.e. cygwin
+        " coc.nvim for completion in python (don't need if using neovim/nvim)
+        Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
-    " Install coc-snippets if it's missing
-    if empty(glob('~/.config/coc/extensions/node_modules/coc-snippets'))
-        autocmd VimEnter * CocInstall -sync coc-snippets | q
+        " Install coc-snippets if it's missing
+        if empty(glob('~/.config/coc/extensions/node_modules/coc-snippets'))
+            autocmd VimEnter * CocInstall -sync coc-snippets | q
+        endif
     endif
 endif
 call plug#end()
@@ -131,7 +133,7 @@ inoremap <silent><expr> <Esc> pumvisible() ? "\<C-e>" : "\<Esc>"
 
 
 " It isn't setup yet, so complains on startup
-"set runtimepath-=~/.vim/bundle/YouCompleteMe
+set runtimepath-=~/.vim/bundle/YouCompleteMe
 
 if has("win32unix") " i.e. cygwin
    " This plugin doesn't work on cygwin/windows (opening a file just hangs vim)
