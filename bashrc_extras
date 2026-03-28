@@ -146,6 +146,7 @@ alias   sizedir='du -h --max-depth=1 . | sort -n -r'
 alias   clr="perl -e'print \"\n\" x 90'"
 if command -v nvim >/dev/null 2>&1; then
     alias   vi=nvim
+    alias   vim=nvim
 fi
 alias   svn-clean="svn status --no-ignore | grep ^[\?I] | cut -c9- | xargs -d \\\n rm -r"
 alias   ascii='man ascii'
@@ -368,5 +369,9 @@ alias cancel_wifidisabler='sudo pkill -f "bash.*wifi_disabler_on_bootup.sh"'
 
 # Auto-start ssh-agent using keychain
 if command -v keychain >/dev/null 2>&1; then
-    eval $(keychain --eval --agents ssh id_rsa)
+    eval $(keychain --eval --agents ssh id_rsa 2>/dev/null)
+    ssh_keys=$(basename -a $(ls ~/.ssh/*ahelten 2>/dev/null) 2>/dev/null)
+    if [ ! -z "$ssh_keys" ]; then
+        eval $(keychain --eval --agents ssh ${ssh_keys})
+    fi
 fi
