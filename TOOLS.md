@@ -90,12 +90,37 @@ Software Development
 
             git clone git@amhgithub:ahelten/dotvim.git
 
+   * Troubleshoot SSH issues with Git:
+     * Test the SSH connection directly:
+
+            ssh -T git@gitlab.com -P 2222
+
+            # Or with verbose debug
+            ssh -vvvT git@gitlab.com -P 2222
+
+            # Or test a specific key
+            ssh -i ~/.ssh/id_ed25519 -T git@github.com
+
+     * Test the SSH connection through Git:
+
+            GIT_SSH_COMMAND="ssh -vvv" git clone git@github.com:user/repo.git
+
+            # Or for all commands
+            export GIT_SSH_COMMAND="ssh -vvv"
+
 9. nm - inspect library symbols
     * Display symbols in a shared library:
 
             nm -gDC <lib.so>
 
 10. nvim - newer vim (replacement of sorts)
+    * Install:
+      - To install a newer `neovim` on Ubuntu 24.04 without using the terrible `snap` utility:
+      ```
+      sudo add-apt-repository ppa:neovim-ppa/unstable
+      sudo apt update
+      sudo apt install neovim
+      ```
     * Configuration:
       - To use `.vimrc` with nvim, go to `~/.config` and create a symlink `ln -s ~/.vim nvim`
       - Install plugins using `:PlugInstall` (installed in ~/.vim/plugged`)
