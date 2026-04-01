@@ -1,0 +1,8 @@
+# Use a passphrase for shared systems:
+# Update 'email_address' and 'name'
+# ssh-keygen -t ed25519 -C "email_address" -f ~/.ssh/id_ed25519_name
+
+source ~gfr/.bashrc
+source ~gfr/.vim/bashrc_extras
+
+export GIT_SSH_COMMAND='ssh -i ~/.ssh/id_ed25519_name -o IdentitiesOnly=yes'
