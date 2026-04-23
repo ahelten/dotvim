@@ -327,7 +327,7 @@ alias   gfrconfig='sudo vi /opt/greenfield/weedbot/config/config.txt'
 alias   gfrconfiglocal='sudo vi /opt/greenfield/weedbot/config/config_local.txt'
 
 # Grep logs for common errors
-alias   gfrcanfault='grep2 -a -E "CANopen Emergency|Delta controller fault"'
+alias   gfrcanfault='grep2 -a -E "CANopen Emergency|Delta controller fault|Curtis Fault:"'
 alias   gfrcanfaultnow='gfrcanfault $(gfrnow)'
 alias   gfrversions='grep2 -a -E "Controller.*, version="'
 alias   gfrversionsnow='gfrversions $(gfrnow)'
