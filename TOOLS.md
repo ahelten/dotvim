@@ -131,6 +131,19 @@ Software Development
         The only downside is that nvim no longer receives the mouse clicks but so far that doesn't
         affect me since I don't typically use the mouse when using vim/nvim and, when I do, I use it
         to select text to copy/paste into other windows... which wasn't working until this change.
+    * More recent neovim versions require at least 0.25 of tree-sitter. To Install latest tree-sitter
+      using Rust Cargo:
+     
+        ```
+        sudo apt remove tree-sitter-cli
+
+        curl https://sh.rustup.rs -sSf | sh
+        source ~/.cargo/env
+
+        cargo install tree-sitter-cli
+
+        tree-sitter --version
+        ```
     * coc.nvim code completion plugin:
       - Install plugins (using above `:PlugInstall` from within vim or nvim)
       - To install coc.nvim extensions:
