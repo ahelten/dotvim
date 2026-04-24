@@ -243,6 +243,50 @@ end
 local rtp = vim.opt.rtp
 rtp:prepend(lazypath)
 
+
+-- ---------------------------------------------------------------------------
+-- Begin AMH customizations
+-- ---------------------------------------------------------------------------
+vim.opt.textwidth = 100
+vim.opt.colorcolumn = "100"
+-- vim.opt.formatoptions:append("t")
+
+-- ---------------------------------------------------------------------------
+-- Global vars — set BEFORE plugins load
+-- ---------------------------------------------------------------------------
+--vim.g.localvimrc_ask           = 0
+vim.g.flake8_ignore            = "E501,E225"
+vim.g.zenburn_old_Visual       = 1
+vim.g.zenburn_alternate_Visual = 1
+vim.g.zenburn_high_Contrast    = 1
+vim.g.tex_flavor               = "latex"
+--vim.g.VeryLiteral              = 0
+
+-- coc.nvim: extensions to auto-install on first launch.
+-- After install you may also need: :CocCommand clangd.install
+vim.g.coc_global_extensions = {
+  "coc-clangd",        -- C / C++
+  "coc-pyright",       -- Python
+  "coc-tsserver",      -- TypeScript / JavaScript
+  "coc-lua",           -- Lua  (uses lua-language-server internally)
+  "coc-sh",            -- Bash / shell
+  "coc-markdownlint",  -- Markdown linting
+  "coc-snippets",      -- Snippets
+  "coc-pairs",         -- Auto-pairs
+  "coc-highlight",     -- Word highlight across buffer
+}
+
+-- Autoformat helper vars (used by conform.nvim formatters below)
+--vim.g.autoformat_autoindent             = 0
+--vim.g.autoformat_retab                  = 0
+--vim.g.autoformat_remove_trailing_spaces = 0
+
+-- ---------------------------------------------------------------------------
+-- End AMH customizations
+-- ---------------------------------------------------------------------------
+
+
+
 -- [[ Configure and install plugins ]]
 --
 --  To check the current status of your plugins, run
@@ -255,6 +299,56 @@ rtp:prepend(lazypath)
 --
 -- NOTE: Here is where you install your plugins.
 require('lazy').setup({
+  -- -------------------------------------------------------------------------
+  -- Colorscheme
+  -- -------------------------------------------------------------------------
+  {
+    "phha/zenburn.nvim",
+    lazy     = false,
+    priority = 1000,
+    config   = function() vim.cmd("colorscheme zenburn") end,
+  },
+
+  -- -------------------------------------------------------------------------
+  -- coc.nvim  — completion, diagnostics, snippets for all target languages
+  --
+  -- Prerequisites:
+  --   • Node.js >= 16
+  --   • After first launch: :CocInstall  (or let coc_global_extensions do it)
+  --   • For C/C++: :CocCommand clangd.install  (if clangd not on PATH)
+  --   • For Lua:   install lua-language-server via your OS package manager
+  --   • Add .clangd at project root, e.g.:
+  --       CompileFlags:
+  --         CompilationDatabase: build/
+  --
+  -- Run :CocConfig to open coc-settings.json.  Suggested contents:
+  --   {
+  --     "suggest.noselect": true,
+  --     "suggest.enablePreview": true,
+  --     "diagnostic.errorSign": "✘",
+  --     "diagnostic.warningSign": "▲",
+  --     "diagnostic.infoSign": "●",
+  --     "clangd.path": "clangd",
+  --     "python.linting.enabled": true,
+  --     "python.linting.flake8Enabled": true,
+  --     "python.linting.flake8Args": ["--ignore=E501,E225"],
+  --     "bashIde.shellcheckPath": "shellcheck"
+  --   }
+  -- -------------------------------------------------------------------------
+  {
+    "neoclide/coc.nvim",
+    branch = "release",
+    lazy   = false,   -- must load eagerly; hooks into VimEnter internally
+  },
+
+  -- -------------------------------------------------------------------------
+  -- Git  (vim-fugitive — statusline + full git workflow)
+  -- -------------------------------------------------------------------------
+  {
+    "tpope/vim-fugitive",
+    lazy = false,   -- needed at startup for FugitiveStatusline()
+  },
+
   -- NOTE: Plugins can be added via a link or github org/name. To run setup automatically, use `opts = {}`
   { 'NMAC427/guess-indent.nvim', opts = {} },
 
@@ -483,6 +577,7 @@ require('lazy').setup({
   {
     -- Main LSP Configuration
     'neovim/nvim-lspconfig',
+    enabled = false,
     dependencies = {
       -- Automatically install LSPs and related tools to stdpath for Neovim
       -- Mason must be loaded before its dependents so we need to set it up here.
@@ -702,17 +797,21 @@ require('lazy').setup({
       },
       -- You can also specify external formatters in here.
       formatters_by_ft = {
-        -- rust = { 'rustfmt' },
+        lua = { "stylua" },
+        rust = { 'rustfmt' },
         -- Conform can also run multiple formatters sequentially
-        -- python = { "isort", "black" },
+        python = { "isort", "black" },
         --
         -- You can use 'stop_after_first' to run the first available formatter from the list
-        -- javascript = { "prettierd", "prettier", stop_after_first = true },
+        javascript = { "prettierd", "prettier", stop_after_first = true },
+        go = { "goimports", "gofmt" },
+        cpp = { "astyle", "clang-format", stop_after_first = true },
       },
     },
   },
 
   { -- Autocompletion
+    enabled = false,
     'saghen/blink.cmp',
     event = 'VimEnter',
     version = '1.*',
@@ -811,6 +910,7 @@ require('lazy').setup({
     --
     -- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`.
     'folke/tokyonight.nvim',
+    enabled = false,
     priority = 1000, -- Make sure to load this before all the other start plugins.
     config = function()
       ---@diagnostic disable-next-line: missing-fields
@@ -885,11 +985,11 @@ require('lazy').setup({
     'nvim-treesitter/nvim-treesitter',
     lazy = false,
     build = ':TSUpdate',
-    branch = 'main',
+    -- branch = 'main',
     -- [[ Configure Treesitter ]] See `:help nvim-treesitter-intro`
     config = function()
       -- ensure basic parser are installed
-      local parsers = { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc' }
+      local parsers = { 'bash', 'c', 'cpp', 'python', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc' }
       require('nvim-treesitter').install(parsers)
 
       ---@param buf integer
@@ -907,10 +1007,10 @@ require('lazy').setup({
 
         -- check if treesitter indentation is available for this language, and if so enable it
         -- in case there is no indent query, the indentexpr will fallback to the vim's built in one
-        local has_indent_query = vim.treesitter.query.get(language, 'indents') ~= nil
+        --local has_indent_query = vim.treesitter.query.get(language, 'indents') ~= nil
 
-        -- enables treesitter based indentation
-        if has_indent_query then vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()" end
+        -- enables treesitter based indentation [AMH: this was breaking indentation in C++]
+        --if has_indent_query then vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()" end
       end
 
       local available_parsers = require('nvim-treesitter').get_available()
@@ -985,6 +1085,33 @@ require('lazy').setup({
     },
   },
 })
+
+
+-- ---------------------------------------------------------------------------
+-- Begin AMH customizations
+-- ---------------------------------------------------------------------------
+-- Use Tab for navigation in completion menu and <return> for selection
+vim.g.coc_global_extensions = vim.g.coc_global_extensions or {}
+vim.api.nvim_set_keymap('i', '<Tab>', 'coc#pum#visible() ? coc#pum#next(1) : "<Tab>"', { expr = true, silent = true })
+vim.api.nvim_set_keymap('i', '<S-Tab>', 'coc#pum#visible() ? coc#pum#prev(1) : "<S-Tab>"', { expr = true, silent = true })
+vim.keymap.set('i', '<CR>', function()
+  if vim.fn["coc#pum#visible"]() == 1 then
+    return vim.fn["coc#pum#confirm"]()
+  else
+    return '\n'
+  end
+end, { expr = true, silent = true })
+-- Manually "force" completion suggestions (shouldn't normally need this)
+vim.keymap.set('i', '<C-Space>', 'coc#refresh()', { expr = true, silent = true })
+
+-- TAB and Shift-TAB in normal mode cycle buffers
+vim.keymap.set('n', '<Tab>', vim.cmd.bnext, { desc = 'Next buffer' })
+vim.keymap.set('n', '<S-Tab>', vim.cmd.bprevious, { desc = 'Previous buffer' })
+
+-- ---------------------------------------------------------------------------
+-- End AMH customizations
+-- ---------------------------------------------------------------------------
+
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
