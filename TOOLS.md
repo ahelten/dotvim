@@ -79,14 +79,29 @@ Software Development
         git -c core.sshCommand="ssh -i ~/.ssh/amh_id_rsa" clone blah.git
 
    * Setup on a shared system with multiple github SSH keys:
-     * Add a custom host entry in `.ssh/config`:
+     - Option 1: Use `GIT_SSH_COMMAND` env var:
+       - Generate a custom key and add it to github/gitlab/etc:
+
+            ssh-keygen -t ed25519 -C "email_address" -f ~/.ssh/id_ed25519_name
+
+       - Create an alternate `.bashrc.name` with at least this content:
+
+            source ~/.bashrc
+            source ~/.vim/bashrc_extras
+
+            export GIT_SSH_COMMAND='ssh -i ~/.ssh/id_ed25519_name -o IdentitiesOnly=yes'
+
+       - Source this bashrc before using `git`
+
+     - Option 2: Add a custom host entry in `.ssh/config`
+       - Add this entry with correct private key file name:
 
             Host amhgithub
-            Hostname github.com
-            IdentityFile /home/gfr/.ssh/id_rsa
-            IdentitiesOnly yes
+                Hostname github.com
+                IdentityFile /home/gfr/.ssh/id_rsa
+                IdentitiesOnly yes
 
-     * Clone using this custom hostname:
+       - Then clone using this custom hostname:
 
             git clone git@amhgithub:ahelten/dotvim.git
 
