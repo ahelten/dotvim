@@ -281,6 +281,20 @@ vim.g.coc_global_extensions = {
 --vim.g.autoformat_retab                  = 0
 --vim.g.autoformat_remove_trailing_spaces = 0
 
+-- cp = (change-paste) replace current word or partial word with default copy/yank register
+vim.keymap.set('n', 'cp', '"_cw<C-R>"<Esc>', { silent = true })
+-- cip = (change-innerword-paste) replace entire current word with default copy/yank register, also
+-- works in visual mode to replace selected text
+vim.keymap.set({ 'n', 'v' }, 'cip', function()
+  if vim.fn.mode() == 'v' or vim.fn.mode() == 'V' then
+    -- Visual mode: replace selection
+    return '"_dP'
+  else
+    -- Normal mode: replace inner word
+    return '"_ciw<C-R>"<Esc>'
+  end
+end, { expr = true, silent = true, desc = 'Replace with register (preserve it)' })
+
 -- ---------------------------------------------------------------------------
 -- End AMH customizations
 -- ---------------------------------------------------------------------------
@@ -1105,8 +1119,11 @@ end, { expr = true, silent = true })
 vim.keymap.set('i', '<C-Space>', 'coc#refresh()', { expr = true, silent = true })
 
 -- TAB and Shift-TAB in normal mode cycle buffers
-vim.keymap.set('n', '<Tab>', vim.cmd.bnext, { desc = 'Next buffer' })
+vim.keymap.set('n', '<Tab>', vim.cmd.bnext, { desc = 'Tab buffer' })
 vim.keymap.set('n', '<S-Tab>', vim.cmd.bprevious, { desc = 'Previous buffer' })
+
+vim.keymap.set("x", "p", 'p:let @"=@0<CR>', opts)
+vim.opt.clipboard = "unnamed,unnamedplus"
 
 -- ---------------------------------------------------------------------------
 -- End AMH customizations
